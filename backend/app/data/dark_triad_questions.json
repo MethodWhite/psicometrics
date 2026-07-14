@@ -1,0 +1,50 @@
+{
+  "test_type": "dark_triad",
+  "name": { "es": "Triada Oscura — SD3", "en": "Dark Triad — SD3" },
+  "description": {
+    "es": "Short Dark Triad (SD3) de Jones & Paulhus (2014). Mide Maquiavelismo, Narcisismo y Psicopatía con 27 ítems, 9 por rasgo.",
+    "en": "Short Dark Triad (SD3) by Jones & Paulhus (2014). Measures Machiavellianism, Narcissism, and Psychopathy with 27 items, 9 per trait."
+  },
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "labels": {
+      "es": ["Muy en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Muy de acuerdo"],
+      "en": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+    }
+  },
+  "traits": {
+    "M": { "es": "Maquiavelismo", "en": "Machiavellianism", "description": { "es": "Manipulación estratégica, cinismo moral, visión desconfiada de la naturaleza humana", "en": "Strategic manipulation, moral cynicism, distrustful view of human nature" } },
+    "N": { "es": "Narcisismo", "en": "Narcissism", "description": { "es": "Grandiosidad, necesidad de admiración, sentimiento de entitledness", "en": "Grandiosity, need for admiration, sense of entitlement" } },
+    "P": { "es": "Psicopatía", "en": "Psychopathy", "description": { "es": "Impulsividad, falta de empatía, desapego social", "en": "Impulsivity, lack of empathy, social detachment" } }
+  },
+  "questions": [
+    { "id": 1, "trait": "M", "text": { "es": "Tiende a manipular a otros para conseguir sus objetivos.", "en": "Tends to manipulate others to get what they want." } },
+    { "id": 2, "trait": "M", "text": { "es": "Se aprovecha de los demás para alcanzar sus metas.", "en": "Takes advantage of others to reach their goals." } },
+    { "id": 3, "trait": "M", "text": { "es": "Se niega a gastar dinero en causas benéficas.", "en": "Refuses to spend money on charitable causes." } },
+    { "id": 4, "trait": "M", "text": { "es": "Tiene poco remordimiento por lastimar a otros.", "en": "Has little remorse for hurting others." } },
+    { "id": 5, "trait": "M", "text": { "es": "Ve a los demás como herramientas para usar.", "en": "Sees others as tools to use." } },
+    { "id": 6, "trait": "M", "text": { "es": "Se resiste a comprometerse en las relaciones.", "en": "Resists committing to relationships." } },
+    { "id": 7, "trait": "M", "text": { "es": "Busca ventajas en situaciones sociales.", "en": "Looks for advantages in social situations." } },
+    { "id": 8, "trait": "M", "text": { "es": "Siente que merece cosas buenas en la vida.", "en": "Feels entitled to good things in life." } },
+    { "id": 9, "trait": "M", "text": { "es": "Puede ser persuasivo sin esfuerzo.", "en": "Can be persuasive without effort." } },
+    { "id": 10, "trait": "N", "text": { "es": "Se siente especial y único/a.", "en": "Feels special and unique." } },
+    { "id": 11, "trait": "N", "text": { "es": "Es especialmente bueno/aManipulando situaciones.", "en": "Is especially good at manipulating situations." } },
+    { "id": 12, "trait": "N", "text": { "es": "Siente que merece ser el centro de atención.", "en": "Feels entitled to be the center of attention." } },
+    { "id": 13, "trait": "N", "text": { "es": "Quiere ascender en el mundo más que la mayoría de la gente.", "en": "Wants to rise in the world more than most people." } },
+    { "id": 14, "trait": "N", "text": { "es": "Le gusta ser el/la mejor en todo.", "en": "Likes to be the best at everything." } },
+    { "id": 15, "trait": "N", "text": { "es": "Se siente orgulloso/a de sí mismo/a.", "en": "Is proud of themselves." } },
+    { "id": 16, "trait": "N", "text": { "es": "Siente que merece una vida mejor que la mayoría.", "en": "Feels entitled to a better life than most." } },
+    { "id": 17, "trait": "N", "text": { "es": "Es demasiado orgulloso/a para pedir ayuda.", "en": "Too proud to ask for help." } },
+    { "id": 18, "trait": "N", "text": { "es": "Cree que es mejor que los demás.", "en": "Believes they are better than others." } },
+    { "id": 19, "trait": "P", "text": { "es": "Le resulta fácil Manipular a la gente.", "en": "Finds it easy to manipulate people." } },
+    { "id": 20, "trait": "P", "text": { "es": "Le gustaría vivir sin trabajar.", "en": "Would like to live without working." } },
+    { "id": 21, "trait": "P", "text": { "es": "No se preocupa por las consecuencias de sus acciones.", "en": "Doesn't worry about the consequences of their actions." } },
+    { "id": 22, "trait": "P", "text": { "es": "Se siente aburrido/a con facilidad.", "en": "Gets bored easily." } },
+    { "id": 23, "trait": "P", "text": { "es": "Puede ser cruel cuando quiere.", "en": "Can be cruel when they want to." } },
+    { "id": 24, "trait": "P", "text": { "es": "Le gusta actuar de forma impulsiva.", "en": "Likes to act impulsively." } },
+    { "id": 25, "trait": "P", "text": { "es": "Le resulta difícil sentir culpa.", "en": "Finds it hard to feel guilty." } },
+    { "id": 26, "trait": "P", "text": { "es": "Ha hecho cosas ilegales.", "en": "Has done illegal things." } },
+    { "id": 27, "trait": "P", "text": { "es": "No le importan las reglas.", "en": "Doesn't care about rules." } }
+  ]
+}

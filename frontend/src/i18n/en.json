@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "PsicoMetrics",
+    "subtitle": "Official Personality Tests",
+    "description": "Psychological assessments based on validated scientific standards",
+    "start_test": "Start Test",
+    "view_results": "View Results",
+    "language": "Language",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit Answers",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "question_of": "Question {{current}} of {{total}}",
+    "progress": "Progress",
+    "results": "Results",
+    "about": "About",
+    "scientific_basis": "Scientific Basis"
+  },
+  "tests": {
+    "big_five": {
+      "name": "Big Five / OCEAN",
+      "short_name": "Big Five",
+      "description": "The most validated scientific standard in personality psychology. Measures the Big Five traits with 120 IPIP-NEO items.",
+      "items": "120 questions",
+      "time": "~25 minutes"
+    },
+    "mbti": {
+      "name": "MBTI — Myers-Briggs",
+      "short_name": "MBTI",
+      "description": "Personality type indicator with 4 dichotomies. The most used test in companies and professional development.",
+      "items": "72 questions",
+      "time": "~15 minutes"
+    },
+    "enneagram": {
+      "name": "Enneagram",
+      "short_name": "Enneagram",
+      "description": "Identifies your dominant personality type with 9 types and wings. Based on the Riso-Hudson Enneagram.",
+      "items": "81 questions",
+      "time": "~20 minutes"
+    },
+    "disc": {
+      "name": "DISC",
+      "short_name": "DISC",
+      "description": "Behavioral profile with 4 dimensions. Ideal for understanding communication and teamwork styles.",
+      "items": "28 questions",
+      "time": "~8 minutes"
+    },
+    "dark_triad": {
+      "name": "Dark Triad — SD3",
+      "short_name": "Dark Triad",
+      "description": "Short Dark Triad (SD3) by Jones & Paulhus (2014). Measures Machiavellianism, Narcissism, and Psychopathy with 27 items.",
+      "items": "27 questions",
+      "time": "~8 minutes"
+    },
+    "human_design": {
+      "name": "Human Design",
+      "short_name": "Human Design",
+      "description": "System based on astrology, I Ching, and energy centers. Calculates your Type, Strategy, and Authority from your birth data.",
+      "items": "Birth data",
+      "time": "~3 minutes"
+    }
+  },
+  "human_design": {
+    "birth_date": "Birth date",
+    "birth_time": "Birth time",
+    "birth_location": "Birth location",
+    "time_note": "Exact time is important for accurate calculation",
+    "location_placeholder": "City, Country"
+  },
+  "results": {
+    "your_profile": "Your Profile",
+    "score": "Score",
+    "percentile": "Percentile",
+    "dominant": "Dominant",
+    "wing": "Wing",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "download_pdf": "Download PDF",
+    "share": "Share",
+    "retake": "Retake Test"
+  }
+}

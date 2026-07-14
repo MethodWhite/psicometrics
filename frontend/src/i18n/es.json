@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "PsicoMetrics",
+    "subtitle": "Tests de Personalidad Oficiales",
+    "description": "Evaluaciones psicológicas basadas en estándares científicos validados",
+    "start_test": "Comenzar Test",
+    "view_results": "Ver Resultados",
+    "language": "Idioma",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar Respuestas",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "question_of": "Pregunta {{current}} de {{total}}",
+    "progress": "Progreso",
+    "results": "Resultados",
+    "about": "Acerca de",
+    "scientific_basis": "Base Científica"
+  },
+  "tests": {
+    "big_five": {
+      "name": "Big Five / OCEAN",
+      "short_name": "Big Five",
+      "description": "El estándar científico más validado en psicología de la personalidad. Mide los Cinco Grandes Rasgos con 120 ítems del IPIP-NEO.",
+      "items": "120 preguntas",
+      "time": "~25 minutos"
+    },
+    "mbti": {
+      "name": "MBTI — Myers-Briggs",
+      "short_name": "MBTI",
+      "description": "Indicador de tipo de personalidad con 4 dicotomías. El test más utilizado en empresas y desarrollo profesional.",
+      "items": "72 preguntas",
+      "time": "~15 minutos"
+    },
+    "enneagram": {
+      "name": "Enneagrama",
+      "short_name": "Enneagrama",
+      "description": "Identifica tu tipo de personalidad dominante con 9 tipos y alas. Basado en el Enneagrama de Riso-Hudson.",
+      "items": "81 preguntas",
+      "time": "~20 minutos"
+    },
+    "disc": {
+      "name": "DISC",
+      "short_name": "DISC",
+      "description": "Perfil de comportamiento con 4 dimensiones. Ideal para entender estilos de comunicación y trabajo en equipo.",
+      "items": "28 preguntas",
+      "time": "~8 minutos"
+    },
+    "dark_triad": {
+      "name": "Triada Oscura — SD3",
+      "short_name": "Triada Oscura",
+      "description": "Short Dark Triad (SD3) de Jones & Paulhus (2014). Mide Maquiavelismo, Narcisismo y Psicopatía con 27 ítems.",
+      "items": "27 preguntas",
+      "time": "~8 minutos"
+    },
+    "human_design": {
+      "name": "Diseño Humano",
+      "short_name": "Diseño Humano",
+      "description": "Sistema basado en astrología, I Ching y centros energéticos. Calcula tu Tipo, Estrategia y Autoridad desde tu fecha de nacimiento.",
+      "items": "Datos de nacimiento",
+      "time": "~3 minutos"
+    }
+  },
+  "human_design": {
+    "birth_date": "Fecha de nacimiento",
+    "birth_time": "Hora de nacimiento",
+    "birth_location": "Lugar de nacimiento",
+    "time_note": "La hora exacta es importante para un cálculo preciso",
+    "location_placeholder": "Ciudad, País"
+  },
+  "results": {
+    "your_profile": "Tu Perfil",
+    "score": "Puntuación",
+    "percentile": "Percentil",
+    "dominant": "Dominante",
+    "wing": "Ala",
+    "primary": "Primario",
+    "secondary": "Secundario",
+    "download_pdf": "Descargar PDF",
+    "share": "Compartir",
+    "retake": "Volver a hacer el test"
+  }
+}

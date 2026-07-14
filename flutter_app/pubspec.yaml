@@ -1,0 +1,30 @@
+name: psicometrics
+description: Official personality assessment platform with 6 scientifically validated tests.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  dio: ^5.7.0
+  fl_chart: ^0.70.0
+  provider: ^6.1.0
+  shared_preferences: ^2.3.0
+  flutter_svg: ^2.0.10
+  share_plus: ^10.0.0
+  crypto: ^3.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
