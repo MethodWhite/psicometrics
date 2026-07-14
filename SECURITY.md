@@ -60,3 +60,4 @@ PsicoMetrics implements security practices adapted from the Synapsis ecosystem:
 - SBOM generation (CycloneDX)
 - Container scanning (Trivy)
 - License auditing (deny.toml pattern)
+
