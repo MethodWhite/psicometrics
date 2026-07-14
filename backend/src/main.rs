@@ -47,6 +47,7 @@ async fn main() {
         .route("/api/v1/auth/device/register", post(routes::auth::register_device))
         .route("/api/v1/auth/device/attest", post(routes::auth::attest_device))
         .route("/api/v1/tests", get(routes::tests::list_tests))
+        .route("/api/v1/tests/{test_type}/metadata", get(routes::tests::get_test_metadata))
         .route("/api/v1/tests/{test_type}", get(routes::tests::get_test_questions))
         .route("/api/v1/tests/{test_type}/submit", post(routes::tests::submit_test))
         .layer(axum::Extension(zt_provider))

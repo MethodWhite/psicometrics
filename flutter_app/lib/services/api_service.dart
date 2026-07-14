@@ -108,6 +108,11 @@ class ApiService {
     return TestData.fromJson(response.data);
   }
 
+  Future<Map<String, dynamic>> getTestMetadata(String testType) async {
+    final response = await _dio.get('/api/v1/tests/$testType/metadata');
+    return response.data as Map<String, dynamic>;
+  }
+
   Future<dynamic> submitBigFive(List<Map<String, dynamic>> answers, String lang) async {
     final response = await _dio.post('/api/v1/tests/big_five/submit', data: {
       'answers': answers,

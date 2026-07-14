@@ -3,7 +3,9 @@ use axum::{
     http::StatusCode,
     Json,
 };
+use serde::Serialize;
 use std::collections::HashMap;
+use std::sync::Arc;
 
 use crate::data::{load_test_data, get_test_type_list};
 use crate::i18n::get_string_field;
@@ -14,12 +16,25 @@ pub struct LangQuery {
     pub lang: Option<String>,
 }
 
-#[derive(serde::Serialize)]
+#[derive(Serialize)]
 pub struct TestInfoResponse {
     pub test_type: String,
     pub name: serde_json::Value,
     pub description: serde_json::Value,
     pub item_count: usize,
+    pub test_mode: String,
+}
+
+#[derive(Serialize)]
+pub struct TestMetadata {
+    pub test_type: String,
+    pub name: serde_json::Value,
+    pub description: serde_json::Value,
+    pub instructions: serde_json::Value,
+    pub consent: serde_json::Value,
+    pub scientific_basis: serde_json::Value,
+    pub item_count: usize,
+    pub estimated_minutes: u32,
     pub test_mode: String,
 }
 
@@ -38,8 +53,37 @@ pub async fn list_tests() -> Json<Vec<TestInfoResponse>> {
             test_mode: if tt == "human_design" { "birth_data".to_string() } else { "questions".to_string() },
         }
     }).collect();
-
     Json(results)
+}
+
+pub async fn get_test_metadata(
+    Path(test_type): Path<String>,
+) -> Result<Json<TestMetadata>, (StatusCode, Json<serde_json::Value>)> {
+    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
+    if !valid.contains(&test_type.as_str()) {
+        return Err((StatusCode::NOT_FOUND, Json(serde_json::json!({"detail": "Test not found"}))));
+    }
+
+    let data = load_test_data(&test_type).expect("test data");
+    let items = data.get("questions")
+        .and_then(|q| q.as_array())
+        .map(|arr| arr.len())
+        .unwrap_or(0);
+
+    Ok(Json(TestMetadata {
+        test_type: test_type.clone(),
+        name: data["name"].clone(),
+        description: data["description"].clone(),
+        instructions: data.get("instructions").cloned()
+            .unwrap_or(serde_json::json!({"es": "Respondé cada pregunta según corresponda. No hay respuestas correctas o incorrectas.", "en": "Answer each question as it applies to you. There are no right or wrong answers."})),
+        consent: data.get("consent").cloned()
+            .unwrap_or(serde_json::json!({"es": "Este test es solo para fines educativos y de autoconocimiento. No reemplaza una evaluación psicológica profesional.", "en": "This test is for educational and self-awareness purposes only. It does not replace professional psychological evaluation."})),
+        scientific_basis: data.get("scientific_basis").cloned()
+            .unwrap_or(serde_json::json!({"es": "","en": ""})),
+        item_count: items,
+        estimated_minutes: data.get("estimated_minutes").and_then(|v| v.as_u64()).unwrap_or(15) as u32,
+        test_mode: if test_type == "human_design" { "birth_data".to_string() } else { "questions".to_string() },
+    }))
 }
 
 pub async fn get_test_questions(
@@ -50,15 +94,11 @@ pub async fn get_test_questions(
     let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
 
     if !valid.contains(&test_type.as_str()) {
-        return Err((
-            StatusCode::NOT_FOUND,
-            Json(serde_json::json!({"detail": "Test not found"})),
-        ));
+        return Err((StatusCode::NOT_FOUND, Json(serde_json::json!({"detail": "Test not found"}))));
     }
 
     let data = load_test_data(&test_type).expect("test data");
 
-    // Localize questions
     let questions: Vec<serde_json::Value> = if test_type == "human_design" {
         vec![]
     } else {
@@ -69,7 +109,6 @@ pub async fn get_test_questions(
                     "id": q["id"],
                     "text": text,
                 });
-                // Copy additional fields
                 for field in &["facet", "reverse", "dichotomy", "pole", "type", "dimension", "trait"] {
                     if let Some(v) = q.get(*field) {
                         localized[*field] = v.clone();
