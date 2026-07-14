@@ -1,15 +1,16 @@
 use axum::{
     extract::{Path, Query},
-    http::StatusCode,
+    http::{header, StatusCode},
     Json,
 };
 use serde::Serialize;
 use std::collections::HashMap;
-use std::sync::Arc;
 
+use crate::compatibility;
 use crate::data::{load_test_data, get_test_type_list};
 use crate::i18n::get_string_field;
 use crate::scoring;
+use crate::validation;
 
 #[derive(serde::Deserialize)]
 pub struct LangQuery {
@@ -146,58 +147,192 @@ pub async fn submit_test(
     Path(test_type): Path<String>,
     Json(body): Json<serde_json::Value>,
 ) -> Result<Json<serde_json::Value>, (StatusCode, Json<serde_json::Value>)> {
+    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
+    if !valid.contains(&test_type.as_str()) {
+        return Err((
+            StatusCode::NOT_FOUND,
+            Json(serde_json::json!({"detail": "Test not found"})),
+        ));
+    }
+
     let lang = body.get("language")
+        .and_then(|l| l.as_str())
+        .unwrap_or("es");
+
+    // Extract raw answers for validation (supports both numeric and string values)
+    let raw_answers: HashMap<u32, serde_json::Value> = body["answers"].as_array()
+        .map(|arr| {
+            arr.iter().filter_map(|a| {
+                let qid = a["question_id"].as_u64()? as u32;
+                let val = a["value"].clone();
+                Some((qid, val))
+            }).collect()
+        })
+        .unwrap_or_default();
+
+    // Run validation before scoring
+    let completion_time = body.get("completion_time")
+        .and_then(|v| v.as_u64())
+        .map(|v| v as u32);
+    let validity = validation::validate_responses(
+        &test_type,
+        &raw_answers,
+        completion_time,
+    );
+
+    // Score the test (converts to appropriate answer type per test)
+    let mut result = match test_type.as_str() {
+        "big_five" => {
+            let answers: HashMap<u32, f64> = raw_answers.iter()
+                .filter_map(|(&qid, v)| {
+                    v.as_f64().map(|f| (qid, f))
+                })
+                .collect();
+            scoring::big_five::score(&answers, lang)
+        }
+        "mbti" => {
+            let answers: HashMap<u32, String> = raw_answers.iter()
+                .filter_map(|(&qid, v)| {
+                    v.as_str().map(|s| (qid, s.to_string()))
+                })
+                .collect();
+            scoring::mbti::score(&answers, lang)
+        }
+        "enneagram" => {
+            let answers: HashMap<u32, f64> = raw_answers.iter()
+                .filter_map(|(&qid, v)| {
+                    v.as_f64().map(|f| (qid, f))
+                })
+                .collect();
+            scoring::enneagram::score(&answers, lang)
+        }
+        "disc" => {
+            let answers: HashMap<u32, String> = raw_answers.iter()
+                .filter_map(|(&qid, v)| {
+                    v.as_str().map(|s| (qid, s.to_string()))
+                })
+                .collect();
+            scoring::disc::score(&answers, lang)
+        }
+        "dark_triad" => {
+            let answers: HashMap<u32, f64> = raw_answers.iter()
+                .filter_map(|(&qid, v)| {
+                    v.as_f64().map(|f| (qid, f))
+                })
+                .collect();
+            scoring::dark_triad::score(&answers, lang)
+        }
+        "human_design" => {
+            let bd = body["birth_date"].as_str().unwrap_or("1990-01-01");
+            let bt = body["birth_time"].as_str().unwrap_or("12:00");
+            let bl = body["birth_location"].as_str().unwrap_or("Unknown");
+            scoring::human_design::calculate(bd, bt, bl, lang)
+        }
+        _ => unreachable!(), // validated above
+    };
+
+    // Attach validity info to the response
+    if let Some(obj) = result.as_object_mut() {
+        obj.insert("validity".to_string(), serde_json::to_value(&validity).unwrap_or_default());
+    }
+
+    Ok(Json(result))
+}
+
+/// POST /api/v1/tests/{test_type}/report
+///
+/// Accepts the same body as `submit_test` + optional `language`.
+/// Returns a PDF report as `application/pdf`.
+pub async fn generate_report(
+    Path(test_type): Path<String>,
+    Json(body): Json<serde_json::Value>,
+) -> Result<(axum::http::HeaderMap, Vec<u8>), (StatusCode, Json<serde_json::Value>)> {
+    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
+    if !valid.contains(&test_type.as_str()) {
+        return Err((
+            StatusCode::NOT_FOUND,
+            Json(serde_json::json!({"detail": "Test not found"})),
+        ));
+    }
+
+    let lang = body
+        .get("language")
         .and_then(|l| l.as_str())
         .unwrap_or("es");
 
     let result = match test_type.as_str() {
         "big_five" => {
-            let answers: HashMap<u32, f64> = body["answers"].as_array()
-                .map(|arr| arr.iter().filter_map(|a| {
-                    let qid = a["question_id"].as_u64()? as u32;
-                    let val = a["value"].as_f64()?;
-                    Some((qid, val))
-                }).collect())
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
                 .unwrap_or_default();
             scoring::big_five::score(&answers, lang)
         }
         "mbti" => {
-            let answers: HashMap<u32, String> = body["answers"].as_array()
-                .map(|arr| arr.iter().filter_map(|a| {
-                    let qid = a["question_id"].as_u64()? as u32;
-                    let val = a["value"].as_str()?.to_string();
-                    Some((qid, val))
-                }).collect())
+            let answers: HashMap<u32, String> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_str()?.to_string();
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
                 .unwrap_or_default();
             scoring::mbti::score(&answers, lang)
         }
         "enneagram" => {
-            let answers: HashMap<u32, f64> = body["answers"].as_array()
-                .map(|arr| arr.iter().filter_map(|a| {
-                    let qid = a["question_id"].as_u64()? as u32;
-                    let val = a["value"].as_f64()?;
-                    Some((qid, val))
-                }).collect())
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
                 .unwrap_or_default();
             scoring::enneagram::score(&answers, lang)
         }
         "disc" => {
-            let answers: HashMap<u32, String> = body["answers"].as_array()
-                .map(|arr| arr.iter().filter_map(|a| {
-                    let qid = a["question_id"].as_u64()? as u32;
-                    let val = a["value"].as_str()?.to_string();
-                    Some((qid, val))
-                }).collect())
+            let answers: HashMap<u32, String> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_str()?.to_string();
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
                 .unwrap_or_default();
             scoring::disc::score(&answers, lang)
         }
         "dark_triad" => {
-            let answers: HashMap<u32, f64> = body["answers"].as_array()
-                .map(|arr| arr.iter().filter_map(|a| {
-                    let qid = a["question_id"].as_u64()? as u32;
-                    let val = a["value"].as_f64()?;
-                    Some((qid, val))
-                }).collect())
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
                 .unwrap_or_default();
             scoring::dark_triad::score(&answers, lang)
         }
@@ -207,11 +342,58 @@ pub async fn submit_test(
             let bl = body["birth_location"].as_str().unwrap_or("Unknown");
             scoring::human_design::calculate(bd, bt, bl, lang)
         }
-        _ => return Err((
+        _ => unreachable!(),
+    };
+
+    let pdf_bytes = crate::report::generate_report(&test_type, &result, lang);
+
+    let mut headers = axum::http::HeaderMap::new();
+    headers.insert(header::CONTENT_TYPE, "application/pdf".parse().unwrap());
+    headers.insert(
+        header::CONTENT_DISPOSITION,
+        format!("attachment; filename=\"{}-report.pdf\"", test_type)
+            .parse()
+            .unwrap(),
+    );
+
+    Ok((headers, pdf_bytes))
+}
+
+#[derive(serde::Deserialize)]
+pub struct CompareRequest {
+    pub results: Vec<serde_json::Value>,
+    pub language: Option<String>,
+}
+
+pub async fn compare_tests(
+    Path(test_type): Path<String>,
+    Json(body): Json<CompareRequest>,
+) -> Result<Json<serde_json::Value>, (StatusCode, Json<serde_json::Value>)> {
+    let lang = body.language.as_deref().unwrap_or("es");
+    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
+
+    if !valid.contains(&test_type.as_str()) {
+        return Err((
             StatusCode::NOT_FOUND,
             Json(serde_json::json!({"detail": "Test not found"})),
-        )),
-    };
+        ));
+    }
+
+    if body.results.len() != 2 {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({"detail": "Exactly 2 results required for comparison"})),
+        ));
+    }
+
+    let result = compatibility::compare_results(&body.results, &test_type, lang);
+
+    if result.get("error").and_then(|e| e.as_bool()).unwrap_or(false) {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            Json(result),
+        ));
+    }
 
     Ok(Json(result))
 }

@@ -1,4 +1,5 @@
 use crate::data::load_test_data;
+use crate::interpretation;
 use std::collections::HashMap;
 
 fn normalize(value: f64, min: f64, max: f64) -> f64 {
@@ -58,10 +59,23 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
         format!("Tipo {}w{}. Puntajes más altos: Tipo {} ({:.0}%), Tipo {} ({:.0}%).", dominant, wing, dominant, dom_score, wing, wing_score)
     };
 
-    serde_json::json!({
-        "dominant_type": dominant,
-        "wing": wing,
-        "scores": type_scores,
-        "profile_summary": summary,
-    })
+    let scores_hash: HashMap<String, f64> = type_scores.iter()
+        .filter_map(|(k, v)| v.as_f64().map(|f| (k.clone(), f)))
+        .collect();
+
+    let interp = interpretation::get_interpretation("enneagram", &scores_hash, language);
+    let recs = interpretation::get_recommendations("enneagram", &scores_hash, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("dominant_type".into(), serde_json::json!(dominant));
+    result.insert("wing".into(), serde_json::json!(wing));
+    result.insert("scores".into(), serde_json::json!(type_scores));
+    result.insert("profile_summary".into(), serde_json::json!(summary));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }

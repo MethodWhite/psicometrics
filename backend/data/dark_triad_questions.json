@@ -270,6 +270,36 @@
         "es": "No le importan las reglas.",
         "en": "Doesn't care about rules."
       }
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": 3,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 3.",
+        "en": "For this question, select option 3."
+      },
+      "trait": "M"
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": 1,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 1 (Muy en desacuerdo).",
+        "en": "For this question, select option 1 (Strongly disagree)."
+      },
+      "trait": "M"
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered."
+      },
+      "trait": "M"
     }
   ],
   "instructions": {

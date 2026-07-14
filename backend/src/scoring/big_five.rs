@@ -1,4 +1,5 @@
 use crate::data::load_test_data;
+use crate::interpretation;
 use std::collections::HashMap;
 
 fn reverse_value(value: f64) -> f64 {
@@ -81,12 +82,21 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
 
     let summary = generate_summary(&scores, factor_names, language);
 
-    serde_json::json!({
-        "scores": scores,
-        "facets": facets,
-        "profile_summary": summary,
-        "percentiles": percentiles,
-    })
+    let interp = interpretation::get_interpretation("big_five", &scores, language);
+    let recs = interpretation::get_recommendations("big_five", &scores, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("scores".into(), serde_json::json!(scores));
+    result.insert("facets".into(), serde_json::json!(facets));
+    result.insert("profile_summary".into(), serde_json::json!(summary));
+    result.insert("percentiles".into(), serde_json::json!(percentiles));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }
 
 fn generate_summary(scores: &HashMap<String, f64>, names: &[(&str, &str)], lang: &str) -> String {

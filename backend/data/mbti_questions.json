@@ -706,6 +706,33 @@
         "es": "Soy alguien que trabaja mejor bajo presión de tiempo.",
         "en": "I am someone who works best under time pressure."
       }
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": "a",
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción A.",
+        "en": "For this question, select option A."
+      }
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": "b",
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción B.",
+        "en": "For this question, select option B."
+      }
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered."
+      }
     }
   ],
   "instructions": {

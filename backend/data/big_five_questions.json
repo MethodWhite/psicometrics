@@ -1282,6 +1282,39 @@
       },
       "facet": "C5",
       "reverse": false
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": 3,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 3 (Algo Exacto).",
+        "en": "For this question, select option 3 (Slightly Accurate)."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": 1,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 1 (Muy Inexacto).",
+        "en": "For this question, select option 1 (Very Inaccurate)."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered."
+      },
+      "facet": "O1",
+      "reverse": false
     }
   ],
   "instructions": {

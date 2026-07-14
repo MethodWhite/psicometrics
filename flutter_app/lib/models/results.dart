@@ -19,6 +19,13 @@ class BigFiveResult {
       percentiles: Map<String, double>.from(json['percentiles'] ?? {}),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'scores': scores,
+    'facets': facets,
+    'profile_summary': profileSummary,
+    'percentiles': percentiles,
+  };
 }
 
 class MBTIResult {
@@ -42,6 +49,13 @@ class MBTIResult {
       percentages: Map<String, double>.from(json['percentages'] ?? {}),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'type_code': typeCode,
+    'scores': scores,
+    'profile_summary': profileSummary,
+    'percentages': percentages,
+  };
 }
 
 class EnneagramResult {
@@ -65,6 +79,13 @@ class EnneagramResult {
       profileSummary: json['profile_summary'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'dominant_type': dominantType,
+    'wing': wing,
+    'scores': scores,
+    'profile_summary': profileSummary,
+  };
 }
 
 class DISCResult {
@@ -88,6 +109,13 @@ class DISCResult {
       profileSummary: json['profile_summary'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'primary_style': primaryStyle,
+    'secondary_style': secondaryStyle,
+    'scores': scores,
+    'profile_summary': profileSummary,
+  };
 }
 
 class DarkTriadResult {
@@ -111,6 +139,13 @@ class DarkTriadResult {
       profileSummary: json['profile_summary'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'scores': scores,
+    'dark_core': darkCore,
+    'risk_level': riskLevel,
+    'profile_summary': profileSummary,
+  };
 }
 
 class HumanDesignResult {
@@ -153,6 +188,52 @@ class HumanDesignResult {
       personalityGates: List<int>.from(json['personality_gates'] ?? []),
       designGates: List<int>.from(json['design_gates'] ?? []),
       summary: json['summary'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'type': type,
+    'type_info': typeInfo,
+    'strategy': strategy,
+    'authority': authority,
+    'authority_info': authorityInfo,
+    'profile': profile,
+    'profile_info': profileInfo,
+    'centers': centers,
+    'personality_gates': personalityGates,
+    'design_gates': designGates,
+    'summary': summary,
+  };
+}
+
+class ComparisonResult {
+  final String testType;
+  final double compatibilityScore;
+  final String description;
+  final Map<String, dynamic> factors;
+  final String? typeCode1;
+  final String? typeCode2;
+  final String? matchCategory;
+
+  ComparisonResult({
+    required this.testType,
+    required this.compatibilityScore,
+    required this.description,
+    required this.factors,
+    this.typeCode1,
+    this.typeCode2,
+    this.matchCategory,
+  });
+
+  factory ComparisonResult.fromJson(Map<String, dynamic> json) {
+    return ComparisonResult(
+      testType: json['test_type'] ?? '',
+      compatibilityScore: (json['compatibility_score'] ?? 0).toDouble(),
+      description: json['description'] ?? '',
+      factors: Map<String, dynamic>.from(json['factors'] ?? {}),
+      typeCode1: json['type_code1']?.toString(),
+      typeCode2: json['type_code2']?.toString(),
+      matchCategory: json['match_category']?.toString(),
     );
   }
 }

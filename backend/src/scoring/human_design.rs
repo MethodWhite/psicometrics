@@ -1,3 +1,4 @@
+use crate::interpretation;
 use std::collections::HashMap;
 
 /// Simplified Human Design calculator.
@@ -103,14 +104,35 @@ pub fn calculate(_birth_date: &str, _birth_time: &str, _birth_location: &str, la
         format!("Eres un/una {}. Tu estrategia es: {}.", hd_type, strategy)
     };
 
-    serde_json::json!({
-        "type": hd_type,
-        "strategy": strategy,
-        "authority": "Emotional",
-        "profile": "1/3",
-        "centers": centers,
-        "personality_gates": personality_gates,
-        "design_gates": design_gates,
-        "summary": summary,
-    })
+    // Build synthetic scores for interpretation
+    let type_value: f64 = match hd_type {
+        "Manifestor" | "Manifestador" => 1.0,
+        "Generator" | "Generador" => 2.0,
+        "Manifesting Generator" | "Generador Manifestador" => 3.0,
+        "Projector" | "Proyector" => 4.0,
+        _ => 5.0,
+    };
+    let mut scores_hash = HashMap::new();
+    scores_hash.insert("type_value".to_string(), type_value);
+    scores_hash.insert("type_key".to_string(), type_value);
+
+    let interp = interpretation::get_interpretation("human_design", &scores_hash, language);
+    let recs = interpretation::get_recommendations("human_design", &scores_hash, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("type".into(), serde_json::json!(hd_type));
+    result.insert("strategy".into(), serde_json::json!(strategy));
+    result.insert("authority".into(), serde_json::json!("Emotional"));
+    result.insert("profile".into(), serde_json::json!("1/3"));
+    result.insert("centers".into(), centers);
+    result.insert("personality_gates".into(), serde_json::json!(personality_gates));
+    result.insert("design_gates".into(), serde_json::json!(design_gates));
+    result.insert("summary".into(), serde_json::json!(summary));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }

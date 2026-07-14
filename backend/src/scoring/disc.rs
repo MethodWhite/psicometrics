@@ -1,4 +1,5 @@
 use crate::data::load_test_data;
+use crate::interpretation;
 use std::collections::HashMap;
 
 const DIMENSIONS: [&str; 4] = ["D", "I", "S", "C"];
@@ -46,10 +47,23 @@ pub fn score(answers: &HashMap<u32, String>, language: &str) -> serde_json::Valu
         format!("Primario: {} ({:.0}%), Secundario: {} ({:.0}%).", primary, sorted[0].1, secondary, sorted[1].1)
     };
 
-    serde_json::json!({
-        "primary_style": primary,
-        "secondary_style": secondary,
-        "scores": scores_map,
-        "profile_summary": summary,
-    })
+    let scores_hash: HashMap<String, f64> = scores_map.iter()
+        .filter_map(|(k, v)| v.as_f64().map(|f| (k.clone(), f)))
+        .collect();
+
+    let interp = interpretation::get_interpretation("disc", &scores_hash, language);
+    let recs = interpretation::get_recommendations("disc", &scores_hash, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("primary_style".into(), serde_json::json!(primary));
+    result.insert("secondary_style".into(), serde_json::json!(secondary));
+    result.insert("scores".into(), serde_json::json!(scores_map));
+    result.insert("profile_summary".into(), serde_json::json!(summary));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }

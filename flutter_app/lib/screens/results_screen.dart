@@ -1,16 +1,100 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../app.dart';
 import '../config/theme.dart';
 import '../models/results.dart';
+import '../services/api_service.dart';
 import '../services/share_service.dart';
 import '../widgets/radar_chart.dart';
 import '../widgets/score_bar_chart.dart';
 import '../widgets/body_graph.dart';
+import 'compare_screen.dart';
+import 'evolution_screen.dart';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
   final String testType;
   final dynamic result;
   const ResultsScreen({super.key, required this.testType, required this.result});
+
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
+  final _api = ApiService();
+  String? _accountId;
+  bool _saving = false;
+  bool _saved = false;
+  int _resultCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAccount();
+  }
+
+  Future<void> _loadAccount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getString('account_id');
+    if (id != null) {
+      setState(() => _accountId = id);
+      _checkResultCount(id);
+    }
+  }
+
+  Future<void> _checkResultCount(String accountId) async {
+    try {
+      final results = await _api.getResults(accountId, testType: widget.testType);
+      if (mounted) {
+        setState(() => _resultCount = results.length);
+      }
+    } catch (_) {}
+  }
+
+  Map<String, dynamic> _resultToMap() {
+    if (widget.result is Map<String, dynamic>) {
+      return widget.result as Map<String, dynamic>;
+    }
+    return (widget.result).toJson();
+  }
+
+  void _navigateToCompare() {
+    final resultMap = _resultToMap();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (_) => CompareScreen(
+        testType: widget.testType,
+        currentResult: resultMap,
+      ),
+    ));
+  }
+
+  Future<void> _saveResult() async {
+    if (_accountId == null || _saved) return;
+    setState(() => _saving = true);
+
+    try {
+      final resultMap = _resultToMap();
+      await _api.saveResult(_accountId!, widget.testType, resultMap);
+      if (mounted) {
+        setState(() {
+          _saved = true;
+          _saving = false;
+          _resultCount++;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Resultado guardado en tu cuenta'), backgroundColor: Colors.green),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _saving = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al guardar: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +111,25 @@ class ResultsScreen extends StatelessWidget {
           // Share button
           IconButton(
             icon: const Icon(Icons.share),
-            onPressed: () => ShareService.shareResult(testType: testType, result: result, lang: l10n?.locale.languageCode ?? 'es'),
+            onPressed: () => ShareService.shareResult(testType: widget.testType, result: widget.result, lang: l10n?.locale.languageCode ?? 'es'),
           ),
           // Copy button
           IconButton(
             icon: const Icon(Icons.copy),
             onPressed: () async {
-              await ShareService.copyResultToClipboard(testType: testType, result: result);
+              await ShareService.copyResultToClipboard(testType: widget.testType, result: widget.result);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Copiado al portapapeles'), backgroundColor: Colors.green),
                 );
               }
             },
+          ),
+          // Compare button
+          IconButton(
+            icon: const Icon(Icons.compare_arrows),
+            tooltip: 'Comparar',
+            onPressed: _navigateToCompare,
           ),
         ],
       ),
@@ -48,13 +138,65 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (result is BigFiveResult) _buildBigFive(context, result as BigFiveResult, l10n),
-            if (result is MBTIResult) _buildMBTI(context, result as MBTIResult, l10n),
-            if (result is EnneagramResult) _buildEnneagram(context, result as EnneagramResult, l10n),
-            if (result is DISCResult) _buildDISC(context, result as DISCResult, l10n),
-            if (result is DarkTriadResult) _buildDarkTriad(context, result as DarkTriadResult, l10n),
-            if (result is HumanDesignResult) _buildHumanDesign(context, result as HumanDesignResult, l10n),
+            if (widget.result is BigFiveResult) _buildBigFive(context, widget.result as BigFiveResult, l10n),
+            if (widget.result is MBTIResult) _buildMBTI(context, widget.result as MBTIResult, l10n),
+            if (widget.result is EnneagramResult) _buildEnneagram(context, widget.result as EnneagramResult, l10n),
+            if (widget.result is DISCResult) _buildDISC(context, widget.result as DISCResult, l10n),
+            if (widget.result is DarkTriadResult) _buildDarkTriad(context, widget.result as DarkTriadResult, l10n),
+            if (widget.result is HumanDesignResult) _buildHumanDesign(context, widget.result as HumanDesignResult, l10n),
             const SizedBox(height: 24),
+
+            // Save to account button
+            if (_accountId != null && !_saved)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: OutlinedButton.icon(
+                  onPressed: _saving ? null : _saveResult,
+                  icon: _saving
+                      ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+                      : const Icon(Icons.save),
+                  label: Text(_saving ? 'Guardando...' : 'Guardar resultado en mi cuenta'),
+                ),
+              ),
+            if (_saved)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                    const SizedBox(width: 8),
+                    const Text('Resultado guardado', style: TextStyle(color: Colors.green)),
+                    const Spacer(),
+                    if (_resultCount > 1)
+                      TextButton.icon(
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(
+                          builder: (_) => EvolutionScreen(
+                            accountId: _accountId!,
+                            testType: widget.testType,
+                          ),
+                        )),
+                        icon: const Icon(Icons.trending_up),
+                        label: const Text('Ver evolución'),
+                      ),
+                  ],
+                ),
+              ),
+
+            // Evolution button (if user already has saved results from before)
+            if (_accountId != null && _resultCount > 0 && !_saved)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: OutlinedButton.icon(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => EvolutionScreen(
+                      accountId: _accountId!,
+                      testType: widget.testType,
+                    ),
+                  )),
+                  icon: const Icon(Icons.trending_up),
+                  label: Text('Ver evolución ($_resultCount resultados)'),
+                ),
+              ),
 
             // Action buttons
             Row(

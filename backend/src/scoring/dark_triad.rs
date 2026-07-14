@@ -1,4 +1,5 @@
 use crate::data::load_test_data;
+use crate::interpretation;
 use std::collections::HashMap;
 
 fn normalize(value: f64, min: f64, max: f64) -> f64 {
@@ -55,10 +56,23 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
         format!("Dark Core: {:.0}% (riesgo {}).", dark_core, risk_level)
     };
 
-    serde_json::json!({
-        "scores": scores_map,
-        "dark_core": dark_core,
-        "risk_level": risk_level,
-        "profile_summary": summary,
-    })
+    let scores_hash: HashMap<String, f64> = scores_map.iter()
+        .filter_map(|(k, v)| v.as_f64().map(|f| (k.clone(), f)))
+        .collect();
+
+    let interp = interpretation::get_interpretation("dark_triad", &scores_hash, language);
+    let recs = interpretation::get_recommendations("dark_triad", &scores_hash, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("scores".into(), serde_json::json!(scores_map));
+    result.insert("dark_core".into(), serde_json::json!(dark_core));
+    result.insert("risk_level".into(), serde_json::json!(risk_level));
+    result.insert("profile_summary".into(), serde_json::json!(summary));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }

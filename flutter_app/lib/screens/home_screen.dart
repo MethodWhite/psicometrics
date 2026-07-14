@@ -5,6 +5,7 @@ import '../models/test_info.dart';
 import '../services/api_service.dart';
 import '../widgets/test_card.dart';
 import 'test_instructions_screen.dart';
+import 'account_screen.dart';
 import 'history_screen.dart';
 import 'settings_screen.dart';
 
@@ -81,6 +82,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     ),
                     Row(
                       children: [
+                        // Account button
+                        IconButton(
+                          icon: const Icon(Icons.person, size: 24),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => const AccountScreen(),
+                          )),
+                        ),
                         // History button
                         IconButton(
                           icon: const Icon(Icons.history, size: 24),

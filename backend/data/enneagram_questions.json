@@ -784,6 +784,36 @@
         "es": "Soy una persona que valora la paz interior por encima de todo.",
         "en": "I am a person who values inner peace above all."
       }
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": 3,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 3 (Algo coincide).",
+        "en": "For this question, select option 3 (Somewhat matches)."
+      },
+      "type": 1
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": 1,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 1 (No coincide).",
+        "en": "For this question, select option 1 (Does not match)."
+      },
+      "type": 1
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered."
+      },
+      "type": 1
     }
   ],
   "instructions": {

@@ -1,4 +1,5 @@
 use crate::data::load_test_data;
+use crate::interpretation;
 use std::collections::HashMap;
 
 const DICHOTOMIES: [&str; 4] = ["EI", "SN", "TF", "JP"];
@@ -83,10 +84,23 @@ pub fn score(answers: &HashMap<u32, String>, language: &str) -> serde_json::Valu
 
     let summary = format!("{} Tipo {}.", base_desc, type_code);
 
-    serde_json::json!({
-        "type_code": type_code,
-        "scores": scores,
-        "profile_summary": summary,
-        "percentages": percentages,
-    })
+    let scores_hash: HashMap<String, f64> = scores.iter()
+        .filter_map(|(k, v)| v.as_f64().map(|f| (k.clone(), f)))
+        .collect();
+
+    let interp = interpretation::get_interpretation("mbti", &scores_hash, language);
+    let recs = interpretation::get_recommendations("mbti", &scores_hash, language);
+
+    let mut result = serde_json::Map::new();
+    result.insert("type_code".into(), serde_json::json!(type_code));
+    result.insert("scores".into(), serde_json::json!(scores));
+    result.insert("profile_summary".into(), serde_json::json!(summary));
+    result.insert("percentages".into(), serde_json::json!(percentages));
+    result.insert("interpretation".into(), interp);
+    if let Some(obj) = recs.as_object() {
+        for (k, v) in obj {
+            result.insert(k.clone(), v.clone());
+        }
+    }
+    serde_json::Value::Object(result)
 }

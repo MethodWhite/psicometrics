@@ -12,13 +12,18 @@ use tracing_subscriber::EnvFilter;
 
 use ztf::challenge::{ChallengeResponse, HmacVerifier};
 
+mod accounts;
+mod compatibility;
 mod config;
 mod data;
 mod i18n;
+mod interpretation;
 mod middleware;
 mod models;
+mod report;
 mod routes;
 mod scoring;
+mod validation;
 
 async fn security_headers_mw(req: Request, next: Next) -> Response {
     let mut res = next.run(req).await;
@@ -38,6 +43,8 @@ async fn main() {
     let zt_provider = Arc::new(ChallengeResponse::new());
     let _verifier = HmacVerifier::new(&secret_key);
 
+    let account_store = Arc::new(accounts::AccountStore::new());
+
     // Build router
     let app = Router::new()
         .route("/api/v1/health", get(routes::health::health_check))
@@ -50,8 +57,15 @@ async fn main() {
         .route("/api/v1/tests/{test_type}/metadata", get(routes::tests::get_test_metadata))
         .route("/api/v1/tests/{test_type}", get(routes::tests::get_test_questions))
         .route("/api/v1/tests/{test_type}/submit", post(routes::tests::submit_test))
+        .route("/api/v1/tests/{test_type}/report", post(routes::tests::generate_report))
+        .route("/api/v1/tests/{test_type}/compare", post(routes::tests::compare_tests))
+        .route("/api/v1/accounts/register", post(routes::accounts::register_account))
+        .route("/api/v1/accounts/{id}", get(routes::accounts::get_account))
+        .route("/api/v1/accounts/{id}/results", post(routes::accounts::save_result).get(routes::accounts::get_results))
+        .route("/api/v1/accounts/{id}/evolution/{test_type}", get(routes::accounts::get_evolution))
         .layer(axum::Extension(zt_provider))
         .layer(axum::Extension(secret_key))
+        .layer(axum::Extension(account_store))
         .layer(axum::middleware::from_fn(security_headers_mw))
         .layer(CorsLayer::very_permissive());
 
