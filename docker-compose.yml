@@ -1,17 +1,14 @@
 services:
   psicometrics-api:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://synapsis:secret@db:5432/psicometrics
-      - REDIS_URL=redis://redis:6379/1
+      - DATABASE_URL=
+      - SECRET_KEY=change-me-in-production
       - ALLOWED_ORIGINS=["http://localhost:3000"]
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -30,38 +27,6 @@ services:
     networks:
       - psicometrics-network
     restart: unless-stopped
-
-  db:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: psicometrics
-      POSTGRES_USER: synapsis
-      POSTGRES_PASSWORD: secret
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U synapsis -d psicometrics"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - psicometrics-network
-    restart: unless-stopped
-
-  redis:
-    image: redis:7-alpine
-    command: redis-server --maxmemory 64mb --maxmemory-policy allkeys-lru
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - psicometrics-network
-    restart: unless-stopped
-
-volumes:
-  pgdata:
 
 networks:
   psicometrics-network:
