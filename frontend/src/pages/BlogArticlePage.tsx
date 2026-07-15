@@ -101,11 +101,18 @@ export default function BlogArticlePage() {
 
           {/* Tags */}
           <div className="mt-8 pt-6 border-t border-border">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm font-bold text-content">Tags</span>
+            </div>
             <div className="flex flex-wrap gap-2">
               {article.tags.map(tag => (
-                <span key={tag} className="px-3 py-1 bg-surface-secondary rounded-full text-xs text-content-muted">
+                <Link
+                  key={tag}
+                  to={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="px-3 py-1.5 bg-surface-secondary rounded-full text-xs text-content-muted hover:text-indigo-400 hover:bg-indigo-500/10 border border-border hover:border-indigo-500/30 transition-all"
+                >
                   #{tag}
-                </span>
+                </Link>
               ))}
             </div>
           </div>

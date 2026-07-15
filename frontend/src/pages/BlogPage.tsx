@@ -130,6 +130,20 @@ export default function BlogPage() {
                         <span>·</span>
                         <span>{article.tags.length} tags</span>
                       </div>
+                      {article.tags && article.tags.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {article.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded text-[10px] font-medium">
+                              {tag}
+                            </span>
+                          ))}
+                          {article.tags.length > 3 && (
+                            <span className="px-2 py-0.5 text-content-muted rounded text-[10px]">
+                              +{article.tags.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </Link>
                 ))}
