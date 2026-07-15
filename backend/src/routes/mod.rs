@@ -1,6 +1,10 @@
 pub mod accounts;
 pub mod auth;
+pub mod b2b;
+pub mod community;
 pub mod export;
+pub mod onboarding;
 pub mod health;
+pub mod payments;
 pub mod premium;
 pub mod tests;

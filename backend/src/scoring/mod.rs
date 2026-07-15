@@ -1,6 +1,11 @@
+pub mod attachment_style;
 pub mod big_five;
+pub mod career_aptitude;
 pub mod dark_triad;
 pub mod disc;
+pub mod emotional_intelligence;
 pub mod enneagram;
 pub mod human_design;
+pub mod love_languages;
 pub mod mbti;
+pub mod via_strengths;

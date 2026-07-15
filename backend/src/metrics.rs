@@ -13,7 +13,7 @@ use axum::{
 use once_cell::sync::Lazy;
 use prometheus::{
     gather, register_counter_vec, register_gauge, register_histogram_vec,
-    CounterVec, Encoder, Gauge, HistogramVec, TextEncoder,
+    CounterVec, Gauge, HistogramVec, TextEncoder,
 };
 use std::time::Instant;
 

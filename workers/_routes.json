@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "description": "PsicoMetrics — Cloudflare Pages routing rules",
+  "include": [
+    "/*"
+  ],
+  "exclude": [],
+  "rules": [
+    {
+      "glob": "/api/*",
+      "action": "rewrite",
+      "destination": "https://api.psicometrics.com"
+    },
+    {
+      "glob": "*.{js,css}",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "glob": "*.{png,jpg,jpeg,gif,svg,ico,webp,avif}",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "glob": "*.{woff,woff2,ttf,eot,otf}",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "glob": "/",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=300, s-maxage=300"
+      }
+    },
+    {
+      "glob": "/index.html",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=300, s-maxage=300"
+      }
+    },
+    {
+      "glob": "/assets/*",
+      "action": "set_cache_control",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    }
+  ]
+}

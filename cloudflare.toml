@@ -1,0 +1,102 @@
+# PsicoMetrics — Cloudflare Workers Configuration
+# Deploy: `npx wrangler deploy`
+# Reference: https://developers.cloudflare.com/workers/wrangler/configuration/
+
+name = "psicometrics-api"
+main = "workers/api.js"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ── Environment ──────────────────────────────────────────────────────────
+[env.production]
+vars = { ENVIRONMENT = "production" }
+routes = [
+  { pattern = "psicometrics.com", zone_name = "psicometrics.com" },
+  { pattern = "www.psicometrics.com", zone_name = "psicometrics.com" },
+]
+
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
+routes = [
+  { pattern = "staging.psicometrics.com", zone_name = "psicometrics.com" },
+]
+
+# ── Static Assets ────────────────────────────────────────────────────────
+# Serve frontend build from Workers + KV / R2, or via Pages
+
+[site]
+bucket = "../frontend/dist"
+entry-point = "workers"
+
+# ── Durable Objects (if needed) ──────────────────────────────────────────
+# [durable_objects]
+# bindings = [
+#   { name = "SESSIONS", class_name = "Session" },
+# ]
+
+# ── KV Namespaces ────────────────────────────────────────────────────────
+# [[kv_namespaces]]
+# binding = "PSICOMETRICS_KV"
+# id = "xxxx"
+
+# ── R2 Buckets ───────────────────────────────────────────────────────────
+# [[r2_buckets]]
+# binding = "ASSETS"
+# bucket_name = "psicometrics-assets"
+
+# ── Environment Variables (set via Cloudflare Dashboard or secrets) ─────
+# PSICOMETRICS_DATABASE_URL     = postgres://...
+# PSICOMETRICS_SECRET_KEY       = (secret)
+# POSTHOG_API_KEY               = (secret)
+# SENDGRID_API_KEY              = (secret)
+# CLOUDFLARE_ACCOUNT_ID         = (account)
+
+# ── Cache Configuration ──────────────────────────────────────────────────
+[env.production.cache]
+default_ttl = 3600
+# Static assets: cache for 30 days
+[[rules]]
+match = "/assets/**"
+ttl = 2592000
+
+[[rules]]
+match = "*.{png,jpg,gif,svg,ico}"
+ttl = 2592000
+
+[[rules]]
+match = "*.{js,css}"
+ttl = 2592000
+
+[[rules]]
+match = "*.{woff,woff2,ttf,eot}"
+ttl = 2592000
+
+# API responses: cache briefly (or do not cache)
+[[rules]]
+match = "/api/**"
+ttl = 0
+
+[[rules]]
+match = "/"
+ttl = 300
+
+# ── DDoS Protection ──────────────────────────────────────────────────────
+# Applied at the zone level via Cloudflare Dashboard:
+#   Security → DDoS → HTTP DDoS protection: On
+#   Security → WAF → Custom rules
+#
+# Recommended zone-level settings:
+#   - Rate limiting: 100 req/min per IP for /api/*
+#   - Bot Fight Mode: On
+#   - Security Level: Medium (Under Attack mode during spikes)
+#   - Challenge Passage: 30 min
+#   - Browser Integrity Check: On
+
+# ── Observability ────────────────────────────────────────────────────────
+[observability]
+enabled = true
+head_sampling_rate = 0.1
+
+# ── Tail Consumers ───────────────────────────────────────────────────────
+# [tail_consumers]
+# service = "psicometrics-logs"

@@ -147,3 +147,47 @@ export interface EvolutionPoint {
   date: string
   scores: Record<string, number>
 }
+
+// ─── Community types ─────────────────────────────────────────────────────────
+
+export interface ForumPost {
+  id: string
+  author_id: string
+  author_name: string
+  title: string
+  content: string
+  category: 'big_five' | 'mbti' | 'enneagram' | 'general'
+  personality_type: string | null
+  tags: string[]
+  created_at: number
+  likes: number
+  comment_count: number
+}
+
+export interface Testimonial {
+  id: string
+  name: string
+  text: string
+  personality_type: string
+  rating: number
+  created_at: number
+}
+
+export interface UserStory {
+  id: string
+  title: string
+  content: string
+  author_name: string
+  personality_type: string
+  likes: number
+  featured: boolean
+  created_at: number
+}
+
+export interface Comment {
+  id: string
+  post_id: string
+  author_name: string
+  content: string
+  created_at: number
+}

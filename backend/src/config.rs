@@ -7,6 +7,14 @@ pub struct Settings {
     pub secret_key: Option<String>,
     pub allowed_origins: Option<String>,
     pub debug: bool,
+
+    // Stripe
+    pub stripe_secret_key: Option<String>,
+    pub stripe_webhook_secret: Option<String>,
+
+    // Email (Resend)
+    pub resend_api_key: Option<String>,
+    pub email_from: Option<String>,
 }
 
 impl Settings {
@@ -17,6 +25,10 @@ impl Settings {
             secret_key: None,
             allowed_origins: None,
             debug: false,
+            stripe_secret_key: None,
+            stripe_webhook_secret: None,
+            resend_api_key: None,
+            email_from: None,
         })
     }
 }

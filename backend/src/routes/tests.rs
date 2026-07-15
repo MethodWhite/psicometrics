@@ -42,7 +42,11 @@ pub struct TestMetadata {
 
 fn get_data(test_type: &str) -> AppResult<&'static serde_json::Value> {
     load_test_data(test_type).map_err(|e: TestDataNotFound| {
-        if ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"].contains(&test_type)
+        if [
+            "attachment_style", "big_five", "career_aptitude", "dark_triad", "disc",
+            "emotional_intelligence", "enneagram", "human_design", "love_languages",
+            "mbti", "via_strengths",
+        ].contains(&test_type)
         {
             AppError::Internal(format!("Test data for '{test_type}' is corrupted: {}", e.0))
         } else {
@@ -52,7 +56,11 @@ fn get_data(test_type: &str) -> AppResult<&'static serde_json::Value> {
 }
 
 fn valid_tests() -> &'static [&'static str] {
-    &["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"]
+    &[
+        "attachment_style", "big_five", "career_aptitude", "dark_triad", "disc",
+        "emotional_intelligence", "enneagram", "human_design", "love_languages",
+        "mbti", "via_strengths",
+    ]
 }
 
 // ─── Handlers ────────────────────────────────────────────────────────────────
@@ -222,6 +230,13 @@ pub async fn submit_test(
     let validity = validation::validate_responses(&test_type, &raw_answers, completion_time);
 
     let mut result = match test_type.as_str() {
+        "attachment_style" => {
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
+                .collect();
+            scoring::attachment_style::score(&answers, lang)?
+        }
         "big_five" => {
             let answers: HashMap<u32, f64> = raw_answers
                 .iter()
@@ -229,26 +244,12 @@ pub async fn submit_test(
                 .collect();
             scoring::big_five::score(&answers, lang)?
         }
-        "mbti" => {
-            let answers: HashMap<u32, String> = raw_answers
-                .iter()
-                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
-                .collect();
-            scoring::mbti::score(&answers, lang)?
-        }
-        "enneagram" => {
+        "career_aptitude" => {
             let answers: HashMap<u32, f64> = raw_answers
                 .iter()
                 .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
                 .collect();
-            scoring::enneagram::score(&answers, lang)?
-        }
-        "disc" => {
-            let answers: HashMap<u32, String> = raw_answers
-                .iter()
-                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
-                .collect();
-            scoring::disc::score(&answers, lang)?
+            scoring::career_aptitude::score(&answers, lang)?
         }
         "dark_triad" => {
             let answers: HashMap<u32, f64> = raw_answers
@@ -257,11 +258,53 @@ pub async fn submit_test(
                 .collect();
             scoring::dark_triad::score(&answers, lang)?
         }
+        "disc" => {
+            let answers: HashMap<u32, String> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
+                .collect();
+            scoring::disc::score(&answers, lang)?
+        }
+        "emotional_intelligence" => {
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
+                .collect();
+            scoring::emotional_intelligence::score(&answers, lang)?
+        }
+        "enneagram" => {
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
+                .collect();
+            scoring::enneagram::score(&answers, lang)?
+        }
         "human_design" => {
             let bd = body["birth_date"].as_str().unwrap_or("1990-01-01");
             let bt = body["birth_time"].as_str().unwrap_or("12:00");
             let bl = body["birth_location"].as_str().unwrap_or("Unknown");
             scoring::human_design::calculate(bd, bt, bl, lang)
+        }
+        "love_languages" => {
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
+                .collect();
+            scoring::love_languages::score(&answers, lang)?
+        }
+        "mbti" => {
+            let answers: HashMap<u32, String> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
+                .collect();
+            scoring::mbti::score(&answers, lang)?
+        }
+        "via_strengths" => {
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
+                .collect();
+            scoring::via_strengths::score(&answers, lang)?
         }
         _ => unreachable!(),
     };
@@ -290,6 +333,21 @@ pub async fn generate_report(
         .unwrap_or("es");
 
     let result = match test_type.as_str() {
+        "attachment_style" => {
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::attachment_style::score(&answers, lang)?
+        }
         "big_five" => {
             let answers: HashMap<u32, f64> = body["answers"]
                 .as_array()
@@ -305,22 +363,7 @@ pub async fn generate_report(
                 .unwrap_or_default();
             scoring::big_five::score(&answers, lang)?
         }
-        "mbti" => {
-            let answers: HashMap<u32, String> = body["answers"]
-                .as_array()
-                .map(|arr| {
-                    arr.iter()
-                        .filter_map(|a| {
-                            let qid = a["question_id"].as_u64()? as u32;
-                            let val = a["value"].as_str()?.to_string();
-                            Some((qid, val))
-                        })
-                        .collect()
-                })
-                .unwrap_or_default();
-            scoring::mbti::score(&answers, lang)?
-        }
-        "enneagram" => {
+        "career_aptitude" => {
             let answers: HashMap<u32, f64> = body["answers"]
                 .as_array()
                 .map(|arr| {
@@ -333,22 +376,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::enneagram::score(&answers, lang)?
-        }
-        "disc" => {
-            let answers: HashMap<u32, String> = body["answers"]
-                .as_array()
-                .map(|arr| {
-                    arr.iter()
-                        .filter_map(|a| {
-                            let qid = a["question_id"].as_u64()? as u32;
-                            let val = a["value"].as_str()?.to_string();
-                            Some((qid, val))
-                        })
-                        .collect()
-                })
-                .unwrap_or_default();
-            scoring::disc::score(&answers, lang)?
+            scoring::career_aptitude::score(&answers, lang)?
         }
         "dark_triad" => {
             let answers: HashMap<u32, f64> = body["answers"]
@@ -365,11 +393,101 @@ pub async fn generate_report(
                 .unwrap_or_default();
             scoring::dark_triad::score(&answers, lang)?
         }
+        "disc" => {
+            let answers: HashMap<u32, String> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_str()?.to_string();
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::disc::score(&answers, lang)?
+        }
+        "emotional_intelligence" => {
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::emotional_intelligence::score(&answers, lang)?
+        }
+        "enneagram" => {
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::enneagram::score(&answers, lang)?
+        }
         "human_design" => {
             let bd = body["birth_date"].as_str().unwrap_or("1990-01-01");
             let bt = body["birth_time"].as_str().unwrap_or("12:00");
             let bl = body["birth_location"].as_str().unwrap_or("Unknown");
             scoring::human_design::calculate(bd, bt, bl, lang)
+        }
+        "love_languages" => {
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::love_languages::score(&answers, lang)?
+        }
+        "mbti" => {
+            let answers: HashMap<u32, String> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_str()?.to_string();
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::mbti::score(&answers, lang)?
+        }
+        "via_strengths" => {
+            let answers: HashMap<u32, f64> = body["answers"]
+                .as_array()
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|a| {
+                            let qid = a["question_id"].as_u64()? as u32;
+                            let val = a["value"].as_f64()?;
+                            Some((qid, val))
+                        })
+                        .collect()
+                })
+                .unwrap_or_default();
+            scoring::via_strengths::score(&answers, lang)?
         }
         _ => unreachable!(),
     };

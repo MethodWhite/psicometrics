@@ -9,17 +9,22 @@ use tracing_subscriber::EnvFilter;
 use ztf::challenge::{ChallengeResponse, HmacVerifier};
 
 mod accounts;
+mod analytics;
 mod auth;
+mod community;
+mod community_seed;
 mod compatibility;
 mod config;
 mod data;
 mod database;
+mod email;
 mod error;
 mod i18n;
 mod interpretation;
 mod metrics;
 mod middleware;
 mod models;
+mod payments;
 mod report;
 mod routes;
 mod scoring;
@@ -95,12 +100,46 @@ async fn main() {
         }
     };
 
+    // ── Stripe ──────────────────────────────────────────────────────────
+    let stripe_secret_key = settings.stripe_secret_key.clone().unwrap_or_default();
+    let stripe_webhook_secret = settings.stripe_webhook_secret.clone().unwrap_or_default();
+    let stripe_client = Arc::new(payments::StripeClient::new(
+        &stripe_secret_key,
+        &stripe_webhook_secret,
+    ));
+    if stripe_secret_key.is_empty() {
+        tracing::warn!("STRIPE_SECRET_KEY not set — payment features will be unavailable");
+    }
+
+    // ── Email (Resend) ──────────────────────────────────────────────────
+    let resend_api_key = settings.resend_api_key.clone().unwrap_or_else(|| "unset".to_string());
+    let email_from = settings
+        .email_from
+        .clone()
+        .unwrap_or_else(|| "noreply@psicometrics.app".to_string());
+    let email_client = Arc::new(email::EmailClient::new(&resend_api_key, &email_from));
+    if resend_api_key == "unset" {
+        tracing::warn!("RESEND_API_KEY not set — transactional emails will be skipped");
+    }
+
     // ── State ───────────────────────────────────────────────────────────
     let zt_provider = Arc::new(ChallengeResponse::new());
     let _verifier = HmacVerifier::new(&secret_key);
 
     let account_store = Arc::new(accounts::AccountStore::new());
+
+    let community_store = Arc::new(community::CommunityStore::new());
+    community_seed::seed_community(&community_store);
+    tracing::info!("community store initialized with seed data");
+
+    let b2b_store = Arc::new(routes::b2b::B2BStore::new());
     let rate_limit_layer = Arc::new(mw::rate_limit::RateLimitLayer::new());
+
+    // ── Analytics ─────────────────────────────────────────────────────────
+    let analytics_store = analytics::AnalyticsStore::new();
+
+    // ── Email onboarding ──────────────────────────────────────────────────
+    let email_store = email::EmailStore::new();
 
     // ── CORS ────────────────────────────────────────────────────────────
     let cors = mw::cors::build();
@@ -134,7 +173,30 @@ async fn main() {
         // Account by ID
         .route("/api/v1/accounts/{id}", get(routes::accounts::get_account))
         .route("/api/v1/accounts/{id}/results", post(routes::accounts::save_result).get(routes::accounts::get_results))
-        .route("/api/v1/accounts/{id}/evolution/{test_type}", get(routes::accounts::get_evolution));
+        .route("/api/v1/accounts/{id}/evolution/{test_type}", get(routes::accounts::get_evolution))
+        // Community
+        .route("/api/v1/community/posts", get(routes::community::get_posts).post(routes::community::create_post))
+        .route("/api/v1/community/posts/{id}", get(routes::community::get_post))
+        .route("/api/v1/community/posts/{id}/like", post(routes::community::like_post))
+        .route("/api/v1/community/posts/{id}/comments", get(routes::community::get_comments).post(routes::community::create_comment))
+        .route("/api/v1/community/testimonials", get(routes::community::get_testimonials).post(routes::community::create_testimonial))
+        .route("/api/v1/community/stories", get(routes::community::get_stories).post(routes::community::create_story))
+        .route("/api/v1/community/stories/{id}/like", post(routes::community::like_story))
+        .route("/api/v1/community/types/{mbti_type}/stats", get(routes::community::get_type_stats))
+        // Payments
+        .route("/api/v1/payments/create-checkout", post(routes::payments::create_checkout))
+        .route("/api/v1/payments/webhook", post(routes::payments::webhook_handler))
+        .route("/api/v1/payments/portal/{account_id}", get(routes::payments::portal_session))
+        .route("/api/v1/payments/tiers", get(routes::payments::list_tiers))
+        // B2B
+        .route("/api/v1/b2b/register", post(routes::b2b::register))
+        .route("/api/v1/b2b/teams", get(routes::b2b::list_teams))
+        .route("/api/v1/b2b/reports", get(routes::b2b::team_reports))
+        .route("/api/v1/b2b/invite", post(routes::b2b::invite_member))
+        // Analytics
+        .merge(analytics::analytics_router())
+        // Onboarding
+        .merge(routes::onboarding::onboarding_router());
 
     // Protected routes (JWT required)
     let protected_routes = Router::new()
@@ -150,7 +212,13 @@ async fn main() {
         .layer(axum::Extension(zt_provider))
         .layer(axum::Extension(secret_key))
         .layer(axum::Extension(account_store))
+        .layer(axum::Extension(community_store))
         .layer(axum::Extension(rate_limit_layer))
+        .layer(axum::Extension(stripe_client))
+        .layer(axum::Extension(email_client))
+        .layer(axum::Extension(b2b_store))
+        .layer(axum::Extension(analytics_store))
+        .layer(axum::Extension(email_store))
         .layer(
             ServiceBuilder::new()
                 .layer(axum::middleware::from_fn(mw::request_id::request_id_middleware))

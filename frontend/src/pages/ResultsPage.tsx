@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useState, useMemo } from 'react'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { RadarChart } from '../components/RadarChart'
 import { BarChart } from '../components/BarChart'
 import { BodyGraph } from '../components/BodyGraph'
 import { PDFDownloadButton } from '../components/PDFDownloadButton'
+import { RESOURCES } from '../data/resources'
 import type { BigFiveResult, MBTIResult, EnneagramResult, DISCResult, DarkTriadResult, HumanDesignResult } from '../types'
 
 const FACTOR_LABELS: Record<string, { es: string; en: string }> = {
@@ -45,6 +46,127 @@ const LEVEL_LABELS: Record<string, string> = {
   low: 'results.level_low',
   moderate: 'results.level_moderate',
   high: 'results.level_high',
+}
+
+function getResultTags(testType: string, result: any): { slug: string; name: string }[] {
+  const tags: { slug: string; name: string }[] = []
+  switch (testType) {
+    case 'big_five':
+      if (result.scores) {
+        const factorMap: Record<string, string> = { O: 'openness', C: 'conscientiousness', E: 'extraversion', A: 'agreeableness', N: 'neuroticism' }
+        for (const key of Object.keys(result.scores)) {
+          const slug = factorMap[key]
+          if (slug) tags.push({ slug, name: FACTOR_LABELS[key]?.es || key })
+        }
+      }
+      break
+    case 'mbti':
+      if (result.type_code) {
+        const slug = result.type_code.toLowerCase()
+        tags.push({ slug, name: result.type_code })
+      }
+      break
+    case 'enneagram':
+      if (result.dominant_type) {
+        tags.push({ slug: `type-${result.dominant_type}`, name: `Tipo ${result.dominant_type}` })
+      }
+      break
+    case 'disc':
+      if (result.primary_style) {
+        const discMap: Record<string, string> = { D: 'dominance', I: 'influence', S: 'steadiness', C: 'conscientiousness-disc' }
+        const slug = discMap[result.primary_style]
+        if (slug) tags.push({ slug, name: DISC_LABELS[result.primary_style]?.es || result.primary_style })
+      }
+      if (result.secondary_style) {
+        const discMap: Record<string, string> = { D: 'dominance', I: 'influence', S: 'steadiness', C: 'conscientiousness-disc' }
+        const slug = discMap[result.secondary_style]
+        if (slug) tags.push({ slug, name: DISC_LABELS[result.secondary_style]?.es || result.secondary_style })
+      }
+      break
+    case 'dark_triad':
+      tags.push({ slug: 'machiavellianism', name: 'Maquiavelismo' })
+      tags.push({ slug: 'narcissism', name: 'Narcisismo' })
+      tags.push({ slug: 'psychopathy', name: 'Psicopatía' })
+      break
+    case 'human_design':
+      tags.push({ slug: 'human-design', name: 'Diseño Humano' })
+      if (result.type) {
+        const hdSlug = `human-design-${result.type.toLowerCase()}`
+        tags.push({ slug: hdSlug, name: result.type })
+      }
+      break
+  }
+  return tags
+}
+
+function ResourcesForType({ testType, result }: { testType: string; result: any }) {
+  const typeCode = result?.type_code || (result?.dominant_type ? `Type ${result.dominant_type}` : '')
+
+  const resources = useMemo(() => {
+    if (testType === 'mbti' && result?.type_code) {
+      return RESOURCES
+        .filter(r => r.recommendedBy.includes(result.type_code))
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5)
+    }
+    if (testType === 'enneagram' && result?.dominant_type) {
+      return RESOURCES
+        .filter(r => r.categories.includes('enneagram'))
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5)
+    }
+    if (testType === 'big_five') {
+      return RESOURCES
+        .filter(r => r.categories.includes('big-five'))
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5)
+    }
+    return []
+  }, [testType, result])
+
+  if (resources.length === 0) return null
+
+  const linkPath = typeCode
+    ? `/resources/${typeCode.replace('Type ', 'type-')}`
+    : '/resources'
+
+  return (
+    <section className="mt-12">
+      <div className="card">
+        <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+          <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-sm">📚</span>
+          Resources for your type
+        </h3>
+        <p className="text-content-secondary text-sm mb-4">
+          Curated books, apps, and courses recommended for your personality profile.
+        </p>
+        <div className="space-y-3">
+          {resources.map(r => (
+            <div key={r.id} className="flex items-center justify-between gap-3 bg-surface-secondary rounded-xl p-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-content truncate">{r.title}</p>
+                <p className="text-xs text-content-muted">{r.author} · {r.type}</p>
+              </div>
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-xs px-3 py-1.5 whitespace-nowrap"
+              >
+                Visit
+              </a>
+            </div>
+          ))}
+        </div>
+        <Link
+          to={linkPath}
+          className="inline-block mt-4 text-sm text-primary hover:text-primary/80 transition-colors"
+        >
+          Browse all resources for your type →
+        </Link>
+      </div>
+    </section>
+  )
 }
 
 export function ResultsPage() {
@@ -471,6 +593,125 @@ export function ResultsPage() {
           </section>
         )}
 
+        {/* Learn More */}
+        {testType === 'mbti' && result?.type_code && (
+          <section className="mt-12">
+            <div className="card">
+              <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-sm">🎭</span>
+                Aprende más sobre tu tipo
+              </h3>
+              <p className="text-content-secondary text-sm mb-4">
+                Descubre todo sobre la personalidad {result.type_code}: fortalezas, debilidades, relaciones, carreras y personajes famosos.
+              </p>
+              <a
+                href={`/profile/${result.type_code}`}
+                className="btn-primary inline-block text-center text-sm"
+              >
+                Perfil completo {result.type_code} →
+              </a>
+            </div>
+          </section>
+        )}
+
+        {testType === 'enneagram' && result?.dominant_type && (
+          <section className="mt-12">
+            <div className="card">
+              <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-sm">🔵</span>
+                Aprende más sobre tu eneatipo
+              </h3>
+              <p className="text-content-secondary text-sm mb-4">
+                Descubre todo sobre el Eneatipo {result.dominant_type}: motivaciones, fortalezas, camino de crecimiento y personajes famosos.
+              </p>
+              <a
+                href={`/blog?category=enneagram`}
+                className="btn-primary inline-block text-center text-sm"
+              >
+                Leer sobre Eneatipo {result.dominant_type} →
+              </a>
+            </div>
+          </section>
+        )}
+
+        {testType === 'big_five' && (
+          <section className="mt-12">
+            <div className="card">
+              <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">🧠</span>
+                Profundiza en los 5 grandes factores
+              </h3>
+              <p className="text-content-secondary text-sm mb-4">
+                Explora artículos detallados sobre cada factor del modelo Big Five: Apertura, Responsabilidad, Extraversión, Amabilidad y Neuroticismo.
+              </p>
+              <a
+                href="/blog?category=big-five"
+                className="btn-primary inline-block text-center text-sm"
+              >
+                Artículos Big Five →
+              </a>
+            </div>
+          </section>
+        )}
+
+        {/* Resources for your type */}
+        {(testType === 'mbti' || testType === 'enneagram' || testType === 'big_five') && (
+          <ResourcesForType testType={testType} result={result} />
+        )}
+
+        <section className="mt-8">
+          <div className="card">
+            <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center text-sm">📤</span>
+              Compartir en redes sociales
+            </h3>
+            <p className="text-content-secondary text-sm mb-4">
+              Comparte tus resultados con tus amigos y descubre sus tipos de personalidad.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => {
+                  const text = `¡Acabo de descubrir mi tipo de personalidad en PsicoMetrics! ${window.location.origin}`
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
+                }}
+                className="btn-secondary text-sm flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Twitter / X
+              </button>
+              <button
+                onClick={() => {
+                  const url = window.location.origin
+                  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer')
+                }}
+                className="btn-secondary text-sm flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+              </button>
+              <button
+                onClick={() => {
+                  const text = `¡Acabo de descubrir mi tipo de personalidad en PsicoMetrics!`
+                  window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + window.location.origin)}`, '_blank', 'noopener,noreferrer')
+                }}
+                className="btn-secondary text-sm flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </button>
+              <button
+                onClick={() => {
+                  const text = `¡Acabo de descubrir mi tipo de personalidad en PsicoMetrics! ${window.location.origin}`
+                  navigator.clipboard.writeText(text)
+                }}
+                className="btn-secondary text-sm flex items-center gap-2"
+              >
+                📋 Copiar enlace
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* Validation Warnings */}
         {result.validity && !result.validity.valid && result.validity.warnings?.length > 0 && (
           <div className="mt-8 card border-yellow-500/30 bg-yellow-500/10">
@@ -522,6 +763,38 @@ export function ResultsPage() {
             ⭐ Informe Premium
           </button>
         </div>
+
+        {/* Tag links */}
+        <section className="mt-8">
+          <div className="card">
+            <h3 className="text-lg font-bold text-content mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">🏷️</span>
+              Explorar más sobre tu perfil
+            </h3>
+            <p className="text-content-secondary text-sm mb-4">
+              Descubre artículos y recursos relacionados con tu tipo de personalidad.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {(() => {
+                const tags = getResultTags(testType, result)
+                return tags.map(tag => (
+                  <a
+                    key={tag.slug}
+                    href={`/tags/${tag.slug}`}
+                    className="px-3 py-1.5 bg-surface-secondary rounded-full text-xs text-content-muted hover:text-content hover:bg-indigo-500/10 border border-border hover:border-indigo-500/30 transition-all"
+                  >
+                    {tag.name}
+                  </a>
+                ))
+              })()}
+            </div>
+            <div className="mt-4">
+              <a href="/tags" className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">
+                Explorar todos los tags →
+              </a>
+            </div>
+          </div>
+        </section>
 
         <div className="mt-8 flex gap-4">
           <button onClick={() => navigate('/')} className="btn-primary flex-1">

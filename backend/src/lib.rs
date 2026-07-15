@@ -1,6 +1,10 @@
 /// PsicoMetrics Rust Backend
 /// Tier S++ SecDevOps - Zero Trust, TPM, Defense in Depth
 
+// Many API response types are constructed via serde_json::json!() rather than
+// their struct constructors — !dead_code is expected.
+#![allow(dead_code)]
+
 use std::sync::Arc;
 
 use axum::{
@@ -9,17 +13,22 @@ use axum::{
 };
 
 pub mod accounts;
+pub mod analytics;
 pub mod auth;
+pub mod community;
+pub mod community_seed;
 pub mod compatibility;
 pub mod config;
 pub mod data;
 pub mod database;
+pub mod email;
 pub mod error;
 pub mod i18n;
 pub mod interpretation;
 pub mod metrics;
 pub mod middleware;
 pub mod models;
+pub mod payments;
 pub mod report;
 pub mod routes;
 pub mod scoring;
@@ -35,6 +44,8 @@ pub fn create_test_router(store: Arc<accounts::AccountStore>) -> Router {
     let secret_key = b"psicometrics-zero-trust-secret-2024".to_vec();
     let zt_provider = Arc::new(ztf::challenge::ChallengeResponse::new());
     let rate_limit_layer = Arc::new(middleware::rate_limit::RateLimitLayer::new());
+    let community_store = Arc::new(community::CommunityStore::new());
+    community_seed::seed_community(&community_store);
 
     let app = Router::new()
         .route("/api/v1/health", get(routes::health::health_check))
@@ -57,9 +68,19 @@ pub fn create_test_router(store: Arc<accounts::AccountStore>) -> Router {
         .route("/api/v1/accounts/me", get(routes::accounts::get_me))
         .route("/api/v1/accounts/me/delete", delete(routes::accounts::delete_me))
         .route("/api/v1/accounts/me/export", get(routes::accounts::export_me))
+        // Community
+        .route("/api/v1/community/posts", get(routes::community::get_posts).post(routes::community::create_post))
+        .route("/api/v1/community/posts/{id}", get(routes::community::get_post))
+        .route("/api/v1/community/posts/{id}/like", post(routes::community::like_post))
+        .route("/api/v1/community/posts/{id}/comments", get(routes::community::get_comments).post(routes::community::create_comment))
+        .route("/api/v1/community/testimonials", get(routes::community::get_testimonials).post(routes::community::create_testimonial))
+        .route("/api/v1/community/stories", get(routes::community::get_stories).post(routes::community::create_story))
+        .route("/api/v1/community/stories/{id}/like", post(routes::community::like_story))
+        .route("/api/v1/community/types/{mbti_type}/stats", get(routes::community::get_type_stats))
         .layer(axum::Extension(zt_provider))
         .layer(axum::Extension(secret_key))
         .layer(axum::Extension(store))
+        .layer(axum::Extension(community_store))
         .layer(axum::Extension(rate_limit_layer))
         .layer(axum::middleware::from_fn(security_headers_mw))
         .layer(middleware::cors::build());
