@@ -12,8 +12,8 @@ export function DichotomyChoice({ value, onChange, optionA, optionB }: Dichotomy
         className={`flex-1 text-center p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300
           ${
             value === 'a'
-              ? 'bg-indigo-500/20 border-indigo-500 text-white shadow-xl shadow-indigo-500/20 scale-105'
-              : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20'
+              ? 'bg-indigo-500/20 border-indigo-500 text-content shadow-xl shadow-indigo-500/20 scale-105'
+              : 'bg-surface-secondary border-border text-content-secondary hover:bg-surface-elevated'
           }`}
       >
         <input
@@ -30,14 +30,14 @@ export function DichotomyChoice({ value, onChange, optionA, optionB }: Dichotomy
         <span className="text-lg font-semibold">{optionA}</span>
       </label>
 
-      <div className="flex items-center text-slate-600 text-lg font-bold">VS</div>
+      <div className="flex items-center text-content-muted text-lg font-bold">VS</div>
 
       <label
         className={`flex-1 text-center p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300
           ${
             value === 'b'
-              ? 'bg-purple-500/20 border-purple-500 text-white shadow-xl shadow-purple-500/20 scale-105'
-              : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20'
+              ? 'bg-purple-500/20 border-purple-500 text-content shadow-xl shadow-purple-500/20 scale-105'
+              : 'bg-surface-secondary border-border text-content-secondary hover:bg-surface-elevated'
           }`}
       >
         <input

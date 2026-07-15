@@ -38,14 +38,14 @@ export function TestCard({ testType, name, description }: TestCardProps) {
         <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${TEST_COLORS[testType] || 'from-gray-500 to-gray-600'} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
           {TEST_ICONS[testType] || '📋'}
         </div>
-        <h3 className="text-xl font-bold text-white mb-2">{name}</h3>
-        <p className="text-slate-400 text-sm mb-4 leading-relaxed">{description}</p>
-        <div className="flex items-center gap-4 text-xs text-slate-500">
+        <h3 className="text-xl font-bold text-content mb-2">{name}</h3>
+        <p className="text-content-secondary text-sm mb-4 leading-relaxed">{description}</p>
+        <div className="flex items-center gap-4 text-xs text-content-muted">
           <span>{testInfo.items}</span>
           <span>•</span>
           <span>{testInfo.time}</span>
         </div>
-        <div className="mt-4 flex items-center text-indigo-400 text-sm font-medium group-hover:text-indigo-300 transition-colors">
+        <div className="mt-4 flex items-center text-primary text-sm font-medium group-hover:text-indigo-300 transition-colors">
           {t('app.start_test')} →
         </div>
       </div>

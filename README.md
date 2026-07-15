@@ -72,3 +72,4 @@ All tests are based on validated psychological instruments:
 - **MBTI**: Myers-Briggs Type Indicator framework
 - **Enneagram**: Riso-Hudson Enneagram Type Indicator
 - **DISC**: William Moulton Marston's DISC theory
+

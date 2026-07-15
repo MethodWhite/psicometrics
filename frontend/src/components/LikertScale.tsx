@@ -16,8 +16,8 @@ export function LikertScale({ value, onChange, labels }: LikertScaleProps) {
               className={`flex-1 text-center p-3 rounded-xl border cursor-pointer transition-all duration-200 text-sm font-medium
                 ${
                   value === optionValue
-                    ? 'bg-indigo-500/20 border-indigo-500 text-white shadow-lg shadow-indigo-500/20'
-                    : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20'
+                    ? 'bg-indigo-500/20 border-indigo-500 text-content shadow-lg shadow-indigo-500/20'
+                    : 'bg-surface-secondary border-border text-content-secondary hover:bg-surface-elevated'
                 }`}
             >
               <input

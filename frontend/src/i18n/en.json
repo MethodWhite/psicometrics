@@ -16,7 +16,10 @@
     "progress": "Progress",
     "results": "Results",
     "about": "About",
-    "scientific_basis": "Scientific Basis"
+    "scientific_basis": "Scientific Basis",
+    "account": "Account",
+    "compare": "Compare",
+    "evolution": "Evolution"
   },
   "tests": {
     "big_five": {
@@ -79,6 +82,49 @@
     "secondary": "Secondary",
     "download_pdf": "Download PDF",
     "share": "Share",
-    "retake": "Retake Test"
+    "retake": "Retake Test",
+    "save_to_account": "Save to Account",
+    "compare_with": "Compare with...",
+    "validation_warnings": "Validation Warnings"
+  },
+  "account": {
+    "title": "My Account",
+    "email_label": "Email",
+    "email_placeholder": "you@email.com",
+    "register": "Register",
+    "registering": "Registering...",
+    "your_id": "Your Account ID",
+    "saved_results": "Saved Results",
+    "no_results": "No saved results yet",
+    "save_success": "Result saved successfully",
+    "save_error": "Error saving result",
+    "account_id_placeholder": "or enter an existing account ID",
+    "load": "Load",
+    "register_success": "Account created successfully"
+  },
+  "compare": {
+    "title": "Compare Results",
+    "paste_a": "Paste first result JSON",
+    "paste_b": "Paste second result JSON",
+    "submit": "Compare",
+    "comparing": "Comparing...",
+    "compatibility": "Compatibility",
+    "factor": "Factor",
+    "difference": "Difference",
+    "compatible": "Compatible",
+    "incompatible": "Incompatible",
+    "summary": "Summary",
+    "result_a": "Result A",
+    "result_b": "Result B",
+    "paste_hint": "Copy the result JSON from the results page",
+    "no_result": "No result to pre-fill"
+  },
+  "evolution": {
+    "title": "Evolution",
+    "select_test": "Select a test",
+    "no_data": "No evolution data available",
+    "score": "Score",
+    "date": "Date",
+    "account_required": "You need an account to view evolution"
   }
 }

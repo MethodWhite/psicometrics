@@ -1,0 +1,400 @@
+{
+  "test_type": "disc",
+  "name": {
+    "es": "DISC — Perfil de Comportamiento",
+    "en": "DISC — Behavioral Profile",
+    "pt": "DISC — Perfil Comportamental",
+    "fr": "DISC — Profil comportemental"
+  },
+  "description": {
+    "es": "Basado en la teoría DISC de William Moulton Marston. Identifica tu estilo de comportamiento dominante.",
+    "en": "Based on William Moulton Marston's DISC theory. Identifies your dominant behavioral style.",
+    "pt": "Baseado na teoria DISC de William Moulton Marston. Identifique seu estilo comportamental dominante.",
+    "fr": "Basé sur la théorie DISC de William Moulton Marston. Identifiez votre style comportemental dominant."
+  },
+  "dimensions": {
+    "D": {
+      "es": "Dominancia",
+      "en": "Dominance",
+      "description": {
+        "es": "Enfocado en resultados, directo, decidido",
+        "en": "Results-focused, direct, decisive",
+        "pt": "Focado em resultados, direto, determinado",
+        "fr": "Axé sur les résultats, direct, déterminé"
+      },
+      "pt": "Domínio",
+      "fr": "Dominance"
+    },
+    "I": {
+      "es": "Influencia",
+      "en": "Influence",
+      "description": {
+        "es": "Entusiasta, optimista, sociable",
+        "en": "Enthusiastic, optimistic, sociable",
+        "pt": "Entusiasmado, otimista, sociável",
+        "fr": "Enthousiaste, optimiste, sociable"
+      },
+      "pt": "Influência",
+      "fr": "Influence"
+    },
+    "S": {
+      "es": "Estabilidad",
+      "en": "Steadiness",
+      "description": {
+        "es": "Paciente, confiable,合作",
+        "en": "Patient, reliable, cooperative",
+        "pt": "Paciente, confiável, 合作",
+        "fr": "Patient, fiable, 合作"
+      },
+      "pt": "Estabilidade",
+      "fr": "Stabilité"
+    },
+    "C": {
+      "es": "Conciencia",
+      "en": "Conscientiousness",
+      "description": {
+        "es": "Analítico, preciso, sistemático",
+        "en": "Analytical, precise, systematic",
+        "pt": "Analítico, preciso, sistemático",
+        "fr": "Analytique, précis, systématique"
+      },
+      "pt": "Conhecimento",
+      "fr": "Conscience"
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "dimension": "D",
+      "text": {
+        "es": "En el trabajo, prefiero tomar decisiones rápidas y directas.",
+        "en": "At work, I prefer making quick and direct decisions.",
+        "pt": "No trabalho, prefiro tomar decisões rápidas e diretas.",
+        "fr": "Au travail, je préfère prendre des décisions rapides et directes."
+      }
+    },
+    {
+      "id": 2,
+      "dimension": "I",
+      "text": {
+        "es": "Disfruto de conocer gente nueva y hacer contactos.",
+        "en": "I enjoy meeting new people and networking.",
+        "pt": "Gosto de conhecer novas pessoas e fazer contatos.",
+        "fr": "J'aime rencontrer de nouvelles personnes et nouer des contacts."
+      }
+    },
+    {
+      "id": 3,
+      "dimension": "S",
+      "text": {
+        "es": "Prefiero un ambiente estable y predecible.",
+        "en": "I prefer a stable and predictable environment.",
+        "pt": "Prefiro um ambiente estável e previsível.",
+        "fr": "Je préfère un environnement stable et prévisible."
+      }
+    },
+    {
+      "id": 4,
+      "dimension": "C",
+      "text": {
+        "es": "Me gusta trabajar con datos y hechos precisos.",
+        "en": "I like working with precise data and facts.",
+        "pt": "Gosto de trabalhar com dados e fatos precisos.",
+        "fr": "J'aime travailler avec des données et des faits précis."
+      }
+    },
+    {
+      "id": 5,
+      "dimension": "D",
+      "text": {
+        "es": "Soy alguien que asume el control en situaciones difíciles.",
+        "en": "I am someone who takes charge in difficult situations.",
+        "pt": "Sou alguém que assume o controle em situações difíceis.",
+        "fr": "Je suis quelqu'un qui prend le contrôle dans les situations difficiles."
+      }
+    },
+    {
+      "id": 6,
+      "dimension": "I",
+      "text": {
+        "es": "Soy una persona que contagia entusiasmo a los demás.",
+        "en": "I am a person who inspires enthusiasm in others.",
+        "pt": "Sou uma pessoa que espalha entusiasmo aos outros.",
+        "fr": "Je suis une personne qui transmet son enthousiasme aux autres."
+      }
+    },
+    {
+      "id": 7,
+      "dimension": "S",
+      "text": {
+        "es": "Soy una persona que escucha antes de hablar.",
+        "en": "I am a person who listens before speaking.",
+        "pt": "Sou uma pessoa que ouve antes de falar.",
+        "fr": "Je suis une personne qui écoute avant de parler."
+      }
+    },
+    {
+      "id": 8,
+      "dimension": "C",
+      "text": {
+        "es": "Soy una persona que verifica todo dos veces.",
+        "en": "I am a person who double-checks everything.",
+        "pt": "Sou uma pessoa que verifica tudo.",
+        "fr": "Je suis une personne qui vérifie tout."
+      }
+    },
+    {
+      "id": 9,
+      "dimension": "D",
+      "text": {
+        "es": "Me gusta que las cosas se hagan a mi manera.",
+        "en": "I like things done my way.",
+        "pt": "Gosto que as coisas sejam feitas do meu jeito.",
+        "fr": "J'aime que les choses soient faites à ma manière."
+      }
+    },
+    {
+      "id": 10,
+      "dimension": "I",
+      "text": {
+        "es": "Me gusta ser el centro de atención.",
+        "en": "I like being the center of attention.",
+        "pt": "Gosto de ser o centro das atenções.",
+        "fr": "Me gusta ser el centro de atención."
+      }
+    },
+    {
+      "id": 11,
+      "dimension": "S",
+      "text": {
+        "es": "Soy una persona que mantiene la calma bajo presión.",
+        "en": "I am a person who stays calm under pressure.",
+        "pt": "Sou uma pessoa que mantém a calma sob pressão.",
+        "fr": "Je suis une personne qui reste calme sous la pression."
+      }
+    },
+    {
+      "id": 12,
+      "dimension": "C",
+      "text": {
+        "es": "Soy una persona que sigue procedimientos estrictamente.",
+        "en": "I am a person who strictly follows procedures.",
+        "pt": "Sou uma pessoa que segue rigorosamente os procedimentos.",
+        "fr": "Je suis une personne qui suit strictement les procédures."
+      }
+    },
+    {
+      "id": 13,
+      "dimension": "D",
+      "text": {
+        "es": "Me gusta resolver problemas de forma directa.",
+        "en": "I like solving problems directly.",
+        "pt": "Gosto de resolver problemas diretamente.",
+        "fr": "J'aime résoudre les problèmes directement."
+      }
+    },
+    {
+      "id": 14,
+      "dimension": "I",
+      "text": {
+        "es": "Soy una persona que construye relaciones fácilmente.",
+        "en": "I am a person who builds relationships easily.",
+        "pt": "Sou uma pessoa que constrói relacionamentos com facilidade.",
+        "fr": "Je suis une personne qui construit facilement des relations."
+      }
+    },
+    {
+      "id": 15,
+      "dimension": "S",
+      "text": {
+        "es": "Soy una persona que es leal y comprometida.",
+        "en": "I am a loyal and committed person.",
+        "pt": "Sou uma pessoa leal e comprometida.",
+        "fr": "Je suis une personne fidèle et engagée."
+      }
+    },
+    {
+      "id": 16,
+      "dimension": "C",
+      "text": {
+        "es": "Soy una persona que busca la precisión en todo.",
+        "en": "I am a person who seeks precision in everything.",
+        "pt": "Sou uma pessoa que busca precisão em tudo.",
+        "fr": "Je suis une personne qui recherche la précision en tout."
+      }
+    },
+    {
+      "id": 17,
+      "dimension": "D",
+      "text": {
+        "es": "No me gusta perder el tiempo con detalles menores.",
+        "en": "I don't like wasting time on minor details.",
+        "pt": "Não gosto de perder tempo com pequenos detalhes.",
+        "fr": "Je n'aime pas perdre de temps sur des détails mineurs."
+      }
+    },
+    {
+      "id": 18,
+      "dimension": "I",
+      "text": {
+        "es": "Soy una persona que comunica de forma expresiva.",
+        "en": "I am an expressive communicator.",
+        "pt": "Sou uma pessoa que se comunica de forma expressiva.",
+        "fr": "Je suis une personne qui communique de manière expressive."
+      }
+    },
+    {
+      "id": 19,
+      "dimension": "S",
+      "text": {
+        "es": "Soy una persona que prefiere el trabajo en equipo.",
+        "en": "I am a person who prefers teamwork.",
+        "pt": "Sou uma pessoa que prefere o trabalho em equipe.",
+        "fr": "Je suis une personne qui préfère le travail en équipe."
+      }
+    },
+    {
+      "id": 20,
+      "dimension": "C",
+      "text": {
+        "es": "Soy una persona que analiza antes de decidir.",
+        "en": "I am a person who analyzes before deciding.",
+        "pt": "Sou uma pessoa que analisa antes de decidir.",
+        "fr": "Je suis une personne qui analyse avant de décider."
+      }
+    },
+    {
+      "id": 21,
+      "dimension": "D",
+      "text": {
+        "es": "Soy alguien que establece metas ambiciosas.",
+        "en": "I am someone who sets ambitious goals.",
+        "pt": "Sou alguém que estabelece metas ambiciosas.",
+        "fr": "Je suis quelqu'un qui se fixe des objectifs ambitieux."
+      }
+    },
+    {
+      "id": 22,
+      "dimension": "I",
+      "text": {
+        "es": "Soy alguien que disfruta de las actividades sociales.",
+        "en": "I am someone who enjoys social activities.",
+        "pt": "Sou alguém que gosta de atividades sociais.",
+        "fr": "Je suis quelqu'un qui aime les activités sociales."
+      }
+    },
+    {
+      "id": 23,
+      "dimension": "S",
+      "text": {
+        "es": "Soy alguien que evita los cambios bruscos.",
+        "en": "I am someone who avoids abrupt changes.",
+        "pt": "Sou alguém que evita mudanças repentinas.",
+        "fr": "Je suis quelqu'un qui évite les changements brusques."
+      }
+    },
+    {
+      "id": 24,
+      "dimension": "C",
+      "text": {
+        "es": "Soy alguien que valora la calidad sobre la cantidad.",
+        "en": "I am someone who values quality over quantity.",
+        "pt": "Sou alguém que valoriza a qualidade em vez da quantidade.",
+        "fr": "Je suis quelqu'un qui privilégie la qualité à la quantité."
+      }
+    },
+    {
+      "id": 25,
+      "dimension": "D",
+      "text": {
+        "es": "Soy una persona que no tiene miedo de confrontar problemas.",
+        "en": "I am a person who isn't afraid to confront problems.",
+        "pt": "Sou uma pessoa que não tem medo de enfrentar problemas.",
+        "fr": "Je suis une personne qui n'a pas peur d'affronter les problèmes."
+      }
+    },
+    {
+      "id": 26,
+      "dimension": "I",
+      "text": {
+        "es": "Soy una persona que motiva a los demás con optimismo.",
+        "en": "I am a person who motivates others with optimism.",
+        "pt": "Sou uma pessoa que motiva os outros com otimismo.",
+        "fr": "Je suis une personne qui motive les autres avec optimisme."
+      }
+    },
+    {
+      "id": 27,
+      "dimension": "S",
+      "text": {
+        "es": "Soy una persona que busca crear un ambiente armónico.",
+        "en": "I am a person who seeks to create a harmonious environment.",
+        "pt": "Sou uma pessoa que busca criar um ambiente harmonioso.",
+        "fr": "Je suis une personne qui cherche à créer un environnement harmonieux."
+      }
+    },
+    {
+      "id": 28,
+      "dimension": "C",
+      "text": {
+        "es": "Soy una persona que documenta todo cuidadosamente.",
+        "en": "I am a person who documents everything carefully.",
+        "pt": "Sou uma pessoa que documenta tudo com cuidado.",
+        "fr": "Je suis une personne qui documente tout avec soin."
+      }
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": "a",
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción A.",
+        "en": "For this question, select option A.",
+        "pt": "Para esta questão, selecione a opção A.",
+        "fr": "Pour cette question, sélectionnez l'option A."
+      }
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": "b",
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción B.",
+        "en": "For this question, select option B.",
+        "pt": "Para esta pergunta, selecione a opção B.",
+        "fr": "Pour cette question, sélectionnez l'option B."
+      }
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered.",
+        "pt": "Deixe esta pergunta sem resposta.",
+        "fr": "Laissez cette question sans réponse."
+      }
+    }
+  ],
+  "instructions": {
+    "es": "Elegí la opción que mejor describe tu comportamiento típico. Son 28 preguntas con 4 opciones cada una (D/I/S/C). Respondé según cómo sos realmente, no cómo te gustaría ser. ~8 minutos.",
+    "en": "Choose the option that best describes your typical behavior. 28 questions with 4 options each (D/I/S/C). Answer based on who you really are, not who you'd like to be. ~8 minutes.",
+    "pt": "Escolha a opção que melhor descreve seu comportamento típico. São 28 questões com 4 opções cada (D/I/S/C). Responda de acordo com como você realmente é, e não como gostaria de ser. ~8 minutos.",
+    "fr": "Choisissez l'option qui décrit le mieux votre comportement typique. Il y a 28 questions avec 4 options chacune (D/I/S/C). Répondez en fonction de ce que vous êtes réellement, et non de ce que vous aimeriez être. ~8 minutes."
+  },
+  "consent": {
+    "es": "Al completar este test aceptás que se generará tu perfil DISC (estilo primario y secundario). Test educativo para desarrollo personal y profesional.",
+    "en": "By completing this test you agree to receive your DISC profile (primary and secondary style). Educational test for personal and professional development.",
+    "pt": "Ao concluir este teste você concorda que seu perfil DISC (estilo primário e secundário) será gerado. Teste educacional para desenvolvimento pessoal e profissional.",
+    "fr": "En complétant ce test, vous acceptez que votre profil DISC (style primaire et secondaire) soit généré. Test pédagogique pour le développement personnel et professionnel."
+  },
+  "scientific_basis": {
+    "es": "Basado en la teoría de William Moulton Marston (1928). El modelo DISC clasifica el comportamiento en 4 dimensiones: Dominancia, Influencia, Estabilidad y Conciencia.",
+    "en": "Based on William Moulton Marston's theory (1928). The DISC model classifies behavior in 4 dimensions: Dominance, Influence, Steadiness, and Conscientiousness.",
+    "pt": "Baseado na teoria de William Moulton Marston (1928). O modelo DISC classifica o comportamento em 4 dimensões: Domínio, Influência, Estabilidade e Conscienciosidade.",
+    "fr": "Basé sur la théorie de William Moulton Marston (1928). Le modèle DISC classe le comportement en 4 dimensions : Dominance, Influence, Stabilité et Conscience."
+  },
+  "estimated_minutes": 8,
+  "test_mode": "questions"
+}

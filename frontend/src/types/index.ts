@@ -36,11 +36,17 @@ export interface TestData {
   traits?: Record<string, { es: string; en: string; description: { es: string; en: string } }>
 }
 
+export interface ValidityInfo {
+  valid: boolean
+  warnings: string[]
+}
+
 export interface BigFiveResult {
   scores: Record<string, number>
   facets: Record<string, number>
   profile_summary: string
   percentiles: Record<string, number>
+  validity?: ValidityInfo
 }
 
 export interface MBTIResult {
@@ -48,6 +54,7 @@ export interface MBTIResult {
   scores: Record<string, number>
   percentages: Record<string, number>
   profile_summary: string
+  validity?: ValidityInfo
 }
 
 export interface EnneagramResult {
@@ -55,6 +62,7 @@ export interface EnneagramResult {
   wing: number
   scores: Record<string, number>
   profile_summary: string
+  validity?: ValidityInfo
 }
 
 export interface DISCResult {
@@ -62,6 +70,7 @@ export interface DISCResult {
   secondary_style: string
   scores: Record<string, number>
   profile_summary: string
+  validity?: ValidityInfo
 }
 
 export interface DarkTriadResult {
@@ -69,6 +78,7 @@ export interface DarkTriadResult {
   dark_core: number
   risk_level: 'minimal' | 'low' | 'moderate' | 'high'
   profile_summary: string
+  validity?: ValidityInfo
 }
 
 export interface HumanDesignResult {
@@ -83,6 +93,7 @@ export interface HumanDesignResult {
   personality_gates: number[]
   design_gates: number[]
   summary: string
+  validity?: ValidityInfo
 }
 
 export interface HumanDesignFormData {
@@ -90,4 +101,49 @@ export interface HumanDesignFormData {
   birth_time: string
   birth_location: string
   language: string
+}
+
+export interface TestMetadata {
+  instructions: string
+  consent: string
+  scientific_basis: string
+}
+
+export interface FactorInterpretation {
+  level: 'low' | 'moderate' | 'high'
+  daily_life: string
+  work: string
+  relationships: string
+}
+
+export interface Recommendations {
+  growth_areas: string[]
+  career_recommendations: string[]
+}
+
+export interface AccountInfo {
+  account_id: string
+  email: string
+}
+
+export interface SavedResult {
+  result_id: string
+  test_type: string
+  created_at: string
+}
+
+export interface CompareResult {
+  compatibility: number
+  details: Record<string, { score_a: number; score_b: number; difference: number; compatible: boolean }>
+  summary: string
+}
+
+export interface EvolutionData {
+  points: EvolutionPoint[]
+  dimensions: string[]
+}
+
+export interface EvolutionPoint {
+  date: string
+  scores: Record<string, number>
 }

@@ -1,0 +1,12 @@
+backend/target/
+backend/app/data/
+backend/data/
+*.pyc
+__pycache__/
+.env
+flutter_app/build/
+flutter_app/.dart_tool/
+flutter_app/.packages
+flutter_app/pubspec.lock
+frontend/node_modules/
+frontend/dist/

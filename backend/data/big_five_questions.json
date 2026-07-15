@@ -1,0 +1,1660 @@
+{
+  "test_type": "big_five",
+  "name": {
+    "es": "Big Five / OCEAN — IPIP-NEO-120",
+    "en": "Big Five / OCEAN — IPIP-NEO-120",
+    "pt": "Cinco Grandes / OCEANO — IPIP-NEO-120",
+    "fr": "Big Five / OCÉAN — IPIP-NEO-120"
+  },
+  "description": {
+    "es": "Basado en el Inventario de Personalidad deip (IPIP-NEO-120). Mide los Cinco Grandes Rasgos de personalidad con 120 ítems, 12 por factor.",
+    "en": "Based on the International Personality Item Pool (IPIP-NEO-120). Measures the Big Five personality traits with 120 items, 12 per factor.",
+    "pt": "Baseado no Inventário de Personalidade deip (IPIP-NEO-120). Mede os cinco grandes traços de personalidade com 120 itens, 12 por fator.",
+    "fr": "Basé sur l'inventaire de personnalité deip (IPIP-NEO-120). Il mesure les traits de personnalité des Big Five avec 120 éléments, 12 par facteur."
+  },
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "labels": {
+      "es": [
+        "Muy Inexacto",
+        "Algo Inexacto",
+        "Neutro",
+        "Algo Exacto",
+        "Muy Exacto"
+      ],
+      "en": [
+        "Very Inaccurate",
+        "Slightly Inaccurate",
+        "Neutral",
+        "Slightly Accurate",
+        "Very Accurate"
+      ]
+    }
+  },
+  "factors": {
+    "O": {
+      "es": "Apertura a la Experiencia",
+      "en": "Openness to Experience",
+      "pt": "Abertura à Experiência",
+      "fr": "Ouverture à l'expérience"
+    },
+    "C": {
+      "es": "Responsabilidad/Consciencia",
+      "en": "Conscientiousness",
+      "pt": "Responsabilidade/Consciência",
+      "fr": "Responsabilité/Conscience"
+    },
+    "E": {
+      "es": "Extraversión",
+      "en": "Extraversion",
+      "pt": "Extroversão",
+      "fr": "Extraversion"
+    },
+    "A": {
+      "es": "Amabilidad",
+      "en": "Agreeableness",
+      "pt": "Gentileza",
+      "fr": "Gentillesse"
+    },
+    "N": {
+      "es": "Neuroticismo",
+      "en": "Neuroticism",
+      "pt": "Neuroticismo",
+      "fr": "Névrosisme"
+    }
+  },
+  "facets": {
+    "O1": {
+      "es": "Fantasía",
+      "en": "Fantasy",
+      "factor": "O",
+      "pt": "Chique",
+      "fr": "Fantaisie"
+    },
+    "O2": {
+      "es": "Estética",
+      "en": "Aesthetics",
+      "factor": "O",
+      "pt": "Estética",
+      "fr": "Esthétique"
+    },
+    "O3": {
+      "es": "Sentimientos",
+      "en": "Feelings",
+      "factor": "O",
+      "pt": "Sentimentos",
+      "fr": "Sentiments"
+    },
+    "O4": {
+      "es": "Acciones",
+      "en": "Actions",
+      "factor": "O",
+      "pt": "Ações",
+      "fr": "Actes"
+    },
+    "O5": {
+      "es": "Ideas",
+      "en": "Ideas",
+      "factor": "O",
+      "pt": "Ideias",
+      "fr": "Idées"
+    },
+    "O6": {
+      "es": "Valores",
+      "en": "Values",
+      "factor": "O",
+      "pt": "Valores",
+      "fr": "Valeurs"
+    },
+    "C1": {
+      "es": "Competencia",
+      "en": "Competence",
+      "factor": "C",
+      "pt": "Competência",
+      "fr": "Compétence"
+    },
+    "C2": {
+      "es": "Orden",
+      "en": "Order",
+      "factor": "C",
+      "pt": "Ordem",
+      "fr": "Commande"
+    },
+    "C3": {
+      "es": "Deber",
+      "en": "Dutifulness",
+      "factor": "C",
+      "pt": "Obrigação",
+      "fr": "Devoir"
+    },
+    "C4": {
+      "es": "Logro",
+      "en": "Achievement",
+      "factor": "C",
+      "pt": "Conquista",
+      "fr": "Réalisation"
+    },
+    "C5": {
+      "es": "Autodisciplina",
+      "en": "Self-Discipline",
+      "factor": "C",
+      "pt": "Autodisciplina",
+      "fr": "Autodiscipline"
+    },
+    "C6": {
+      "es": "Deliberación",
+      "en": "Deliberation",
+      "factor": "C",
+      "pt": "Deliberação",
+      "fr": "Délibération"
+    },
+    "E1": {
+      "es": "Cordialidad",
+      "en": "Warmth",
+      "factor": "E",
+      "pt": "Cordialidade",
+      "fr": "Cordialité"
+    },
+    "E2": {
+      "es": "Sociabilidad",
+      "en": "Gregariousness",
+      "factor": "E",
+      "pt": "Sociabilidade",
+      "fr": "Sociabilité"
+    },
+    "E3": {
+      "es": "Asertividad",
+      "en": "Assertiveness",
+      "factor": "E",
+      "pt": "Assertividade",
+      "fr": "Assurance"
+    },
+    "E4": {
+      "es": "Actividad",
+      "en": "Activity",
+      "factor": "E",
+      "pt": "Atividade",
+      "fr": "Activité"
+    },
+    "E5": {
+      "es": "Emoción",
+      "en": "Excitement-Seeking",
+      "factor": "E",
+      "pt": "Emoção",
+      "fr": "Émotion"
+    },
+    "E6": {
+      "es": "Alegría",
+      "en": "Positive Emotions",
+      "factor": "E",
+      "pt": "Felicidade",
+      "fr": "Bonheur"
+    },
+    "A1": {
+      "es": "Confianza",
+      "en": "Trust",
+      "factor": "A",
+      "pt": "Confiar",
+      "fr": "Confiance"
+    },
+    "A2": {
+      "es": "Franqueza",
+      "en": "Straightforwardness",
+      "factor": "A",
+      "pt": "Franqueza",
+      "fr": "Franchise"
+    },
+    "A3": {
+      "es": "Altruismo",
+      "en": "Altruism",
+      "factor": "A",
+      "pt": "Altruísmo",
+      "fr": "Altruisme"
+    },
+    "A4": {
+      "es": "Cooperación",
+      "en": "Compliance",
+      "factor": "A",
+      "pt": "Cooperação",
+      "fr": "Coopération"
+    },
+    "A5": {
+      "es": "Modestia",
+      "en": "Modesty",
+      "factor": "A",
+      "pt": "Modéstia",
+      "fr": "Modestie"
+    },
+    "A6": {
+      "es": "Ternura",
+      "en": "Tender-Mindedness",
+      "factor": "A",
+      "pt": "Ternura",
+      "fr": "Tendresse"
+    },
+    "N1": {
+      "es": "Ansiedad",
+      "en": "Anxiety",
+      "factor": "N",
+      "pt": "Ansiedade",
+      "fr": "Anxiété"
+    },
+    "N2": {
+      "es": "Enfado",
+      "en": "Angry Hostility",
+      "factor": "N",
+      "pt": "Raiva",
+      "fr": "Colère"
+    },
+    "N3": {
+      "es": "Depresión",
+      "en": "Depression",
+      "factor": "N",
+      "pt": "Depressão",
+      "fr": "Dépression"
+    },
+    "N4": {
+      "es": "Vergüenza",
+      "en": "Self-Consciousness",
+      "factor": "N",
+      "pt": "Vergonha",
+      "fr": "Honte"
+    },
+    "N5": {
+      "es": "Impulsividad",
+      "en": "Impulsiveness",
+      "factor": "N",
+      "pt": "Impulsividade",
+      "fr": "Impulsivité"
+    },
+    "N6": {
+      "es": "Vulnerabilidad",
+      "en": "Vulnerability",
+      "factor": "N",
+      "pt": "Vulnerabilidade",
+      "fr": "Vulnérabilité"
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "text": {
+        "es": "Soy metódico y completo al trabajar.",
+        "en": "I am methodical and thorough in my work.",
+        "pt": "Sou metódico e completo no trabalho.",
+        "fr": "Je suis méthodique et complet dans mon travail."
+      },
+      "facet": "C1",
+      "reverse": false
+    },
+    {
+      "id": 2,
+      "text": {
+        "es": "Siento una amplia gama de emociones.",
+        "en": "I experience a wide range of emotions.",
+        "pt": "Sinto uma grande variedade de emoções.",
+        "fr": "Je ressens une large gamme d'émotions."
+      },
+      "facet": "O3",
+      "reverse": false
+    },
+    {
+      "id": 3,
+      "text": {
+        "es": "Me resulta fácil mantenermany conversaciones con diferentes personas.",
+        "en": "I find it easy to keep up conversations with different people.",
+        "pt": "Acho fácil ter muitas conversas com pessoas diferentes.",
+        "fr": "Je trouve facile d'avoir de nombreuses conversations avec différentes personnes."
+      },
+      "facet": "E1",
+      "reverse": false
+    },
+    {
+      "id": 4,
+      "text": {
+        "es": "No me preocupo mucho por la limpieza de mi hogar u oficina.",
+        "en": "I don't worry much about the cleanliness of my home or office.",
+        "pt": "Não me preocupo muito com a limpeza da minha casa ou escritório.",
+        "fr": "Je ne me soucie pas beaucoup de la propreté de ma maison ou de mon bureau."
+      },
+      "facet": "C2",
+      "reverse": true
+    },
+    {
+      "id": 5,
+      "text": {
+        "es": "Soy optimista acerca del futuro.",
+        "en": "I am optimistic about the future.",
+        "pt": "Estou otimista quanto ao futuro.",
+        "fr": "Je suis optimiste quant à l'avenir."
+      },
+      "facet": "N6",
+      "reverse": true
+    },
+    {
+      "id": 6,
+      "text": {
+        "es": "Disfruto de discutir ideas y teorías.",
+        "en": "I enjoy discussing ideas and theories.",
+        "pt": "Gosto de discutir ideias e teorias.",
+        "fr": "J'aime discuter d'idées et de théories."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 7,
+      "text": {
+        "es": "Me siento cómodo acercándome a personas de autoridad.",
+        "en": "I feel comfortable approaching people in authority.",
+        "pt": "Sinto-me confortável em abordar pessoas com autoridade.",
+        "fr": "Je me sens à l’aise avec les personnes ayant autorité."
+      },
+      "facet": "E3",
+      "reverse": false
+    },
+    {
+      "id": 8,
+      "text": {
+        "es": "Soy una persona cooperativa y fácil de tratar.",
+        "en": "I am a cooperative person and easy to deal with.",
+        "pt": "Sou uma pessoa cooperativa e tranquila.",
+        "fr": "Je suis une personne coopérative et facile à vivre."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 9,
+      "text": {
+        "es": "Me asusto fácilmente ante situaciones estresantes.",
+        "en": "I get easily frightened in stressful situations.",
+        "pt": "Fico assustado facilmente em situações estressantes.",
+        "fr": "J'ai facilement peur dans des situations stressantes."
+      },
+      "facet": "N6",
+      "reverse": false
+    },
+    {
+      "id": 10,
+      "text": {
+        "es": "Tiendo a ser escéptico de las intenciones de otros.",
+        "en": "I tend to be skeptical of others' intentions.",
+        "pt": "Tenho tendência a ser cético em relação às intenções dos outros.",
+        "fr": "J'ai tendance à être sceptique quant aux intentions des autres."
+      },
+      "facet": "A1",
+      "reverse": true
+    },
+    {
+      "id": 11,
+      "text": {
+        "es": "Me gusta el orden y la regularidad.",
+        "en": "I like order and regularity.",
+        "pt": "Gosto de ordem e regularidade.",
+        "fr": "J'aime l'ordre et la régularité."
+      },
+      "facet": "C2",
+      "reverse": false
+    },
+    {
+      "id": 12,
+      "text": {
+        "es": "Tiendo a ser callado y reservado con la gente.",
+        "en": "I tend to be quiet and reserved with people.",
+        "pt": "Tenho tendência a ser quieto e reservado com as pessoas.",
+        "fr": "J'ai tendance à être calme et réservé avec les gens."
+      },
+      "facet": "E1",
+      "reverse": true
+    },
+    {
+      "id": 13,
+      "text": {
+        "es": "Siento curiosidad por muchos cosas diferentes.",
+        "en": "I feel curious about many different things.",
+        "pt": "Estou curioso sobre muitas coisas diferentes.",
+        "fr": "Je suis curieux de beaucoup de choses différentes."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 14,
+      "text": {
+        "es": "Soy una persona que se preocupa por los demás.",
+        "en": "I am a person who cares about others.",
+        "pt": "Sou uma pessoa que se preocupa com os outros.",
+        "fr": "Je suis une personne qui se soucie des autres."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 15,
+      "text": {
+        "es": "Tiendo a sentirme culpable cuando algo sale mal.",
+        "en": "I tend to feel guilty when something goes wrong.",
+        "pt": "Tenho tendência a me sentir culpado quando algo dá errado.",
+        "fr": "J'ai tendance à me sentir coupable quand quelque chose ne va pas."
+      },
+      "facet": "N4",
+      "reverse": false
+    },
+    {
+      "id": 16,
+      "text": {
+        "es": "Prefiero hacer las cosas con otros que solo.",
+        "en": "I prefer to do things with others rather than alone.",
+        "pt": "Prefiro fazer coisas com outras pessoas do que sozinho.",
+        "fr": "Je préfère faire les choses avec les autres que seul."
+      },
+      "facet": "E2",
+      "reverse": false
+    },
+    {
+      "id": 17,
+      "text": {
+        "es": "Me interesa el arte y la belleza natural.",
+        "en": "I am interested in art and natural beauty.",
+        "pt": "Estou interessado em arte e beleza natural.",
+        "fr": "Je m'intéresse à l'art et à la beauté naturelle."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 18,
+      "text": {
+        "es": "Soy una persona eficiente y productiva.",
+        "en": "I am an efficient and productive person.",
+        "pt": "Sou uma pessoa eficiente e produtiva.",
+        "fr": "Je suis une personne efficace et productive."
+      },
+      "facet": "C4",
+      "reverse": false
+    },
+    {
+      "id": 19,
+      "text": {
+        "es": "Tiendo a ser modesto y no presumir.",
+        "en": "I tend to be modest and not boastful.",
+        "pt": "Costumo ser modesto e não me gabar.",
+        "fr": "J'ai tendance à être modeste et à ne pas me vanter."
+      },
+      "facet": "A5",
+      "reverse": false
+    },
+    {
+      "id": 20,
+      "text": {
+        "es": "Tengo altos estándares de calidad.",
+        "en": "I have high standards of quality.",
+        "pt": "Tenho altos padrões de qualidade.",
+        "fr": "J'ai des normes de qualité élevées."
+      },
+      "facet": "C1",
+      "reverse": false
+    },
+    {
+      "id": 21,
+      "text": {
+        "es": "A menudo me siento triste y deprimido.",
+        "en": "I often feel sad and depressed.",
+        "pt": "Muitas vezes me sinto triste e deprimido.",
+        "fr": "Je me sens souvent triste et déprimé."
+      },
+      "facet": "N3",
+      "reverse": false
+    },
+    {
+      "id": 22,
+      "text": {
+        "es": "Me gustan las experiencias novedosas e inusuales.",
+        "en": "I enjoy novel and unusual experiences.",
+        "pt": "Gosto de experiências novas e inusitadas.",
+        "fr": "J'aime les expériences nouvelles et insolites."
+      },
+      "facet": "O4",
+      "reverse": false
+    },
+    {
+      "id": 23,
+      "text": {
+        "es": "Soy una persona enérgica y activa.",
+        "en": "I am an energetic and active person.",
+        "pt": "Sou uma pessoa enérgica e ativa.",
+        "fr": "Je suis une personne énergique et active."
+      },
+      "facet": "E4",
+      "reverse": false
+    },
+    {
+      "id": 24,
+      "text": {
+        "es": "Soy amable y compasivo con los demás.",
+        "en": "I am kind and compassionate to others.",
+        "pt": "Sou gentil e compassivo com os outros.",
+        "fr": "Je suis gentil et compatissant envers les autres."
+      },
+      "facet": "A6",
+      "reverse": false
+    },
+    {
+      "id": 25,
+      "text": {
+        "es": "Tiendo a preocuparme por cosas que podrían salir mal.",
+        "en": "I tend to worry about things that might go wrong.",
+        "pt": "Tenho tendência a me preocupar com coisas que podem dar errado.",
+        "fr": "J'ai tendance à m'inquiéter des choses qui pourraient mal tourner."
+      },
+      "facet": "N1",
+      "reverse": false
+    },
+    {
+      "id": 26,
+      "text": {
+        "es": "Tengo una imaginación vívida.",
+        "en": "I have a vivid imagination.",
+        "pt": "Eu tenho uma imaginação fértil.",
+        "fr": "J'ai une imagination débordante."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 27,
+      "text": {
+        "es": "Soy una persona que toma el control y lidera.",
+        "en": "I am a person who takes charge and leads.",
+        "pt": "Sou uma pessoa que assume o controle e lidera.",
+        "fr": "Je suis une personne qui prend le contrôle et dirige."
+      },
+      "facet": "E3",
+      "reverse": false
+    },
+    {
+      "id": 28,
+      "text": {
+        "es": "Me gusta ayudar y ser útil a otros.",
+        "en": "I like to help and be useful to others.",
+        "pt": "Gosto de ajudar e ser útil aos outros.",
+        "fr": "J'aime aider et être utile aux autres."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 29,
+      "text": {
+        "es": "Soy una persona estructurada y organizada.",
+        "en": "I am a structured and organized person.",
+        "pt": "Sou uma pessoa estruturada e organizada.",
+        "fr": "Je suis une personne structurée et organisée."
+      },
+      "facet": "C2",
+      "reverse": false
+    },
+    {
+      "id": 30,
+      "text": {
+        "es": "Tiendo a ser irritable y de mal humor.",
+        "en": "I tend to be irritable and in a bad mood.",
+        "pt": "Tenho tendência a ser irritável e mal-humorado.",
+        "fr": "J'ai tendance à être irritable et maussade."
+      },
+      "facet": "N2",
+      "reverse": false
+    },
+    {
+      "id": 31,
+      "text": {
+        "es": "Me aburren rápidamente las rutinas.",
+        "en": "I get bored quickly with routines.",
+        "pt": "Fico entediado com as rotinas rapidamente.",
+        "fr": "Je m'ennuie vite des routines."
+      },
+      "facet": "O4",
+      "reverse": false
+    },
+    {
+      "id": 32,
+      "text": {
+        "es": "Soy una persona alegre y entusiasta.",
+        "en": "I am a cheerful and enthusiastic person.",
+        "pt": "Sou uma pessoa feliz e entusiasmada.",
+        "fr": "Je suis une personne heureuse et enthousiaste."
+      },
+      "facet": "E6",
+      "reverse": false
+    },
+    {
+      "id": 33,
+      "text": {
+        "es": "Tiendo a ser directo y honesto con los demás.",
+        "en": "I tend to be straightforward and honest with others.",
+        "pt": "Tenho tendência a ser direto e honesto com os outros.",
+        "fr": "J'ai tendance à être direct et honnête avec les autres."
+      },
+      "facet": "A2",
+      "reverse": false
+    },
+    {
+      "id": 34,
+      "text": {
+        "es": "Soy una persona que se aburre fácilmente.",
+        "en": "I am a person who gets bored easily.",
+        "pt": "Sou uma pessoa que fica entediada facilmente.",
+        "fr": "Je suis une personne qui s'ennuie facilement."
+      },
+      "facet": "E5",
+      "reverse": false
+    },
+    {
+      "id": 35,
+      "text": {
+        "es": "Me cuesta empezar tareas nuevas.",
+        "en": "I find it hard to start new tasks.",
+        "pt": "Acho difícil iniciar novas tarefas.",
+        "fr": "J'ai du mal à démarrer de nouvelles tâches."
+      },
+      "facet": "C5",
+      "reverse": true
+    },
+    {
+      "id": 36,
+      "text": {
+        "es": "Me interesa la filosofía y cuestiones fundamentales.",
+        "en": "I am interested in philosophy and fundamental questions.",
+        "pt": "Estou interessado em filosofia e questões fundamentais.",
+        "fr": "Je m'intéresse à la philosophie et aux questions fondamentales."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 37,
+      "text": {
+        "es": "Soy una persona que se relaja fácilmente.",
+        "en": "I am a person who relaxes easily.",
+        "pt": "Sou uma pessoa que relaxa facilmente.",
+        "fr": "Je suis une personne qui se détend facilement."
+      },
+      "facet": "N1",
+      "reverse": true
+    },
+    {
+      "id": 38,
+      "text": {
+        "es": "Soy una persona que se involucra socialmente.",
+        "en": "I am a socially involved person.",
+        "pt": "Sou uma pessoa socialmente envolvida.",
+        "fr": "Je suis une personne impliquée socialement."
+      },
+      "facet": "E2",
+      "reverse": false
+    },
+    {
+      "id": 39,
+      "text": {
+        "es": "Soy una persona que sigue las reglas.",
+        "en": "I am a person who follows rules.",
+        "pt": "Sou uma pessoa que segue as regras.",
+        "fr": "Je suis une personne qui respecte les règles."
+      },
+      "facet": "C3",
+      "reverse": false
+    },
+    {
+      "id": 40,
+      "text": {
+        "es": "Tiendo a ser comprensivo y tolerante.",
+        "en": "I tend to be understanding and tolerant.",
+        "pt": "Tenho tendência a ser compreensivo e tolerante.",
+        "fr": "J'ai tendance à être compréhensif et tolérant."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 41,
+      "text": {
+        "es": "Tengo dificultad para mantener el orden.",
+        "en": "I have difficulty maintaining order.",
+        "pt": "Tenho dificuldade em manter a ordem.",
+        "fr": "J'ai du mal à maintenir l'ordre."
+      },
+      "facet": "C2",
+      "reverse": true
+    },
+    {
+      "id": 42,
+      "text": {
+        "es": "Soy una persona que busca sensaciones intensas.",
+        "en": "I am a person who seeks intense sensations.",
+        "pt": "Sou uma pessoa que busca sensações intensas.",
+        "fr": "Je suis une personne qui recherche des sensations intenses."
+      },
+      "facet": "E5",
+      "reverse": false
+    },
+    {
+      "id": 43,
+      "text": {
+        "es": "Me siento inseguro/a con frecuencia.",
+        "en": "I feel insecure frequently.",
+        "pt": "Muitas vezes me sinto inseguro.",
+        "fr": "Je ne me sens souvent pas en sécurité."
+      },
+      "facet": "N4",
+      "reverse": false
+    },
+    {
+      "id": 44,
+      "text": {
+        "es": "Soy una persona que disfruta de la naturaleza.",
+        "en": "I am a person who enjoys nature.",
+        "pt": "Sou uma pessoa que gosta da natureza.",
+        "fr": "Je suis une personne qui aime la nature."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 45,
+      "text": {
+        "es": "Tiendo a ser autosuficiente.",
+        "en": "I tend to be self-sufficient.",
+        "pt": "Tenho tendência a ser autossuficiente.",
+        "fr": "J'ai tendance à être autonome."
+      },
+      "facet": "E2",
+      "reverse": true
+    },
+    {
+      "id": 46,
+      "text": {
+        "es": "Soy una persona que se preocupa por los detalles.",
+        "en": "I am a person who worries about details.",
+        "pt": "Sou uma pessoa que se preocupa com detalhes.",
+        "fr": "Je suis une personne soucieuse des détails."
+      },
+      "facet": "C6",
+      "reverse": false
+    },
+    {
+      "id": 47,
+      "text": {
+        "es": "Soy una persona que se ríe con facilidad.",
+        "en": "I am a person who laughs easily.",
+        "pt": "Sou uma pessoa que ri com facilidade.",
+        "fr": "Je suis une personne qui rit facilement."
+      },
+      "facet": "E6",
+      "reverse": false
+    },
+    {
+      "id": 48,
+      "text": {
+        "es": "Soy una persona que actúa con rapidez.",
+        "en": "I am a person who acts quickly.",
+        "pt": "Sou uma pessoa que age rapidamente.",
+        "fr": "Je suis une personne qui agit rapidement."
+      },
+      "facet": "C6",
+      "reverse": true
+    },
+    {
+      "id": 49,
+      "text": {
+        "es": "Tiendo a ser amable y generoso.",
+        "en": "I tend to be kind and generous.",
+        "pt": "Costumo ser gentil e generoso.",
+        "fr": "J'ai tendance à être gentil et généreux."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 50,
+      "text": {
+        "es": "Soy una persona que se siente nerviosa.",
+        "en": "I am a person who feels nervous.",
+        "pt": "Sou uma pessoa que se sente nervosa.",
+        "fr": "Je suis une personne qui se sent nerveuse."
+      },
+      "facet": "N1",
+      "reverse": false
+    },
+    {
+      "id": 51,
+      "text": {
+        "es": "Me gusta pensar en problemas difíciles.",
+        "en": "I like to think about difficult problems.",
+        "pt": "Gosto de pensar em problemas difíceis.",
+        "fr": "J'aime réfléchir à des problèmes difficiles."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 52,
+      "text": {
+        "es": "Soy una persona que evita contactos sociales.",
+        "en": "I am a person who avoids social contacts.",
+        "pt": "Sou uma pessoa que evita contactos sociais.",
+        "fr": "Je suis une personne qui évite les contacts sociaux."
+      },
+      "facet": "E2",
+      "reverse": true
+    },
+    {
+      "id": 53,
+      "text": {
+        "es": "Soy una persona que cumple con sus obligaciones.",
+        "en": "I am a person who fulfills obligations.",
+        "pt": "Sou uma pessoa que cumpre suas obrigações.",
+        "fr": "Je suis une personne qui remplit ses obligations."
+      },
+      "facet": "C3",
+      "reverse": false
+    },
+    {
+      "id": 54,
+      "text": {
+        "es": "Tiendo a ser suspicaz y desconfiado.",
+        "en": "I tend to be suspicious and mistrustful.",
+        "pt": "Tenho tendência a ser desconfiado e desconfiado.",
+        "fr": "J'ai tendance à être méfiant et méfiant."
+      },
+      "facet": "A1",
+      "reverse": true
+    },
+    {
+      "id": 55,
+      "text": {
+        "es": "Soy una persona que disfruta de la música.",
+        "en": "I am a person who enjoys music.",
+        "pt": "Sou uma pessoa que gosta de música.",
+        "fr": "Je suis une personne qui aime la musique."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 56,
+      "text": {
+        "es": "Soy una persona que se siente segura de sí misma.",
+        "en": "I am a person who feels self-assured.",
+        "pt": "Sou uma pessoa que se sente confiante em si mesma.",
+        "fr": "Je suis une personne qui a confiance en elle."
+      },
+      "facet": "N4",
+      "reverse": true
+    },
+    {
+      "id": 57,
+      "text": {
+        "es": "Tiendo a ser paciente con los demás.",
+        "en": "I tend to be patient with others.",
+        "pt": "Tenho tendência a ser paciente com os outros.",
+        "fr": "J'ai tendance à être patient avec les autres."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 58,
+      "text": {
+        "es": "Soy una persona que se siente abrumado/a.",
+        "en": "I am a person who feels overwhelmed.",
+        "pt": "Sou uma pessoa que se sente sobrecarregada.",
+        "fr": "Je suis une personne qui se sent dépassée."
+      },
+      "facet": "N6",
+      "reverse": false
+    },
+    {
+      "id": 59,
+      "text": {
+        "es": "Soy una persona que piensa antes de actuar.",
+        "en": "I am a person who thinks before acting.",
+        "pt": "Sou uma pessoa que pensa antes de agir.",
+        "fr": "Je suis une personne qui réfléchit avant d'agir."
+      },
+      "facet": "C6",
+      "reverse": false
+    },
+    {
+      "id": 60,
+      "text": {
+        "es": "Tiendo a expresar mis sentimientos abiertamente.",
+        "en": "I tend to express my feelings openly.",
+        "pt": "Tenho tendência a expressar os meus sentimentos abertamente.",
+        "fr": "J'ai tendance à exprimer ouvertement mes sentiments."
+      },
+      "facet": "O3",
+      "reverse": false
+    },
+    {
+      "id": 61,
+      "text": {
+        "es": "Soy una persona que se mantiene ocupada.",
+        "en": "I am a person who stays busy.",
+        "pt": "Sou uma pessoa que permanece ocupada.",
+        "fr": "Je suis une personne qui reste occupée."
+      },
+      "facet": "E4",
+      "reverse": false
+    },
+    {
+      "id": 62,
+      "text": {
+        "es": "Soy una persona que hace preguntas.",
+        "en": "I am a person who asks questions.",
+        "pt": "Sou uma pessoa que faz perguntas.",
+        "fr": "Je suis une personne qui pose des questions."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 63,
+      "text": {
+        "es": "Soy una persona que es tolerante con las diferencias.",
+        "en": "I am a person who is tolerant of differences.",
+        "pt": "Sou uma pessoa tolerante com as diferenças.",
+        "fr": "Je suis une personne tolérante envers les différences."
+      },
+      "facet": "A1",
+      "reverse": false
+    },
+    {
+      "id": 64,
+      "text": {
+        "es": "Tiendo a ser organizado/a.",
+        "en": "I tend to be organized.",
+        "pt": "Tenho tendência a ser organizado.",
+        "fr": "J'ai tendance à être organisé."
+      },
+      "facet": "C2",
+      "reverse": false
+    },
+    {
+      "id": 65,
+      "text": {
+        "es": "Soy una persona que se siente tranquila.",
+        "en": "I am a person who feels calm.",
+        "pt": "Sou uma pessoa que se sente calma.",
+        "fr": "Je suis une personne calme."
+      },
+      "facet": "N1",
+      "reverse": true
+    },
+    {
+      "id": 66,
+      "text": {
+        "es": "Soy una persona que disfruta de las reuniones sociales.",
+        "en": "I am a person who enjoys social gatherings.",
+        "pt": "Sou uma pessoa que gosta de reuniões sociais.",
+        "fr": "Je suis une personne qui aime les rencontres sociales."
+      },
+      "facet": "E2",
+      "reverse": false
+    },
+    {
+      "id": 67,
+      "text": {
+        "es": "Soy una persona que es considerada con los sentimientos de otros.",
+        "en": "I am a person who is considerate of others' feelings.",
+        "pt": "Sou uma pessoa que leva em consideração os sentimentos dos outros.",
+        "fr": "Je suis une personne attentive aux sentiments des autres."
+      },
+      "facet": "A6",
+      "reverse": false
+    },
+    {
+      "id": 68,
+      "text": {
+        "es": "Soy una persona que tiene buenas habilidades artísticas.",
+        "en": "I am a person who has good artistic skills.",
+        "pt": "Sou uma pessoa que possui boas habilidades artísticas.",
+        "fr": "Je suis une personne qui a de bonnes compétences artistiques."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 69,
+      "text": {
+        "es": "Soy una persona que es exigente consigo misma.",
+        "en": "I am a person who is demanding of myself.",
+        "pt": "Sou uma pessoa exigente consigo mesma.",
+        "fr": "Je suis une personne exigeante envers elle-même."
+      },
+      "facet": "C4",
+      "reverse": false
+    },
+    {
+      "id": 70,
+      "text": {
+        "es": "Soy una persona que se siente agitado/a.",
+        "en": "I am a person who feels restless.",
+        "pt": "Sou uma pessoa que se sente agitada.",
+        "fr": "Je suis une personne agitée."
+      },
+      "facet": "E5",
+      "reverse": false
+    },
+    {
+      "id": 71,
+      "text": {
+        "es": "Soy una persona que prefiere la rutina.",
+        "en": "I am a person who prefers routine.",
+        "pt": "Sou uma pessoa que prefere a rotina.",
+        "fr": "Je suis une personne qui préfère la routine."
+      },
+      "facet": "O4",
+      "reverse": true
+    },
+    {
+      "id": 72,
+      "text": {
+        "es": "Soy una persona que se siente triste con frecuencia.",
+        "en": "I am a person who feels sad frequently.",
+        "pt": "Sou uma pessoa que se sente triste com frequência.",
+        "fr": "Je suis une personne qui se sent souvent triste."
+      },
+      "facet": "N3",
+      "reverse": false
+    },
+    {
+      "id": 73,
+      "text": {
+        "es": "Soy una persona que se interesa por el arte.",
+        "en": "I am a person who is interested in art.",
+        "pt": "Sou uma pessoa interessada em arte.",
+        "fr": "Je suis une personne qui s'intéresse à l'art."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 74,
+      "text": {
+        "es": "Soy una persona que evita el conflicto.",
+        "en": "I am a person who avoids conflict.",
+        "pt": "Sou uma pessoa que evita conflitos.",
+        "fr": "Je suis une personne qui évite les conflits."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 75,
+      "text": {
+        "es": "Soy una persona que se siente inadecuada.",
+        "en": "I am a person who feels inadequate.",
+        "pt": "Sou uma pessoa que se sente inadequada.",
+        "fr": "Je suis une personne qui ne se sent pas à la hauteur."
+      },
+      "facet": "N4",
+      "reverse": false
+    },
+    {
+      "id": 76,
+      "text": {
+        "es": "Soy una persona que es alegre y divertida.",
+        "en": "I am a person who is cheerful and fun.",
+        "pt": "Sou uma pessoa feliz e divertida.",
+        "fr": "Je suis une personne heureuse et amusante."
+      },
+      "facet": "E6",
+      "reverse": false
+    },
+    {
+      "id": 77,
+      "text": {
+        "es": "Soy una persona que es autodisciplinada.",
+        "en": "I am a person who is self-disciplined.",
+        "pt": "Sou uma pessoa autodisciplinada.",
+        "fr": "Je suis une personne autodisciplinée."
+      },
+      "facet": "C5",
+      "reverse": false
+    },
+    {
+      "id": 78,
+      "text": {
+        "es": "Soy una persona que es bondadosa.",
+        "en": "I am a person who is kind-hearted.",
+        "pt": "Eu sou uma pessoa gentil.",
+        "fr": "Je suis une personne gentille."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 79,
+      "text": {
+        "es": "Soy una persona que se siente enojada con facilidad.",
+        "en": "I am a person who gets angry easily.",
+        "pt": "Sou uma pessoa que se irrita facilmente.",
+        "fr": "Je suis une personne qui se met facilement en colère."
+      },
+      "facet": "N2",
+      "reverse": false
+    },
+    {
+      "id": 80,
+      "text": {
+        "es": "Soy una persona que es tímida en situaciones sociales.",
+        "en": "I am a person who is shy in social situations.",
+        "pt": "Sou uma pessoa tímida em situações sociais.",
+        "fr": "Je suis une personne timide dans les situations sociales."
+      },
+      "facet": "E1",
+      "reverse": true
+    },
+    {
+      "id": 81,
+      "text": {
+        "es": "Soy una persona que es creativa.",
+        "en": "I am a person who is creative.",
+        "pt": "Sou uma pessoa criativa.",
+        "fr": "Je suis une personne créative."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 82,
+      "text": {
+        "es": "Soy una persona que es confiable.",
+        "en": "I am a person who is reliable.",
+        "pt": "Sou uma pessoa confiável.",
+        "fr": "Je suis une personne digne de confiance."
+      },
+      "facet": "C3",
+      "reverse": false
+    },
+    {
+      "id": 83,
+      "text": {
+        "es": "Soy una persona que es compasiva.",
+        "en": "I am a person who is compassionate.",
+        "pt": "Eu sou uma pessoa compassiva.",
+        "fr": "Je suis une personne compatissante."
+      },
+      "facet": "A6",
+      "reverse": false
+    },
+    {
+      "id": 84,
+      "text": {
+        "es": "Soy una persona que es relajada.",
+        "en": "I am a person who is relaxed.",
+        "pt": "Sou uma pessoa descontraída.",
+        "fr": "Je suis une personne détendue."
+      },
+      "facet": "N1",
+      "reverse": true
+    },
+    {
+      "id": 85,
+      "text": {
+        "es": "Soy una persona que es aventurera.",
+        "en": "I am a person who is adventurous.",
+        "pt": "Sou uma pessoa aventureira.",
+        "fr": "Je suis une personne aventureuse."
+      },
+      "facet": "O4",
+      "reverse": false
+    },
+    {
+      "id": 86,
+      "text": {
+        "es": "Soy una persona que es analítica.",
+        "en": "I am a person who is analytical.",
+        "pt": "Sou uma pessoa analítica.",
+        "fr": "Je suis une personne analytique."
+      },
+      "facet": "O5",
+      "reverse": false
+    },
+    {
+      "id": 87,
+      "text": {
+        "es": "Soy una persona que es servicial.",
+        "en": "I am a person who is helpful.",
+        "pt": "Eu sou uma pessoa que ajuda.",
+        "fr": "Je suis une personne utile."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 88,
+      "text": {
+        "es": "Soy una persona que es persistente.",
+        "en": "I am a person who is persistent.",
+        "pt": "Sou uma pessoa persistente.",
+        "fr": "Je suis une personne persistante."
+      },
+      "facet": "C4",
+      "reverse": false
+    },
+    {
+      "id": 89,
+      "text": {
+        "es": "Soy una persona que es emotiva.",
+        "en": "I am a person who is emotional.",
+        "pt": "Eu sou uma pessoa emotiva.",
+        "fr": "Je suis une personne émotive."
+      },
+      "facet": "O3",
+      "reverse": false
+    },
+    {
+      "id": 90,
+      "text": {
+        "es": "Soy una persona que es respetuosa.",
+        "en": "I am a person who is respectful.",
+        "pt": "Sou uma pessoa respeitosa.",
+        "fr": "Je suis une personne respectueuse."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 91,
+      "text": {
+        "es": "Soy una persona que es impulsiva.",
+        "en": "I am a person who is impulsive.",
+        "pt": "Sou uma pessoa impulsiva.",
+        "fr": "Je suis une personne impulsive."
+      },
+      "facet": "N5",
+      "reverse": false
+    },
+    {
+      "id": 92,
+      "text": {
+        "es": "Soy una persona que es sociable.",
+        "en": "I am a person who is sociable.",
+        "pt": "Sou uma pessoa sociável.",
+        "fr": "Je suis une personne sociable."
+      },
+      "facet": "E1",
+      "reverse": false
+    },
+    {
+      "id": 93,
+      "text": {
+        "es": "Soy una persona que es imaginativa.",
+        "en": "I am a person who is imaginative.",
+        "pt": "Sou uma pessoa imaginativa.",
+        "fr": "Je suis une personne imaginative."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 94,
+      "text": {
+        "es": "Soy una persona que es diligente.",
+        "en": "I am a person who is diligent.",
+        "pt": "Sou uma pessoa diligente.",
+        "fr": "Je suis une personne assidue."
+      },
+      "facet": "C4",
+      "reverse": false
+    },
+    {
+      "id": 95,
+      "text": {
+        "es": "Soy una persona que es pacífica.",
+        "en": "I am a person who is peaceful.",
+        "pt": "Sou uma pessoa pacífica.",
+        "fr": "Je suis une personne paisible."
+      },
+      "facet": "A4",
+      "reverse": false
+    },
+    {
+      "id": 96,
+      "text": {
+        "es": "Soy una persona que es cautelosa.",
+        "en": "I am a person who is cautious.",
+        "pt": "Sou uma pessoa cautelosa.",
+        "fr": "Je suis une personne prudente."
+      },
+      "facet": "C6",
+      "reverse": false
+    },
+    {
+      "id": 97,
+      "text": {
+        "es": "Soy una persona que es dramática.",
+        "en": "I am a person who is dramatic.",
+        "pt": "Eu sou uma pessoa dramática.",
+        "fr": "Je suis une personne dramatique."
+      },
+      "facet": "E5",
+      "reverse": false
+    },
+    {
+      "id": 98,
+      "text": {
+        "es": "Soy una persona que es practical.",
+        "en": "I am a person who is practical.",
+        "pt": "Sou uma pessoa prática.",
+        "fr": "Je suis une personne pratique."
+      },
+      "facet": "O5",
+      "reverse": true
+    },
+    {
+      "id": 99,
+      "text": {
+        "es": "Soy una persona que es cariñosa.",
+        "en": "I am a person who is affectionate.",
+        "pt": "Sou uma pessoa carinhosa.",
+        "fr": "Je suis une personne affectueuse."
+      },
+      "facet": "E1",
+      "reverse": false
+    },
+    {
+      "id": 100,
+      "text": {
+        "es": "Soy una persona que es perfeccionista.",
+        "en": "I am a person who is a perfectionist.",
+        "pt": "Sou uma pessoa perfeccionista.",
+        "fr": "Je suis une personne perfectionniste."
+      },
+      "facet": "C1",
+      "reverse": false
+    },
+    {
+      "id": 101,
+      "text": {
+        "es": "Soy una persona que es nerviosa.",
+        "en": "I am a person who is nervous.",
+        "pt": "Sou uma pessoa nervosa.",
+        "fr": "Je suis une personne nerveuse."
+      },
+      "facet": "N1",
+      "reverse": false
+    },
+    {
+      "id": 102,
+      "text": {
+        "es": "Soy una persona que es observadora.",
+        "en": "I am a person who is observant.",
+        "pt": "Sou uma pessoa observadora.",
+        "fr": "Je suis une personne observatrice."
+      },
+      "facet": "O2",
+      "reverse": false
+    },
+    {
+      "id": 103,
+      "text": {
+        "es": "Soy una persona que es independiente.",
+        "en": "I am a person who is independent.",
+        "pt": "Sou uma pessoa independente.",
+        "fr": "Je suis une personne indépendante."
+      },
+      "facet": "E3",
+      "reverse": false
+    },
+    {
+      "id": 104,
+      "text": {
+        "es": "Soy una persona que es generosa.",
+        "en": "I am a person who is generous.",
+        "pt": "Sou uma pessoa generosa.",
+        "fr": "Je suis une personne généreuse."
+      },
+      "facet": "A3",
+      "reverse": false
+    },
+    {
+      "id": 105,
+      "text": {
+        "es": "Soy una persona que es desorganizada.",
+        "en": "I am a person who is disorganized.",
+        "pt": "Sou uma pessoa desorganizada.",
+        "fr": "Je suis une personne désorganisée."
+      },
+      "facet": "C2",
+      "reverse": true
+    },
+    {
+      "id": 106,
+      "text": {
+        "es": "Soy una persona que es tranquila.",
+        "en": "I am a person who is calm.",
+        "pt": "Sou uma pessoa calma.",
+        "fr": "Je suis une personne calme."
+      },
+      "facet": "N1",
+      "reverse": true
+    },
+    {
+      "id": 107,
+      "text": {
+        "es": "Soy una persona que es activa.",
+        "en": "I am a person who is active.",
+        "pt": "Sou uma pessoa ativa.",
+        "fr": "Je suis une personne active."
+      },
+      "facet": "E4",
+      "reverse": false
+    },
+    {
+      "id": 108,
+      "text": {
+        "es": "Soy una persona que es comprensiva.",
+        "en": "I am a person who is understanding.",
+        "pt": "Sou uma pessoa compreensiva.",
+        "fr": "Je suis une personne compréhensive."
+      },
+      "facet": "A1",
+      "reverse": false
+    },
+    {
+      "id": 109,
+      "text": {
+        "es": "Soy una persona que es apasionada.",
+        "en": "I am a person who is passionate.",
+        "pt": "Sou uma pessoa apaixonada.",
+        "fr": "Je suis une personne passionnée."
+      },
+      "facet": "O3",
+      "reverse": false
+    },
+    {
+      "id": 110,
+      "text": {
+        "es": "Soy una persona que es eficiente.",
+        "en": "I am a person who is efficient.",
+        "pt": "Sou uma pessoa eficiente.",
+        "fr": "Je suis une personne efficace."
+      },
+      "facet": "C4",
+      "reverse": false
+    },
+    {
+      "id": 111,
+      "text": {
+        "es": "Soy una persona que esReserved.",
+        "en": "I am a person who is reserved.",
+        "pt": "Eu sou uma pessoa reservada.",
+        "fr": "Je suis une personne réservée."
+      },
+      "facet": "E1",
+      "reverse": true
+    },
+    {
+      "id": 112,
+      "text": {
+        "es": "Soy una persona que es tolerante.",
+        "en": "I am a person who is tolerant.",
+        "pt": "Sou uma pessoa tolerante.",
+        "fr": "Je suis une personne tolérante."
+      },
+      "facet": "A1",
+      "reverse": false
+    },
+    {
+      "id": 113,
+      "text": {
+        "es": "Soy una persona que es flexible.",
+        "en": "I am a person who is flexible.",
+        "pt": "Sou uma pessoa flexível.",
+        "fr": "Je suis une personne flexible."
+      },
+      "facet": "O4",
+      "reverse": false
+    },
+    {
+      "id": 114,
+      "text": {
+        "es": "Soy una persona que es segura.",
+        "en": "I am a person who is confident.",
+        "pt": "Sou uma pessoa confiante.",
+        "fr": "Je suis une personne confiante."
+      },
+      "facet": "N4",
+      "reverse": true
+    },
+    {
+      "id": 115,
+      "text": {
+        "es": "Soy una persona que es metódica.",
+        "en": "I am a person who is methodical.",
+        "pt": "Sou uma pessoa metódica.",
+        "fr": "Je suis une personne méthodique."
+      },
+      "facet": "C1",
+      "reverse": false
+    },
+    {
+      "id": 116,
+      "text": {
+        "es": "Soy una persona que es entusiasta.",
+        "en": "I am a person who is enthusiastic.",
+        "pt": "Sou uma pessoa entusiasmada.",
+        "fr": "Je suis une personne enthousiaste."
+      },
+      "facet": "E6",
+      "reverse": false
+    },
+    {
+      "id": 117,
+      "text": {
+        "es": "Soy una persona que es humilde.",
+        "en": "I am a person who is humble.",
+        "pt": "Sou uma pessoa humilde.",
+        "fr": "Je suis une personne humble."
+      },
+      "facet": "A5",
+      "reverse": false
+    },
+    {
+      "id": 118,
+      "text": {
+        "es": "Soy una persona que es decidida.",
+        "en": "I am a person who is decisive.",
+        "pt": "Sou uma pessoa determinada.",
+        "fr": "Je suis une personne déterminée."
+      },
+      "facet": "C6",
+      "reverse": false
+    },
+    {
+      "id": 119,
+      "text": {
+        "es": "Soy una persona que es sensible.",
+        "en": "I am a person who is sensitive.",
+        "pt": "Sou uma pessoa sensível.",
+        "fr": "Je suis une personne sensible."
+      },
+      "facet": "O3",
+      "reverse": false
+    },
+    {
+      "id": 120,
+      "text": {
+        "es": "Soy una persona que es constante.",
+        "en": "I am a person who is steady.",
+        "pt": "Sou uma pessoa constante.",
+        "fr": "Je suis une personne constante."
+      },
+      "facet": "C5",
+      "reverse": false
+    },
+    {
+      "id": 991,
+      "attention_check": true,
+      "expected_value": 3,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 3 (Algo Exacto).",
+        "en": "For this question, select option 3 (Slightly Accurate).",
+        "pt": "Para esta pergunta, selecione a opção 3 (um pouco exata).",
+        "fr": "Pour cette question, sélectionnez l'option 3 (Plutôt exacte)."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 992,
+      "attention_check": true,
+      "expected_value": 1,
+      "text": {
+        "es": "Para esta pregunta, selecciona la opción 1 (Muy Inexacto).",
+        "en": "For this question, select option 1 (Very Inaccurate).",
+        "pt": "Para esta pergunta, selecione a opção 1 (Muito impreciso).",
+        "fr": "Pour cette question, sélectionnez l'option 1 (Très inexact)."
+      },
+      "facet": "O1",
+      "reverse": false
+    },
+    {
+      "id": 993,
+      "attention_check": true,
+      "expected_value": null,
+      "text": {
+        "es": "Deja esta pregunta sin responder.",
+        "en": "Leave this question unanswered.",
+        "pt": "Deixe esta pergunta sem resposta.",
+        "fr": "Laissez cette question sans réponse."
+      },
+      "facet": "O1",
+      "reverse": false
+    }
+  ],
+  "instructions": {
+    "es": "A continuación encontrarás 120 frases sobre formas de pensar, sentir y actuar. Indicá en qué medida cada frase te describe, siendo 1 = 'Muy Inexacto' y 5 = 'Muy Exacto'. Respondé con sinceridad, no hay respuestas correctas ni incorrectas. El test toma aproximadamente 25 minutos.",
+    "en": "Below are 120 statements about ways of thinking, feeling, and acting. Indicate how well each statement describes you, where 1 = 'Very Inaccurate' and 5 = 'Very Accurate'. Answer honestly - there are no right or wrong answers. The test takes approximately 25 minutes.",
+    "pt": "Abaixo você encontrará 120 frases sobre formas de pensar, sentir e agir. Indique até que ponto cada afirmação o descreve, sendo 1 = 'Muito Impreciso' e 5 = 'Muito Preciso'. Responda honestamente, não existem respostas certas ou erradas. O teste leva aproximadamente 25 minutos.",
+    "fr": "Vous trouverez ci-dessous 120 phrases sur les façons de penser, de ressentir et d’agir. Indiquez dans quelle mesure chaque affirmation vous décrit, avec 1 = « Très inexact » et 5 = « Très précis ». Répondez honnêtement, il n’y a pas de bonnes ou de mauvaises réponses. Le test dure environ 25 minutes."
+  },
+  "consent": {
+    "es": "Al completar este test aceptás que tus respuestas serán procesadas para generar un perfil de personalidad basado en el modelo IPIP-NEO. Este test tiene fines educativos y de autoconocimiento. No reemplaza una evaluación psicológica profesional. Tus datos no son almacenados en servidores externos.",
+    "en": "By completing this test you agree that your answers will be processed to generate a personality profile based on the IPIP-NEO model. This test is for educational and self-awareness purposes. It does not replace professional psychological evaluation. Your data is not stored on external servers.",
+    "pt": "Ao completar este teste você aceita que suas respostas serão processadas para gerar um perfil de personalidade baseado no modelo IPIP-NEO. Este teste tem finalidade educacional e de autoconhecimento. Não substitui uma avaliação psicológica profissional. Seus dados não são armazenados em servidores externos.",
+    "fr": "En complétant ce test, vous acceptez que vos réponses soient traitées pour générer un profil de personnalité basé sur le modèle IPIP-NEO. Ce test a un but pédagogique et de connaissance de soi. Cela ne remplace pas une évaluation psychologique professionnelle. Vos données ne sont pas stockées sur des serveurs externes."
+  },
+  "scientific_basis": {
+    "es": "El IPIP-NEO-120 (International Personality Item Pool) es una medida del modelo Big Five de personalidad, desarrollado por Goldberg et al. (1999). Evalúa 5 grandes factores (Apertura, Responsabilidad, Extraversión, Amabilidad, Neuroticismo) y 30 facetas. Confiabilidad alfa > 0.85 para todos los factores.",
+    "en": "The IPIP-NEO-120 (International Personality Item Pool) is a measure of the Big Five personality model, developed by Goldberg et al. (1999). It assesses 5 broad factors (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) and 30 facets. Reliability alpha > 0.85 for all factors.",
+    "pt": "O IPIP-NEO-120 (International Personality Item Pool) é uma medida do modelo de personalidade Big Five, desenvolvido por Goldberg et al. (1999). Avalia 5 fatores principais (Abertura, Responsabilidade, Extroversão, Amabilidade, Neuroticismo) e 30 facetas. Confiabilidade alfa > 0,85 para todos os fatores.",
+    "fr": "L'IPIP-NEO-120 (International Personality Item Pool) est une mesure du modèle de personnalité Big Five, développé par Goldberg et al. (1999). Il évalue 5 facteurs majeurs (Ouverture, Responsabilité, Extraversion, Agréabilité, Névrosisme) et 30 facettes. Fiabilité alpha > 0,85 pour tous les facteurs."
+  },
+  "estimated_minutes": 25,
+  "test_mode": "questions"
+}

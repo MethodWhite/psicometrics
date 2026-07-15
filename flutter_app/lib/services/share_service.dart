@@ -93,6 +93,10 @@ class ShareService {
     return buffer.toString();
   }
 
+  static Future<void> shareText(String text, String subject) async {
+    await Share.share(text, subject: subject);
+  }
+
   static Future<void> copyResultToClipboard({
     required String testType,
     required dynamic result,

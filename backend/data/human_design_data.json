@@ -1,0 +1,459 @@
+{
+  "test_type": "human_design",
+  "name": {
+    "es": "Diseño Humano — Mapa de Nacimiento",
+    "en": "Human Design — Birth Chart",
+    "pt": "Design Humano - Mapa de Nascimento",
+    "fr": "Conception humaine – Carte de naissance"
+  },
+  "description": {
+    "es": "Sistema de Diseño Humano basado en astrología, I Ching, Centro Kabbalístico y Chakras. Genera tu Tipo, Estrategia, Autoridad y Perfil a partir de tu fecha, hora y lugar de nacimiento.",
+    "en": "Human Design system based on astrology, I Ching, Kabbalistic Center, and Chakras. Generates your Type, Strategy, Authority, and Profile from your birth date, time, and location.",
+    "pt": "Sistema de Design Humano baseado em astrologia, I Ching, Centro Cabalístico e Chakras. Gere seu Tipo, Estratégia, Autoridade e Perfil a partir de sua data, hora e local de nascimento.",
+    "fr": "Système de conception humaine basé sur l'astrologie, le I Ching, le centre kabbalistique et les chakras. Générez votre type, votre stratégie, votre autorité et votre profil à partir de votre date, heure et lieu de naissance."
+  },
+  "types": {
+    "Manifestor": {
+      "es": {
+        "name": "Manifestador",
+        "strategy": "Informar",
+        "not_self": "Ira",
+        "signature": "Paz",
+        "description": "Los Manifestadores son iniciadores que tienen la capacidad de actuar de forma independiente. Su estrategia es informar antes de actuar para abrir el camino."
+      },
+      "en": {
+        "name": "Manifestor",
+        "strategy": "Inform",
+        "not_self": "Anger",
+        "signature": "Peace",
+        "description": "Manifestors are initiators with the capacity to act independently. Their strategy is to inform before acting to clear the path."
+      }
+    },
+    "Generator": {
+      "es": {
+        "name": "Generador",
+        "strategy": "Esperar a responder",
+        "not_self": "Frustración",
+        "signature": "Satisfacción",
+        "description": "Los Generadores son la fuerza vital del planeta. Su estrategia es esperar a que la vida les presente algo que les genere una respuesta gutural."
+      },
+      "en": {
+        "name": "Generator",
+        "strategy": "Wait to Respond",
+        "not_self": "Frustration",
+        "signature": "Satisfaction",
+        "description": "Generators are the life force of the planet. Their strategy is to wait for life to present something that generates a gut response."
+      }
+    },
+    "Manifesting Generator": {
+      "es": {
+        "name": "Generador Manifestador",
+        "strategy": "Esperar a responder, luego informar",
+        "not_self": "Frustración e Ira",
+        "signature": "Satisfacción y Paz",
+        "description": "Los Generadores Manifestadores son seres multilaterales y rápidos. Su estrategia combina la espera con la acción informada."
+      },
+      "en": {
+        "name": "Manifesting Generator",
+        "strategy": "Wait to Respond, then Inform",
+        "not_self": "Frustration and Anger",
+        "signature": "Satisfaction and Peace",
+        "description": "Manifesting Generators are multi-potent and fast beings. Their strategy combines waiting with informed action."
+      }
+    },
+    "Projector": {
+      "es": {
+        "name": "Proyector",
+        "strategy": "Esperar la invitación",
+        "not_self": "Amargura",
+        "signature": "Éxito",
+        "description": "Los Proyectores son guías y administradores de energía. Su estrategia es esperar a ser invitados para que su sabiduría sea reconocida."
+      },
+      "en": {
+        "name": "Projector",
+        "strategy": "Wait for the Invitation",
+        "not_self": "Bitterness",
+        "signature": "Success",
+        "description": "Projectors are guides and energy managers. Their strategy is to wait to be invited so their wisdom is recognized."
+      }
+    },
+    "Reflector": {
+      "es": {
+        "name": "Reflector",
+        "strategy": "Esperar un ciclo lunar",
+        "not_self": "Desilusión",
+        "signature": "Sorpresa",
+        "description": "Los Reflectores son espejos raros de la comunidad. Su estrategia es esperar un ciclo lunar completo (28 días) para tomar decisiones importantes."
+      },
+      "en": {
+        "name": "Reflector",
+        "strategy": "Wait a Lunar Cycle",
+        "not_self": "Disappointment",
+        "signature": "Surprise",
+        "description": "Reflectors are rare mirrors of the community. Their strategy is to wait a full lunar cycle (28 days) for important decisions."
+      }
+    }
+  },
+  "authorities": {
+    "Emotional": {
+      "es": "Emocional/Solar",
+      "en": "Emotional/Solar",
+      "description": {
+        "es": "Espera a que la claridad emocional llegue a través del ciclo emocional. Nunca tomes decisiones en el momento.",
+        "en": "Wait for emotional clarity to come through the emotional cycle. Never make decisions in the moment.",
+        "pt": "Espere que a clareza emocional passe pelo ciclo emocional. Nunca tome decisões no momento.",
+        "fr": "Attendez que la clarté émotionnelle apparaisse à travers le cycle émotionnel. Ne prenez jamais de décisions sur le moment."
+      },
+      "pt": "Emocional/Solar",
+      "fr": "Émotionnel/Solaire"
+    },
+    "Sacral": {
+      "es": "Sacral",
+      "en": "Sacral",
+      "description": {
+        "es": "Responde a preguntas con un sonido gutural sí/no. La energía sacral habla a través de la respuesta.",
+        "en": "Responds to questions with a gutural yes/no sound. Sacral energy speaks through response.",
+        "pt": "Responde perguntas com um som gutural de sim/não. A energia sacral fala através da resposta.",
+        "fr": "Répond aux questions avec un son guttural oui/non. L'énergie sacrée parle à travers la réponse."
+      },
+      "pt": "Sacral",
+      "fr": "Sacré"
+    },
+    "Splenic": {
+      "es": "Splénica",
+      "en": "Splenic",
+      "description": {
+        "es": "Sabe en el momento. La intuición es instantánea y no se repite. Confía en tu primer instinto.",
+        "en": "Knows in the moment. Intuition is instantaneous and doesn't repeat. Trust your first instinct.",
+        "pt": "Saiba no momento. A intuição é instantânea e não se repete. Confie no seu primeiro instinto.",
+        "fr": "Sachez sur le moment. L'intuition est instantanée et ne se répète pas. Faites confiance à votre premier instinct."
+      },
+      "pt": "Esplênico",
+      "fr": "Splénique"
+    },
+    "Ego": {
+      "es": "Ego/Corazón",
+      "en": "Ego/Heart",
+      "description": {
+        "es": "Decisiones desde el corazón y la voluntad. Di lo que quieres y actúa en consecuencia.",
+        "en": "Decisions from the heart and will. Say what you want and act accordingly.",
+        "pt": "Decisões do coração e da vontade. Diga o que quiser e aja de acordo.",
+        "fr": "Des décisions avec le cœur et la volonté. Dites ce que vous voulez et agissez en conséquence."
+      },
+      "pt": "Ego/Coração",
+      "fr": "Ego/Cœur"
+    },
+    "Self-Projected": {
+      "es": "Auto-PROYECTADA",
+      "en": "Self-Projected",
+      "description": {
+        "es": "Habla para escucharte a ti mismo. Tu voz es tu guía. Habla con otros para clarificar.",
+        "en": "Speak to hear yourself. Your voice is your guide. Talk to others to clarify.",
+        "pt": "Fale para ouvir a si mesmo. Sua voz é seu guia. Converse com outras pessoas para esclarecer.",
+        "fr": "Parlez pour vous entendre. Votre voix est votre guide. Parlez aux autres pour clarifier."
+      },
+      "pt": "Autoprojetado",
+      "fr": "AUTO-PROJETÉ"
+    },
+    "Mental": {
+      "es": "Mental/Dependiente",
+      "en": "Mental/Environment",
+      "description": {
+        "es": "Necesitas hablar con personas de confianza para llegar a la claridad. No decidas solo.",
+        "en": "You need to talk with trusted people to reach clarity. Don't decide alone.",
+        "pt": "Você precisa conversar com pessoas em quem confia para obter clareza. Não decida sozinho.",
+        "fr": "Vous devez parler à des personnes en qui vous avez confiance pour clarifier la situation. Ne décidez pas seul."
+      },
+      "pt": "Mental/Dependente",
+      "fr": "Mental/Dépendant"
+    },
+    "Lunar": {
+      "es": "Lunar",
+      "en": "Lunar",
+      "description": {
+        "es": "Espera 28 días. Los Reflectores necesitan un ciclo lunar completo para la claridad.",
+        "en": "Wait 28 days. Reflectors need a full lunar cycle for clarity.",
+        "pt": "Espere 28 dias. Os refletores precisam de um ciclo lunar completo para maior clareza.",
+        "fr": "Attendez 28 jours. Les réflecteurs ont besoin d’un cycle lunaire complet pour plus de clarté."
+      },
+      "pt": "Verruga",
+      "fr": "Taupe"
+    }
+  },
+  "profiles": {
+    "1/3": {
+      "es": "Investigador/Experimentador",
+      "en": "Investigator/Experimenter",
+      "description": {
+        "es": "Base sólida a través de la investigación. Aprende a través del ensayo y error.",
+        "en": "Solid foundation through research. Learns through trial and error.",
+        "pt": "Base sólida por meio de pesquisa. Aprenda por tentativa e erro.",
+        "fr": "Base solide grâce à la recherche. Apprenez par essais et erreurs."
+      },
+      "pt": "Pesquisador/Experimentador",
+      "fr": "Chercheur/Expérimentateur"
+    },
+    "1/4": {
+      "es": "Investigador/Oportunista",
+      "en": "Investigator/Opportunist",
+      "description": {
+        "es": "Base sólida con red de contactos. Las oportunidades vienen a través de la red.",
+        "en": "Solid foundation with network. Opportunities come through the network.",
+        "pt": "Base sólida com rede de contactos. As oportunidades vêm através da rede.",
+        "fr": "Base solide avec réseau de contacts. Les opportunités viennent du réseau."
+      },
+      "pt": "Investigador/Oportunista",
+      "fr": "Enquêteur/Opportuniste"
+    },
+    "2/4": {
+      "es": "Herido/Investigador",
+      "en": "Hermit/Opportunist",
+      "description": {
+        "es": "Talento natural que espera ser llamado. Necesita tiempo a solas.",
+        "en": "Natural talent waiting to be called. Needs alone time.",
+        "pt": "Talento natural esperando para ser chamado. Ele precisa de um tempo sozinho.",
+        "fr": "Un talent naturel qui attend d'être appelé. Il a besoin de temps seul."
+      },
+      "pt": "Ferido/Investigador",
+      "fr": "Blessé/Enquêteur"
+    },
+    "2/5": {
+      "es": "Herido/Heresiarca",
+      "en": "Hermit/Heretic",
+      "description": {
+        "es": "Talento natural con proyección de salvador. Las expectativas externas son altas.",
+        "en": "Natural talent with savior projection. External expectations are high.",
+        "pt": "Talento natural com projeção salvadora. As expectativas externas são altas.",
+        "fr": "Talent naturel avec projection de sauveur. Les attentes externes sont élevées."
+      },
+      "pt": "Ferido/Heresiarca",
+      "fr": "Blessé/Hérésiarque"
+    },
+    "3/5": {
+      "es": "Experimentador/Heresiarca",
+      "en": "Experimenter/Heretic",
+      "description": {
+        "es": "Aprende por experimentación con proyección de salvador.",
+        "en": "Learns through experimentation with savior projection.",
+        "pt": "Aprenda experimentando a projeção do salvador.",
+        "fr": "Apprenez par expérimentation avec la projection du sauveur."
+      },
+      "pt": "Experimentador/Heresiarca",
+      "fr": "Expérimentateur/Hérésiarque"
+    },
+    "3/6": {
+      "es": "Experimentador/Role Model",
+      "en": "Experimenter/Role Model",
+      "description": {
+        "es": "Aprende por experimentación, se convierte en modelo a seguir con el tiempo.",
+        "en": "Learns through experimentation, becomes a role model over time.",
+        "pt": "Aprende através da experimentação, torna-se um modelo ao longo do tempo.",
+        "fr": "Apprend par l’expérimentation, devient un modèle au fil du temps."
+      },
+      "pt": "Experimentador/Modelo",
+      "fr": "Expérimentateur/Modèle"
+    },
+    "4/6": {
+      "es": "Oportunista/Role Model",
+      "en": "Opportunist/Role Model",
+      "description": {
+        "es": "Red de contactos con evolución a modelo a seguir.",
+        "en": "Network with evolution to role model.",
+        "pt": "Rede de contactos com evolução para modelo.",
+        "fr": "Réseau de contacts avec évolution vers modèle."
+      },
+      "pt": "Oportunista/Modelo",
+      "fr": "Opportuniste/Modèle"
+    },
+    "4/1": {
+      "es": "Oportunista/Investigador",
+      "en": "Opportunist/Investigator",
+      "description": {
+        "es": "Red de contactos con base investigativa sólida.",
+        "en": "Network with solid research foundation.",
+        "pt": "Rede de contatos com sólida base de pesquisa.",
+        "fr": "Réseau de contacts avec une base de recherche solide."
+      },
+      "pt": "Oportunista/Investigador",
+      "fr": "Opportuniste/Enquêteur"
+    },
+    "5/1": {
+      "es": "Heresiarca/Investigador",
+      "en": "Heretic/Investigator",
+      "description": {
+        "es": "Proyección de salvador con base investigativa.",
+        "en": "Savior projection with research foundation.",
+        "pt": "Projeção de Salvador baseada em pesquisa.",
+        "fr": "Projection de Salvador basée sur la recherche."
+      },
+      "pt": "Heresiarca/Investigador",
+      "fr": "Hérésiarque/Enquêteur"
+    },
+    "5/2": {
+      "es": "Heresiarca/Herido",
+      "en": "Heretic/Hermit",
+      "description": {
+        "es": "Proyección de salvador con talento natural.",
+        "en": "Savior projection with natural talent.",
+        "pt": "Projeção de um salvador com talento natural.",
+        "fr": "Projection d'un sauveur au talent naturel."
+      },
+      "pt": "Heresiarca / Ferido",
+      "fr": "Hérésiarque/Blessé"
+    },
+    "6/2": {
+      "es": "Role Model/Herido",
+      "en": "Role Model/Hermit",
+      "description": {
+        "es": "Modelo a seguir que necesita tiempo a solas.",
+        "en": "Role model who needs alone time.",
+        "pt": "Modelo que precisa de um tempo sozinho.",
+        "fr": "Modèle de rôle qui a besoin de temps seul."
+      },
+      "pt": "Modelo / Ferido",
+      "fr": "Modèle de rôle/blessé"
+    },
+    "6/3": {
+      "es": "Role Model/Experimentador",
+      "en": "Role Model/Experimenter",
+      "description": {
+        "es": "Modelo a seguir que aprende por experimentación.",
+        "en": "Role model who learns through experimentation.",
+        "pt": "Modelo que aprende por meio da experimentação.",
+        "fr": "Modèle de rôle qui apprend par l’expérimentation."
+      },
+      "pt": "Modelo / Experimentador",
+      "fr": "Modèle/Expérimentateur"
+    }
+  },
+  "centers": {
+    "head": {
+      "es": "Corona",
+      "en": "Head",
+      "question": {
+        "es": "¿Estás presionado por inspiración o preguntas?",
+        "en": "Are you pressured by inspiration or questions?",
+        "pt": "Você está pressionado por inspiração ou perguntas?",
+        "fr": "Êtes-vous à court d’inspiration ou de questions ?"
+      },
+      "pt": "Coroa",
+      "fr": "Couronne"
+    },
+    "ajna": {
+      "es": "Ajna",
+      "en": "Ajna",
+      "question": {
+        "es": "¿Tienes una mente que siempre sabe o una que conceptualiza?",
+        "en": "Do you have a mind that always knows or one that conceptualizes?",
+        "pt": "Você tem uma mente que sempre sabe ou que conceitua?",
+        "fr": "Avez-vous un esprit qui sait toujours ou qui conceptualise ?"
+      },
+      "pt": "Ajna",
+      "fr": "Ajna"
+    },
+    "throat": {
+      "es": "Garganta",
+      "en": "Throat",
+      "question": {
+        "es": "¿Tienes acceso consistente al centro de expresión?",
+        "en": "Do you have consistent access to the expression center?",
+        "pt": "Você tem acesso consistente ao centro de expressão?",
+        "fr": "Avez-vous un accès constant au centre d’expression ?"
+      },
+      "pt": "Garganta",
+      "fr": "Gorge"
+    },
+    "g": {
+      "es": "G/Identidad",
+      "en": "G/Identity",
+      "question": {
+        "es": "¿Tienes un sentido consistente de dirección y amor propio?",
+        "en": "Do you have a consistent sense of direction and self-love?",
+        "pt": "Você tem um senso consistente de direção e amor próprio?",
+        "fr": "Avez-vous un sens constant de l’orientation et de l’amour-propre ?"
+      },
+      "pt": "G/Identidade",
+      "fr": "G/Identité"
+    },
+    "heart": {
+      "es": "Corazón/Ego",
+      "en": "Heart/Ego",
+      "question": {
+        "es": "¿Tienes acceso consistente a la voluntad y la determinación?",
+        "en": "Do you have consistent access to will and determination?",
+        "pt": "Você tem acesso consistente à vontade e determinação?",
+        "fr": "Avez-vous un accès constant à la volonté et à la détermination ?"
+      },
+      "pt": "Coração/Ego",
+      "fr": "Coeur/Ego"
+    },
+    "sacral": {
+      "es": "Sacral",
+      "en": "Sacral",
+      "question": {
+        "es": "¿Tienes acceso consistente a la energía sexual y de creación?",
+        "en": "Do you have consistent access to sexual and creative energy?",
+        "pt": "Você tem acesso consistente à energia sexual e de criação?",
+        "fr": "Avez-vous un accès constant à l’énergie sexuelle et de création ?"
+      },
+      "pt": "Sacral",
+      "fr": "Sacré"
+    },
+    "solar_plexus": {
+      "es": "Plexo Solar",
+      "en": "Solar Plexus",
+      "question": {
+        "es": "¿Tienes un centro emocional definido o undefined?",
+        "en": "Do you have a defined or undefined emotional center?",
+        "pt": "Você tem um centro emocional definido ou indefinido?",
+        "fr": "Avez-vous un centre émotionnel défini ou indéfini ?"
+      },
+      "pt": "Plexo solar",
+      "fr": "Plexus solaire"
+    },
+    "splenic": {
+      "es": "Splénico",
+      "en": "Splenic",
+      "question": {
+        "es": "¿Tienes acceso consistente a la intuición y supervivencia?",
+        "en": "Do you have consistent access to intuition and survival?",
+        "pt": "Você tem acesso consistente à intuição e à sobrevivência?",
+        "fr": "Avez-vous un accès constant à l’intuition et à la survie ?"
+      },
+      "pt": "Esplênico",
+      "fr": "Splénique"
+    },
+    "root": {
+      "es": "Raíz",
+      "en": "Root",
+      "question": {
+        "es": "¿Tienes presión consistente de estrés y adrenalina?",
+        "en": "Do you have consistent pressure of stress and adrenaline?",
+        "pt": "Você tem pressão consistente de estresse e adrenalina?",
+        "fr": "Avez-vous une pression constante due au stress et à l'adrénaline ?"
+      },
+      "pt": "Raiz",
+      "fr": "Racine"
+    }
+  },
+  "instructions": {
+    "es": "Completá tus datos de nacimiento exactos (fecha, hora y lugar) para calcular tu Diseño Humano. La hora exacta es importante para la precisión del cálculo. ~3 minutos.",
+    "en": "Enter your exact birth data (date, time, and location) to calculate your Human Design. The exact time is important for calculation accuracy. ~3 minutes.",
+    "pt": "Preencha seus dados exatos de nascimento (data, hora e local) para calcular seu Design Humano. A hora exata é importante para a precisão do cálculo. ~3 minutos.",
+    "fr": "Remplissez vos données de naissance exactes (date, heure et lieu) pour calculer votre conception humaine. L'heure exacte est importante pour la précision du calcul. ~3 minutes."
+  },
+  "consent": {
+    "es": "Al completar este formulario aceptás recibir tu perfil de Diseño Humano. El Diseño Humano es un sistema esotérico y no está validado científicamente.",
+    "en": "By submitting this form you agree to receive your Human Design profile. Human Design is an esoteric system and is not scientifically validated.",
+    "pt": "Ao preencher este formulário você concorda em receber seu perfil do Human Design. O Design Humano é um sistema esotérico e não é validado cientificamente.",
+    "fr": "En remplissant ce formulaire, vous acceptez de recevoir votre profil Human Design. Le Human Design est un système ésotérique et n’est pas scientifiquement validé."
+  },
+  "scientific_basis": {
+    "es": "El Diseño Humano fue desarrollado por Ra Uru Hu (Robert Allan Krakower) en 1987. Combina elementos del I Ching, astrología, el Centro Kabbalístico y el sistema de chakras.",
+    "en": "Human Design was developed by Ra Uru Hu (Robert Allan Krakower) in 1987. It combines elements of the I Ching, astrology, the Kabbalistic Center, and the chakra system.",
+    "pt": "O Design Humano foi desenvolvido por Ra Uru Hu (Robert Allan Krakower) em 1987. Combina elementos do I Ching, da astrologia, do Centro Cabalístico e do sistema de chakras.",
+    "fr": "Human Design a été développé par Ra Uru Hu (Robert Allan Krakower) en 1987. Il combine des éléments du I Ching, de l'astrologie, du Centre Kabbalistique et du système des chakras."
+  },
+  "estimated_minutes": 3,
+  "test_mode": "questions"
+}

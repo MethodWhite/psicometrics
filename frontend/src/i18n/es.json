@@ -16,7 +16,10 @@
     "progress": "Progreso",
     "results": "Resultados",
     "about": "Acerca de",
-    "scientific_basis": "Base Científica"
+    "scientific_basis": "Base Científica",
+    "account": "Cuenta",
+    "compare": "Comparar",
+    "evolution": "Evolución"
   },
   "tests": {
     "big_five": {
@@ -79,6 +82,49 @@
     "secondary": "Secundario",
     "download_pdf": "Descargar PDF",
     "share": "Compartir",
-    "retake": "Volver a hacer el test"
+    "retake": "Volver a hacer el test",
+    "save_to_account": "Guardar en cuenta",
+    "compare_with": "Comparar con...",
+    "validation_warnings": "Advertencias de validación"
+  },
+  "account": {
+    "title": "Mi Cuenta",
+    "email_label": "Correo electrónico",
+    "email_placeholder": "tu@email.com",
+    "register": "Registrarse",
+    "registering": "Registrando...",
+    "your_id": "Tu ID de cuenta",
+    "saved_results": "Resultados guardados",
+    "no_results": "Aún no hay resultados guardados",
+    "save_success": "Resultado guardado correctamente",
+    "save_error": "Error al guardar el resultado",
+    "account_id_placeholder": "o ingresa un ID de cuenta existente",
+    "load": "Cargar",
+    "register_success": "Cuenta creada correctamente"
+  },
+  "compare": {
+    "title": "Comparar Resultados",
+    "paste_a": "Pega el primer resultado JSON",
+    "paste_b": "Pega el segundo resultado JSON",
+    "submit": "Comparar",
+    "comparing": "Comparando...",
+    "compatibility": "Compatibilidad",
+    "factor": "Factor",
+    "difference": "Diferencia",
+    "compatible": "Compatible",
+    "incompatible": "Incompatible",
+    "summary": "Resumen",
+    "result_a": "Resultado A",
+    "result_b": "Resultado B",
+    "paste_hint": "Copia el resultado JSON desde la página de resultados",
+    "no_result": "No hay un resultado para rellenar"
+  },
+  "evolution": {
+    "title": "Evolución",
+    "select_test": "Selecciona un test",
+    "no_data": "No hay datos de evolución disponibles",
+    "score": "Puntuación",
+    "date": "Fecha",
+    "account_required": "Necesitas una cuenta para ver la evolución"
   }
 }

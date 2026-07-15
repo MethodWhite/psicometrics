@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { LikertScale } from '../components/LikertScale'
 import { DichotomyChoice } from '../components/DichotomyChoice'
 import { HumanDesignForm } from '../components/HumanDesignForm'
+import { LoadingSkeleton } from '../components/LoadingSkeleton'
 import type { TestData } from '../types'
 
 export function TestPage() {
@@ -34,10 +35,17 @@ export function TestPage() {
 
   if (loading || !testData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400">{t('app.loading')}</p>
+      <div className="min-h-screen px-4 py-24 max-w-2xl mx-auto">
+        <div className="mb-8">
+          <div className={`skeleton-pulse rounded h-4 w-16 bg-border mb-4`} />
+          <div className={`skeleton-pulse rounded h-8 w-64 bg-border mb-2`} />
+        </div>
+        <div className="card space-y-4">
+          <LoadingSkeleton variant="text" lines={4} />
+          <div className="flex justify-between pt-4">
+            <div className={`skeleton-pulse rounded h-10 w-28 bg-border`} />
+            <div className={`skeleton-pulse rounded h-10 w-28 bg-border`} />
+          </div>
         </div>
       </div>
     )
@@ -71,12 +79,12 @@ export function TestPage() {
           <div className="mb-8">
             <button
               onClick={() => navigate('/')}
-              className="text-slate-400 hover:text-white transition-colors mb-4"
+              className="text-content-secondary hover:text-content transition-colors mb-4"
             >
               ← {t('app.back')}
             </button>
-            <h2 className="text-2xl font-bold text-white">{testData.name}</h2>
-            <p className="text-slate-400 mt-2">{testData.description}</p>
+            <h2 className="text-2xl font-bold text-content">{testData.name}</h2>
+            <p className="text-content-secondary mt-2">{testData.description}</p>
           </div>
 
           <div className="card">
@@ -143,16 +151,16 @@ export function TestPage() {
         <div className="mb-8">
           <button
             onClick={() => navigate('/')}
-            className="text-slate-400 hover:text-white transition-colors mb-4"
+            className="text-content-secondary hover:text-content transition-colors mb-4"
           >
             ← {t('app.back')}
           </button>
-          <h2 className="text-2xl font-bold text-white">{testData.name}</h2>
+          <h2 className="text-2xl font-bold text-content">{testData.name}</h2>
         </div>
 
         {/* Progress */}
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-slate-400 mb-2">
+          <div className="flex justify-between text-sm text-content-secondary mb-2">
             <span>{t('app.question_of', { current: currentQuestion + 1, total: questions.length })}</span>
             <span>{progress.toFixed(0)}%</span>
           </div>
@@ -163,7 +171,7 @@ export function TestPage() {
 
         {/* Question */}
         <div className="card mb-8">
-          <p className="text-lg text-white mb-6 leading-relaxed">
+          <p className="text-lg text-content mb-6 leading-relaxed">
             {question.text}
           </p>
 
@@ -195,8 +203,8 @@ export function TestPage() {
                   className={`text-center p-4 rounded-xl border cursor-pointer transition-all duration-200
                     ${
                       answers[question.id] === opt
-                        ? 'bg-indigo-500/20 border-indigo-500 text-white'
-                        : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
+                        ? 'bg-indigo-500/20 border-indigo-500 text-content'
+                        : 'bg-surface-secondary border-border text-content-secondary hover:bg-surface-elevated'
                     }`}
                 >
                   <input

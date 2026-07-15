@@ -4,8 +4,8 @@ import '../config/theme.dart';
 import '../models/test_info.dart';
 import '../services/api_service.dart';
 import '../widgets/test_card.dart';
-import 'test_screen.dart';
-import 'hd_form_screen.dart';
+import 'test_instructions_screen.dart';
+import 'account_screen.dart';
 import 'history_screen.dart';
 import 'settings_screen.dart';
 
@@ -82,6 +82,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     ),
                     Row(
                       children: [
+                        // Account button
+                        IconButton(
+                          icon: const Icon(Icons.person, size: 24),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => const AccountScreen(),
+                          )),
+                        ),
                         // History button
                         IconButton(
                           icon: const Icon(Icons.history, size: 24),
@@ -238,15 +245,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   void _navigateToTest(TestInfo test) {
-    if (test.testMode == 'birth_data') {
-      Navigator.push(context, MaterialPageRoute(
-        builder: (_) => HdFormScreen(testType: test.testType),
-      ));
-    } else {
-      Navigator.push(context, MaterialPageRoute(
-        builder: (_) => TestScreen(testType: test.testType),
-      ));
-    }
+    Navigator.push(context, MaterialPageRoute(
+      builder: (_) => TestInstructionsScreen(testType: test.testType),
+    ));
   }
 }
 

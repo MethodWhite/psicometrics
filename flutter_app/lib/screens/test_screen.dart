@@ -369,7 +369,11 @@ class _TestScreenState extends State<TestScreen> {
           ),
         );
         Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (_) => ResultsScreen(testType: widget.testType, result: result),
+          builder: (_) => ResultsScreen(
+            testType: widget.testType,
+            result: result,
+            reportData: {'answers': answersList, 'language': lang},
+          ),
         ));
       }
     } catch (e) {
