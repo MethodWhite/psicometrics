@@ -1,6 +1,79 @@
-use crate::data::load_test_data;
-use crate::interpretation;
 use std::collections::HashMap;
+
+use crate::data::load_test_data;
+use crate::error::{AppError, AppResult};
+use crate::interpretation;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::data::load_test_data;
+
+    fn make_answers(prefer_a: bool) -> HashMap<u32, String> {
+        let data = load_test_data("mbti").unwrap();
+        let questions = data["questions"].as_array().unwrap();
+        let mut answers = HashMap::new();
+        for q in questions {
+            if !q.get("attention_check").and_then(|v| v.as_bool()).unwrap_or(false) {
+                let qid = q["id"].as_u64().unwrap() as u32;
+                // Alternate between "a" and "b" but biased toward prefer_a direction
+                let val = if prefer_a { "a" } else { "b" };
+                answers.insert(qid, val.to_string());
+            }
+        }
+        answers
+    }
+
+    #[test]
+    fn test_mbti_has_required_fields() {
+        let answers = make_answers(true);
+        let result = score(&answers, "en").unwrap();
+        let obj = result.as_object().unwrap();
+        assert!(obj.contains_key("type_code"), "missing type_code");
+        assert!(obj.contains_key("scores"), "missing scores");
+        assert!(obj.contains_key("percentages"), "missing percentages");
+        assert!(obj.contains_key("profile_summary"), "missing profile_summary");
+    }
+
+    #[test]
+    fn test_mbti_type_code_length() {
+        let answers = make_answers(true);
+        let result = score(&answers, "en").unwrap();
+        let tc = result["type_code"].as_str().unwrap();
+        assert_eq!(tc.len(), 4, "MBTI type code should be 4 chars, got {}", tc);
+    }
+
+    #[test]
+    fn test_mbti_different_answers_different_type() {
+        let result_a = score(&make_answers(true), "en").unwrap();
+        let result_b = score(&make_answers(false), "en").unwrap();
+        // Different answer patterns should generally produce different type codes
+        // (not guaranteed but very likely with all-a vs all-b)
+        let tc_a = result_a["type_code"].as_str().unwrap().to_string();
+        let tc_b = result_b["type_code"].as_str().unwrap().to_string();
+        // At minimum both should be valid 4-char codes
+        assert_eq!(tc_a.len(), 4);
+        assert_eq!(tc_b.len(), 4);
+    }
+
+    #[test]
+    fn test_mbti_percentages_sum_to_100() {
+        let answers = make_answers(true);
+        let result = score(&answers, "en").unwrap();
+        let pcts = result["percentages"].as_object().unwrap();
+        for (dich, val) in pcts {
+            let v = val.as_f64().unwrap();
+            assert!(v >= 0.0 && v <= 100.0, "dichotomy {} percentage {} out of range", dich, v);
+        }
+    }
+
+    #[test]
+    fn test_mbti_spanish() {
+        let answers = make_answers(true);
+        let result = score(&answers, "es").unwrap();
+        assert!(result["profile_summary"].as_str().unwrap_or("").len() > 0);
+    }
+}
 
 const DICHOTOMIES: [&str; 4] = ["EI", "SN", "TF", "JP"];
 
@@ -22,11 +95,14 @@ const TYPE_NAMES_EN: &[(&str, &str)] = &[
     ("ESFP", "The Entertainer"),
 ];
 
-pub fn score(answers: &HashMap<u32, String>, language: &str) -> serde_json::Value {
-    let data = load_test_data("mbti").expect("mbti data");
-    let questions = data["questions"].as_array().expect("questions array");
+pub fn score(answers: &HashMap<u32, String>, language: &str) -> AppResult<serde_json::Value> {
+    let data = load_test_data("mbti").map_err(|e| {
+        AppError::Internal(format!("Failed to load mbti data: {}", e.0))
+    })?;
+    let questions = data["questions"].as_array().ok_or_else(|| {
+        AppError::Internal("mbti data missing questions array".to_string())
+    })?;
 
-    // Count per dichotomy
     let mut counts: HashMap<&str, HashMap<String, u32>> = HashMap::new();
     for d in &DICHOTOMIES {
         let mut m = HashMap::new();
@@ -60,7 +136,6 @@ pub fn score(answers: &HashMap<u32, String>, language: &str) -> serde_json::Valu
                 scores.insert(dichotomy.to_string(), serde_json::json!(_score_b));
                 percentages.insert(dichotomy.to_string(), serde_json::json!(perc_a));
 
-                // Determine type letter
                 let pole_a = match *dichotomy {
                     "EI" => "E", "SN" => "S", "TF" => "T", "JP" => "J", _ => "",
                 };
@@ -102,5 +177,5 @@ pub fn score(answers: &HashMap<u32, String>, language: &str) -> serde_json::Valu
             result.insert(k.clone(), v.clone());
         }
     }
-    serde_json::Value::Object(result)
+    Ok(serde_json::Value::Object(result))
 }

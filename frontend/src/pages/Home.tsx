@@ -21,8 +21,8 @@ export function Home() {
           <h1 className="text-5xl md:text-7xl font-bold mb-4">
             <span className="gradient-text">{t('app.title')}</span>
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-2">{t('app.subtitle')}</p>
-          <p className="text-slate-500 max-w-2xl mx-auto mt-4">
+          <p className="text-xl md:text-2xl text-content-secondary mb-2">{t('app.subtitle')}</p>
+          <p className="text-content-muted max-w-2xl mx-auto mt-4">
             {t('app.description')}
           </p>
         </div>
@@ -43,7 +43,7 @@ export function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 px-4 text-center text-slate-600 text-sm">
+      <footer className="border-t border-border py-8 px-4 text-center text-content-muted text-sm">
         <p>PsicoMetrics v1.0 — Tier S++ SecDevOps</p>
         <p className="mt-1">Tests basados en estándares científicos validados</p>
       </footer>

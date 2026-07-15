@@ -1,3 +1,76 @@
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_identical_big_five_results() {
+        let r1 = serde_json::json!({"scores": {"O": 70.0, "C": 60.0, "E": 50.0, "A": 80.0, "N": 30.0}});
+        let r2 = serde_json::json!({"scores": {"O": 70.0, "C": 60.0, "E": 50.0, "A": 80.0, "N": 30.0}});
+        let result = compare_results(&[r1, r2], "big_five", "en");
+        let score = result["compatibility_score"].as_f64().unwrap();
+        assert!(score >= 90.0, "identical results should have high compatibility, got {:.1}", score);
+    }
+
+    #[test]
+    fn test_opposite_big_five_results() {
+        let r1 = serde_json::json!({"scores": {"O": 90.0, "C": 90.0, "E": 90.0, "A": 90.0, "N": 10.0}});
+        let r2 = serde_json::json!({"scores": {"O": 10.0, "C": 10.0, "E": 10.0, "A": 10.0, "N": 90.0}});
+        let result = compare_results(&[r1, r2], "big_five", "en");
+        let score = result["compatibility_score"].as_f64().unwrap();
+        assert!(score < 60.0, "opposite results should have low compatibility, got {:.1}", score);
+    }
+
+    #[test]
+    fn test_identical_mbti_results() {
+        let r1 = serde_json::json!({"type_code": "INTJ", "scores": {"EI": 75.0, "SN": 20.0, "TF": 70.0, "JP": 20.0}});
+        let r2 = serde_json::json!({"type_code": "INTJ", "scores": {"EI": 75.0, "SN": 20.0, "TF": 70.0, "JP": 20.0}});
+        let result = compare_results(&[r1, r2], "mbti", "en");
+        let score = result["compatibility_score"].as_f64().unwrap();
+        assert!(score >= 85.0, "identical MBTI should have high compatibility, got {:.1}", score);
+        assert_eq!(result["match_category"].as_str().unwrap(), "identical");
+    }
+
+    #[test]
+    fn test_opposite_mbti_results() {
+        let r1 = serde_json::json!({"type_code": "INTJ", "scores": {"EI": 75.0, "SN": 75.0, "TF": 75.0, "JP": 75.0}});
+        let r2 = serde_json::json!({"type_code": "ESFP", "scores": {"EI": 25.0, "SN": 25.0, "TF": 25.0, "JP": 25.0}});
+        let result = compare_results(&[r1, r2], "mbti", "en");
+        let score = result["compatibility_score"].as_f64().unwrap();
+        assert!(score <= 60.0, "opposite MBTI should have lower compatibility, got {:.1}", score);
+    }
+
+    #[test]
+    fn test_unsupported_test_type() {
+        let r1 = serde_json::json!({"scores": {"1": 50.0}});
+        let r2 = serde_json::json!({"scores": {"1": 50.0}});
+        let result = compare_results(&[r1, r2], "enneagram", "en");
+        assert!(result.get("error").and_then(|v| v.as_bool()).unwrap_or(false),
+                "enneagram comparison should return error");
+    }
+
+    #[test]
+    fn test_big_five_has_factor_details() {
+        let r1 = serde_json::json!({"scores": {"O": 50.0, "C": 50.0, "E": 50.0, "A": 50.0, "N": 50.0}});
+        let r2 = serde_json::json!({"scores": {"O": 50.0, "C": 50.0, "E": 50.0, "A": 50.0, "N": 50.0}});
+        let result = compare_results(&[r1, r2], "big_five", "en");
+        let factors = result["factors"].as_object().unwrap();
+        for &f in &["O", "C", "E", "A", "N"] {
+            assert!(factors.contains_key(f), "missing factor {}", f);
+            assert!(factors[f].get("score1").is_some(), "factor {} missing score1", f);
+            assert!(factors[f].get("score2").is_some(), "factor {} missing score2", f);
+            assert!(factors[f].get("difference").is_some(), "factor {} missing difference", f);
+        }
+    }
+
+    #[test]
+    fn test_compatibility_spanish() {
+        let r1 = serde_json::json!({"scores": {"O": 70.0, "C": 60.0, "E": 50.0, "A": 80.0, "N": 30.0}});
+        let r2 = serde_json::json!({"scores": {"O": 65.0, "C": 55.0, "E": 45.0, "A": 75.0, "N": 35.0}});
+        let result = compare_results(&[r1, r2], "big_five", "es");
+        assert!(result["description"].as_str().unwrap_or("").len() > 0);
+    }
+}
+
 const FACTOR_NAMES_ES: [(&str, &str); 5] = [
     ("O", "Apertura"),
     ("C", "Responsabilidad"),

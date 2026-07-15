@@ -2,11 +2,15 @@
   "test_type": "enneagram",
   "name": {
     "es": "Enneagrama de los 9 Tipos",
-    "en": "Enneagram of Nine Types"
+    "en": "Enneagram of Nine Types",
+    "pt": "Eneagrama dos 9 Tipos",
+    "fr": "Ennéagramme des 9 types"
   },
   "description": {
     "es": "Basado en el Enneagrama de la personalidad (Riso-Hudson). Identifica tu tipo dominante con alas.",
-    "en": "Based on the Enneagram personality system (Riso-Hudson). Identifies your dominant type with wings."
+    "en": "Based on the Enneagram personality system (Riso-Hudson). Identifies your dominant type with wings.",
+    "pt": "Baseado no Eneagrama da personalidade (Riso-Hudson). Identifique seu tipo alado dominante.",
+    "fr": "Basé sur l'Ennéagramme de la personnalité (Riso-Hudson). Identifiez votre type ailé dominant."
   },
   "scale": {
     "min": 1,
@@ -32,108 +36,162 @@
       "en": "The Perfectionist",
       "core_fear": {
         "es": "Ser defectuoso o corrupto",
-        "en": "Being defective or corrupt"
+        "en": "Being defective or corrupt",
+        "pt": "Ser defeituoso ou corrupto",
+        "fr": "Être défectueux ou corrompu"
       },
       "core_desire": {
         "es": "Ser bueno e integro",
-        "en": "Being good and integral"
-      }
+        "en": "Being good and integral",
+        "pt": "Seja bom e íntegro",
+        "fr": "Soyez bon et intègre"
+      },
+      "pt": "O Perfeccionista",
+      "fr": "Le perfectionniste"
     },
     "2": {
       "es": "El Ayudador",
       "en": "The Helper",
       "core_fear": {
         "es": "No ser amado",
-        "en": "Not being loved"
+        "en": "Not being loved",
+        "pt": "não ser amado",
+        "fr": "ne pas être aimé"
       },
       "core_desire": {
         "es": "Sentirse amado",
-        "en": "Feeling loved"
-      }
+        "en": "Feeling loved",
+        "pt": "sinta-se amado",
+        "fr": "se sentir aimé"
+      },
+      "pt": "O ajudante",
+      "fr": "L'assistant"
     },
     "3": {
       "es": "El Triunfador",
       "en": "The Achiever",
       "core_fear": {
         "es": "Ser sin valor",
-        "en": "Being worthless"
+        "en": "Being worthless",
+        "pt": "Seja inútil",
+        "fr": "Ne vaut rien"
       },
       "core_desire": {
         "es": "Sentirse valioso y exitoso",
-        "en": "Feeling valuable and successful"
-      }
+        "en": "Feeling valuable and successful",
+        "pt": "Sinta-se valioso e bem-sucedido",
+        "fr": "Sentez-vous précieux et réussi"
+      },
+      "pt": "O Triunfante",
+      "fr": "Le triomphant"
     },
     "4": {
       "es": "El Individualista",
       "en": "The Individualist",
       "core_fear": {
         "es": "No tener identidad",
-        "en": "Having no identity"
+        "en": "Having no identity",
+        "pt": "Não ter uma identidade",
+        "fr": "Ne pas avoir d'identité"
       },
       "core_desire": {
         "es": "Encontrar sí mismo",
-        "en": "Finding oneself"
-      }
+        "en": "Finding oneself",
+        "pt": "Encontre-se",
+        "fr": "Trouvez-vous"
+      },
+      "pt": "O Individualista",
+      "fr": "L'individualiste"
     },
     "5": {
       "es": "El Investigador",
       "en": "The Investigator",
       "core_fear": {
         "es": "Ser inútil o incapaz",
-        "en": "Being useless or incapable"
+        "en": "Being useless or incapable",
+        "pt": "Ser inútil ou incapaz",
+        "fr": "Être inutile ou incapable"
       },
       "core_desire": {
         "es": "Ser capaz y competente",
-        "en": "Being capable and competent"
-      }
+        "en": "Being capable and competent",
+        "pt": "Seja capaz e competente",
+        "fr": "Être capable et compétent"
+      },
+      "pt": "O investigador",
+      "fr": "L'enquêteur"
     },
     "6": {
       "es": "El Leal",
       "en": "The Loyalist",
       "core_fear": {
         "es": "Estar sin apoyo",
-        "en": "Being without support"
+        "en": "Being without support",
+        "pt": "Estar sem apoio",
+        "fr": "Être sans soutien"
       },
       "core_desire": {
         "es": "Tener seguridad y apoyo",
-        "en": "Having security and support"
-      }
+        "en": "Having security and support",
+        "pt": "Tenha segurança e suporte",
+        "fr": "Avoir de la sécurité et du soutien"
+      },
+      "pt": "O Leal",
+      "fr": "Le fidèle"
     },
     "7": {
       "es": "El Entusiasta",
       "en": "The Enthusiast",
       "core_fear": {
         "es": "Estar privado o atrapado",
-        "en": "Being deprived or trapped"
+        "en": "Being deprived or trapped",
+        "pt": "Estar privado ou preso",
+        "fr": "Être privé ou piégé"
       },
       "core_desire": {
         "es": "Estar satisfecho y contento",
-        "en": "Being satisfied and content"
-      }
+        "en": "Being satisfied and content",
+        "pt": "Esteja satisfeito e feliz",
+        "fr": "Soyez satisfait et heureux"
+      },
+      "pt": "O Entusiasta",
+      "fr": "L'enthousiaste"
     },
     "8": {
       "es": "El Desafío",
       "en": "The Challenger",
       "core_fear": {
         "es": "Ser controlado o herido",
-        "en": "Being controlled or harmed"
+        "en": "Being controlled or harmed",
+        "pt": "Ser controlado ou ferido",
+        "fr": "Être contrôlé ou blessé"
       },
       "core_desire": {
         "es": "Protegerse a sí mismo",
-        "en": "Protecting oneself"
-      }
+        "en": "Protecting oneself",
+        "pt": "Proteja-se",
+        "fr": "Protégez-vous"
+      },
+      "pt": "O desafio",
+      "fr": "Le défi"
     },
     "9": {
       "es": "El Pacificador",
       "en": "The Peacemaker",
       "core_fear": {
         "es": "Pérdida, separación y conflicto",
-        "en": "Loss, separation, and conflict"
+        "en": "Loss, separation, and conflict",
+        "pt": "Perda, separação e conflito",
+        "fr": "Perte, séparation et conflit"
       },
       "core_desire": {
         "es": "Paz interior y armonía",
-        "en": "Inner peace and harmony"
-      }
+        "en": "Inner peace and harmony",
+        "pt": "Paz interior e harmonia",
+        "fr": "Paix et harmonie intérieure"
+      },
+      "pt": "O Pacificador",
+      "fr": "Le pacificateur"
     }
   },
   "questions": [
@@ -142,7 +200,9 @@
       "type": 1,
       "text": {
         "es": "Soy una persona que se preocupa por hacer las cosas correctamente.",
-        "en": "I am a person who worries about doing things correctly."
+        "en": "I am a person who worries about doing things correctly.",
+        "pt": "Sou uma pessoa que se preocupa em fazer as coisas corretamente.",
+        "fr": "Je suis une personne soucieuse de faire les choses correctement."
       }
     },
     {
@@ -150,7 +210,9 @@
       "type": 1,
       "text": {
         "es": "Tiendo a criticarme a mí mismo/a y a los demás por no ser lo suficientemente bueno.",
-        "en": "I tend to criticize myself and others for not being good enough."
+        "en": "I tend to criticize myself and others for not being good enough.",
+        "pt": "Tenho tendência a criticar a mim mesmo e aos outros por não sermos bons o suficiente.",
+        "fr": "J'ai tendance à me critiquer et à critiquer les autres parce que je ne suis pas à la hauteur."
       }
     },
     {
@@ -158,7 +220,9 @@
       "type": 1,
       "text": {
         "es": "Siento una fuerte necesidad de ser justo y equitativo.",
-        "en": "I feel a strong need to be fair and equitable."
+        "en": "I feel a strong need to be fair and equitable.",
+        "pt": "Sinto uma forte necessidade de ser justo e equitativo.",
+        "fr": "Je ressens un fort besoin d’être juste et équitable."
       }
     },
     {
@@ -166,7 +230,9 @@
       "type": 1,
       "text": {
         "es": "Me molesta cuando las personas no cumplen con sus obligaciones.",
-        "en": "It bothers me when people don't fulfill their obligations."
+        "en": "It bothers me when people don't fulfill their obligations.",
+        "pt": "Incomoda-me quando as pessoas não cumprem as suas obrigações.",
+        "fr": "Cela me dérange quand les gens ne remplissent pas leurs obligations."
       }
     },
     {
@@ -174,7 +240,9 @@
       "type": 1,
       "text": {
         "es": "Soy una persona que se preocupa por los detalles y la calidad.",
-        "en": "I am a person who cares about details and quality."
+        "en": "I am a person who cares about details and quality.",
+        "pt": "Sou uma pessoa que se preocupa com detalhes e qualidade.",
+        "fr": "Je suis une personne soucieuse des détails et de la qualité."
       }
     },
     {
@@ -182,7 +250,9 @@
       "type": 1,
       "text": {
         "es": "Siento que debo ser perfecto/a para ser aceptado/a.",
-        "en": "I feel I must be perfect to be accepted."
+        "en": "I feel I must be perfect to be accepted.",
+        "pt": "Sinto que tenho que ser perfeito para ser aceito.",
+        "fr": "J'ai l'impression que je dois être parfait pour être accepté."
       }
     },
     {
@@ -190,7 +260,9 @@
       "type": 1,
       "text": {
         "es": "Soy una persona que tiene principios morales fuertes.",
-        "en": "I am a person with strong moral principles."
+        "en": "I am a person with strong moral principles.",
+        "pt": "Sou uma pessoa que tem fortes princípios morais.",
+        "fr": "Je suis une personne qui a des principes moraux forts."
       }
     },
     {
@@ -198,7 +270,9 @@
       "type": 1,
       "text": {
         "es": "Me cuesta relajarme porque siempre hay algo que mejorar.",
-        "en": "I find it hard to relax because there's always something to improve."
+        "en": "I find it hard to relax because there's always something to improve.",
+        "pt": "É difícil para mim relaxar porque sempre há algo para melhorar.",
+        "fr": "C'est difficile pour moi de me détendre car il y a toujours quelque chose à améliorer."
       }
     },
     {
@@ -206,7 +280,9 @@
       "type": 1,
       "text": {
         "es": "Soy una persona que se siente frustrada cuando las cosas no son correctas.",
-        "en": "I am a person who feels frustrated when things aren't right."
+        "en": "I am a person who feels frustrated when things aren't right.",
+        "pt": "Sou uma pessoa que fica frustrada quando as coisas não vão bem.",
+        "fr": "Je suis une personne frustrée quand les choses ne vont pas."
       }
     },
     {
@@ -214,7 +290,9 @@
       "type": 2,
       "text": {
         "es": "Soy una persona que siempre está dispuesta a ayudar a los demás.",
-        "en": "I am a person who is always willing to help others."
+        "en": "I am a person who is always willing to help others.",
+        "pt": "Sou uma pessoa que está sempre disposta a ajudar os outros.",
+        "fr": "Je suis une personne toujours prête à aider les autres."
       }
     },
     {
@@ -222,7 +300,9 @@
       "type": 2,
       "text": {
         "es": "Me gusta ser indispensable para las personas importantes en mi vida.",
-        "en": "I like being indispensable to important people in my life."
+        "en": "I like being indispensable to important people in my life.",
+        "pt": "Gosto de ser indispensável para as pessoas importantes da minha vida.",
+        "fr": "J'aime être indispensable aux personnes importantes de ma vie."
       }
     },
     {
@@ -230,7 +310,9 @@
       "type": 2,
       "text": {
         "es": "Soy una persona que anticipa las necesidades de otros.",
-        "en": "I am a person who anticipates others' needs."
+        "en": "I am a person who anticipates others' needs.",
+        "pt": "Sou uma pessoa que antecipa as necessidades dos outros.",
+        "fr": "Je suis une personne qui anticipe les besoins des autres."
       }
     },
     {
@@ -238,7 +320,9 @@
       "type": 2,
       "text": {
         "es": "Me cuesta decir que no cuando alguien me pide ayuda.",
-        "en": "I find it hard to say no when someone asks for help."
+        "en": "I find it hard to say no when someone asks for help.",
+        "pt": "É difícil para mim dizer não quando alguém me pede ajuda.",
+        "fr": "C'est difficile pour moi de dire non quand quelqu'un me demande de l'aide."
       }
     },
     {
@@ -246,7 +330,9 @@
       "type": 2,
       "text": {
         "es": "Soy una persona cariñosa y expresiva.",
-        "en": "I am an affectionate and expressive person."
+        "en": "I am an affectionate and expressive person.",
+        "pt": "Sou uma pessoa amorosa e expressiva.",
+        "fr": "Je suis une personne aimante et expressive."
       }
     },
     {
@@ -254,7 +340,9 @@
       "type": 2,
       "text": {
         "es": "Me siento herido cuando mi ayuda no es apreciada.",
-        "en": "I feel hurt when my help isn't appreciated."
+        "en": "I feel hurt when my help isn't appreciated.",
+        "pt": "Sinto-me magoado quando a minha ajuda não é apreciada.",
+        "fr": "Je me sens blessé lorsque mon aide n'est pas appréciée."
       }
     },
     {
@@ -262,7 +350,9 @@
       "type": 2,
       "text": {
         "es": "Soy una persona que pone las necesidades de otros antes que las suyas.",
-        "en": "I am a person who puts others' needs before my own."
+        "en": "I am a person who puts others' needs before my own.",
+        "pt": "Sou uma pessoa que coloca as necessidades dos outros antes das suas.",
+        "fr": "Je suis une personne qui fait passer les besoins des autres avant les siens."
       }
     },
     {
@@ -270,7 +360,9 @@
       "type": 2,
       "text": {
         "es": "Me gusta que las personas dependan de mí.",
-        "en": "I like people to depend on me."
+        "en": "I like people to depend on me.",
+        "pt": "Gosto que as pessoas dependam de mim.",
+        "fr": "J'aime que les gens dépendent de moi."
       }
     },
     {
@@ -278,7 +370,9 @@
       "type": 2,
       "text": {
         "es": "Soy una persona que busca la aprobación de los demás.",
-        "en": "I am a person who seeks others' approval."
+        "en": "I am a person who seeks others' approval.",
+        "pt": "Sou uma pessoa que busca a aprovação dos outros.",
+        "fr": "Je suis une personne qui recherche l'approbation des autres."
       }
     },
     {
@@ -286,7 +380,9 @@
       "type": 3,
       "text": {
         "es": "Soy una persona orientada a resultados y logros.",
-        "en": "I am a results and achievement-oriented person."
+        "en": "I am a results and achievement-oriented person.",
+        "pt": "Sou uma pessoa orientada para resultados e conquistas.",
+        "fr": "Je suis une personne orientée vers les résultats et les réalisations."
       }
     },
     {
@@ -294,7 +390,9 @@
       "type": 3,
       "text": {
         "es": "Me gusta que me reconozcan por mis logros.",
-        "en": "I like being recognized for my achievements."
+        "en": "I like being recognized for my achievements.",
+        "pt": "Gosto de ser reconhecido pelas minhas conquistas.",
+        "fr": "J'aime être reconnu pour mes réalisations."
       }
     },
     {
@@ -302,7 +400,9 @@
       "type": 3,
       "text": {
         "es": "Soy una persona eficiente y productiva.",
-        "en": "I am an efficient and productive person."
+        "en": "I am an efficient and productive person.",
+        "pt": "Sou uma pessoa eficiente e produtiva.",
+        "fr": "Je suis une personne efficace et productive."
       }
     },
     {
@@ -310,7 +410,9 @@
       "type": 3,
       "text": {
         "es": "Me preocupa cómo me perciben los demás.",
-        "en": "I worry about how others perceive me."
+        "en": "I worry about how others perceive me.",
+        "pt": "Preocupo-me com a forma como os outros me percebem.",
+        "fr": "Je m'inquiète de la façon dont les autres me perçoivent."
       }
     },
     {
@@ -318,7 +420,9 @@
       "type": 3,
       "text": {
         "es": "Soy una persona adaptable que cambia según la situación.",
-        "en": "I am an adaptable person who changes according to the situation."
+        "en": "I am an adaptable person who changes according to the situation.",
+        "pt": "Sou uma pessoa adaptável que muda de acordo com a situação.",
+        "fr": "Je suis une personne adaptable qui change selon la situation."
       }
     },
     {
@@ -326,7 +430,9 @@
       "type": 3,
       "text": {
         "es": "Me gusta ser el/la mejor en lo que hago.",
-        "en": "I like being the best at what I do."
+        "en": "I like being the best at what I do.",
+        "pt": "Gosto de ser o melhor no que faço.",
+        "fr": "J’aime être le meilleur dans ce que je fais."
       }
     },
     {
@@ -334,7 +440,9 @@
       "type": 3,
       "text": {
         "es": "Soy una persona que comunica con claridad y confianza.",
-        "en": "I am a person who communicates with clarity and confidence."
+        "en": "I am a person who communicates with clarity and confidence.",
+        "pt": "Sou uma pessoa que se comunica com clareza e confiança.",
+        "fr": "Je suis une personne qui communique avec clarté et confiance."
       }
     },
     {
@@ -342,7 +450,9 @@
       "type": 3,
       "text": {
         "es": "Me siento mal cuando fracaso o no tengo éxito.",
-        "en": "I feel bad when I fail or am not successful."
+        "en": "I feel bad when I fail or am not successful.",
+        "pt": "Sinto-me mal quando falho ou não consigo.",
+        "fr": "Je me sens mal quand j'échoue ou ne réussis pas."
       }
     },
     {
@@ -350,7 +460,9 @@
       "type": 3,
       "text": {
         "es": "Soy una persona que se preocupa por la imagen y la apariencia.",
-        "en": "I am a person who cares about image and appearance."
+        "en": "I am a person who cares about image and appearance.",
+        "pt": "Sou uma pessoa que se preocupa com imagem e aparência.",
+        "fr": "Je suis une personne soucieuse de l'image et de l'apparence."
       }
     },
     {
@@ -358,7 +470,9 @@
       "type": 4,
       "text": {
         "es": "Soy una persona emocional y profunda.",
-        "en": "I am an emotional and deep person."
+        "en": "I am an emotional and deep person.",
+        "pt": "Sou uma pessoa emotiva e profunda.",
+        "fr": "Je suis une personne émotive et profonde."
       }
     },
     {
@@ -366,7 +480,9 @@
       "type": 4,
       "text": {
         "es": "Me siento diferente a los demás.",
-        "en": "I feel different from others."
+        "en": "I feel different from others.",
+        "pt": "Sinto-me diferente dos outros.",
+        "fr": "Je me sens différent des autres."
       }
     },
     {
@@ -374,7 +490,9 @@
       "type": 4,
       "text": {
         "es": "Soy una persona creativa y original.",
-        "en": "I am a creative and original person."
+        "en": "I am a creative and original person.",
+        "pt": "Sou uma pessoa criativa e original.",
+        "fr": "Je suis une personne créative et originale."
       }
     },
     {
@@ -382,7 +500,9 @@
       "type": 4,
       "text": {
         "es": "Tiendo a melancolía y nostalgia.",
-        "en": "I tend toward melancholy and nostalgia."
+        "en": "I tend toward melancholy and nostalgia.",
+        "pt": "Tenho tendência à melancolia e à nostalgia.",
+        "fr": "J'ai tendance vers la mélancolie et la nostalgie."
       }
     },
     {
@@ -390,7 +510,9 @@
       "type": 4,
       "text": {
         "es": "Soy una persona que busca significado profundo en la vida.",
-        "en": "I am a person who seeks deep meaning in life."
+        "en": "I am a person who seeks deep meaning in life.",
+        "pt": "Sou uma pessoa que busca um significado profundo na vida.",
+        "fr": "Je suis une personne qui cherche un sens profond à la vie."
       }
     },
     {
@@ -398,7 +520,9 @@
       "type": 4,
       "text": {
         "es": "Me siento incomprendido/a por la mayoría de la gente.",
-        "en": "I feel misunderstood by most people."
+        "en": "I feel misunderstood by most people.",
+        "pt": "Sinto-me incompreendido pela maioria das pessoas.",
+        "fr": "Je me sens incompris par la plupart des gens."
       }
     },
     {
@@ -406,7 +530,9 @@
       "type": 4,
       "text": {
         "es": "Soy una persona que experimenta emociones intensas.",
-        "en": "I am a person who experiences intense emotions."
+        "en": "I am a person who experiences intense emotions.",
+        "pt": "Sou uma pessoa que vivencia emoções intensas.",
+        "fr": "Je suis une personne qui vit des émotions intenses."
       }
     },
     {
@@ -414,7 +540,9 @@
       "type": 4,
       "text": {
         "es": "Tiendo a idealizar lo que no tengo.",
-        "en": "I tend to idealize what I don't have."
+        "en": "I tend to idealize what I don't have.",
+        "pt": "Tenho tendência a idealizar o que não tenho.",
+        "fr": "J'ai tendance à idéaliser ce que je n'ai pas."
       }
     },
     {
@@ -422,7 +550,9 @@
       "type": 4,
       "text": {
         "es": "Soy una persona que valora la autenticidad por encima de todo.",
-        "en": "I am a person who values authenticity above all."
+        "en": "I am a person who values authenticity above all.",
+        "pt": "Sou uma pessoa que valoriza a autenticidade acima de tudo.",
+        "fr": "Je suis une personne qui valorise avant tout l'authenticité."
       }
     },
     {
@@ -430,7 +560,9 @@
       "type": 5,
       "text": {
         "es": "Soy una persona analítica y observadora.",
-        "en": "I am an analytical and observant person."
+        "en": "I am an analytical and observant person.",
+        "pt": "Sou uma pessoa analítica e observadora.",
+        "fr": "Je suis une personne analytique et observatrice."
       }
     },
     {
@@ -438,7 +570,9 @@
       "type": 5,
       "text": {
         "es": "Necesito tiempo a solas para procesar mis pensamientos.",
-        "en": "I need alone time to process my thoughts."
+        "en": "I need alone time to process my thoughts.",
+        "pt": "Preciso de um tempo sozinho para processar meus pensamentos.",
+        "fr": "J'ai besoin de temps seul pour traiter mes pensées."
       }
     },
     {
@@ -446,7 +580,9 @@
       "type": 5,
       "text": {
         "es": "Soy una persona que acumula conocimiento e información.",
-        "en": "I am a person who accumulates knowledge and information."
+        "en": "I am a person who accumulates knowledge and information.",
+        "pt": "Sou uma pessoa que acumula conhecimento e informação.",
+        "fr": "Je suis une personne qui accumule des connaissances et des informations."
       }
     },
     {
@@ -454,7 +590,9 @@
       "type": 5,
       "text": {
         "es": "Me gusta entender cómo funcionan las cosas.",
-        "en": "I like understanding how things work."
+        "en": "I like understanding how things work.",
+        "pt": "Gosto de entender como as coisas funcionam.",
+        "fr": "J’aime comprendre comment les choses fonctionnent."
       }
     },
     {
@@ -462,7 +600,9 @@
       "type": 5,
       "text": {
         "es": "Soy una persona reservada y privada.",
-        "en": "I am a reserved and private person."
+        "en": "I am a reserved and private person.",
+        "pt": "Sou uma pessoa reservada e reservada.",
+        "fr": "Je suis une personne réservée et privée."
       }
     },
     {
@@ -470,7 +610,9 @@
       "type": 5,
       "text": {
         "es": "Me siento incómodo con las emociones intensas.",
-        "en": "I feel uncomfortable with intense emotions."
+        "en": "I feel uncomfortable with intense emotions.",
+        "pt": "Sinto-me desconfortável com emoções intensas.",
+        "fr": "Je me sens mal à l'aise face à des émotions intenses."
       }
     },
     {
@@ -478,7 +620,9 @@
       "type": 5,
       "text": {
         "es": "Soy una persona autónoma e independiente.",
-        "en": "I am an autonomous and independent person."
+        "en": "I am an autonomous and independent person.",
+        "pt": "Sou uma pessoa autônoma e independente.",
+        "fr": "Je suis une personne autonome et indépendante."
       }
     },
     {
@@ -486,7 +630,9 @@
       "type": 5,
       "text": {
         "es": "Tiendo a ser minimalista en mis necesidades.",
-        "en": "I tend to be minimalist in my needs."
+        "en": "I tend to be minimalist in my needs.",
+        "pt": "Tenho tendência a ser minimalista nas minhas necessidades.",
+        "fr": "J'ai tendance à être minimaliste dans mes besoins."
       }
     },
     {
@@ -494,7 +640,9 @@
       "type": 5,
       "text": {
         "es": "Soy una persona que piensa antes de actuar.",
-        "en": "I am a person who thinks before acting."
+        "en": "I am a person who thinks before acting.",
+        "pt": "Sou uma pessoa que pensa antes de agir.",
+        "fr": "Je suis une personne qui réfléchit avant d'agir."
       }
     },
     {
@@ -502,7 +650,9 @@
       "type": 6,
       "text": {
         "es": "Soy una persona leal y comprometida.",
-        "en": "I am a loyal and committed person."
+        "en": "I am a loyal and committed person.",
+        "pt": "Sou uma pessoa leal e comprometida.",
+        "fr": "Je suis une personne fidèle et engagée."
       }
     },
     {
@@ -510,7 +660,9 @@
       "type": 6,
       "text": {
         "es": "Tiendo a preocuparme y anticipar problemas.",
-        "en": "I tend to worry and anticipate problems."
+        "en": "I tend to worry and anticipate problems.",
+        "pt": "Tenho tendência a me preocupar e antecipar problemas.",
+        "fr": "J'ai tendance à m'inquiéter et à anticiper les problèmes."
       }
     },
     {
@@ -518,7 +670,9 @@
       "type": 6,
       "text": {
         "es": "Soy una persona que busca seguridad y estabilidad.",
-        "en": "I am a person who seeks security and stability."
+        "en": "I am a person who seeks security and stability.",
+        "pt": "Sou uma pessoa que busca segurança e estabilidade.",
+        "fr": "Je suis une personne qui recherche la sécurité et la stabilité."
       }
     },
     {
@@ -526,7 +680,9 @@
       "type": 6,
       "text": {
         "es": "Me cuesta confiar en personas nuevas.",
-        "en": "I find it hard to trust new people."
+        "en": "I find it hard to trust new people.",
+        "pt": "Tenho dificuldade em confiar em novas pessoas.",
+        "fr": "J'ai du mal à faire confiance aux nouvelles personnes."
       }
     },
     {
@@ -534,7 +690,9 @@
       "type": 6,
       "text": {
         "es": "Soy una persona cuestionadora y escéptica.",
-        "en": "I am a questioning and skeptical person."
+        "en": "I am a questioning and skeptical person.",
+        "pt": "Sou uma pessoa questionadora e cética.",
+        "fr": "Je suis une personne questionnante et sceptique."
       }
     },
     {
@@ -542,7 +700,9 @@
       "type": 6,
       "text": {
         "es": "Me gusta tener un plan B por si todo sale mal.",
-        "en": "I like having a plan B in case everything goes wrong."
+        "en": "I like having a plan B in case everything goes wrong.",
+        "pt": "Gosto de ter um plano B caso tudo dê errado.",
+        "fr": "J'aime avoir un plan B au cas où tout tournerait mal."
       }
     },
     {
@@ -550,7 +710,9 @@
       "type": 6,
       "text": {
         "es": "Soy una persona que es responsable y confiable.",
-        "en": "I am a responsible and reliable person."
+        "en": "I am a responsible and reliable person.",
+        "pt": "Sou uma pessoa responsável e confiável.",
+        "fr": "Je suis une personne responsable et fiable."
       }
     },
     {
@@ -558,7 +720,9 @@
       "type": 6,
       "text": {
         "es": "Tiendo a ser ansioso/a ante la incertidumbre.",
-        "en": "I tend to be anxious in the face of uncertainty."
+        "en": "I tend to be anxious in the face of uncertainty.",
+        "pt": "Tenho tendência a ficar ansioso quando me deparo com incertezas.",
+        "fr": "J'ai tendance à être anxieux face à l'incertitude."
       }
     },
     {
@@ -566,7 +730,9 @@
       "type": 6,
       "text": {
         "es": "Soy una persona que valora la comunidad y el grupo.",
-        "en": "I am a person who values community and the group."
+        "en": "I am a person who values community and the group.",
+        "pt": "Sou uma pessoa que valoriza a comunidade e o grupo.",
+        "fr": "Je suis une personne qui valorise la communauté et le groupe."
       }
     },
     {
@@ -574,7 +740,9 @@
       "type": 7,
       "text": {
         "es": "Soy una persona entusiasta y enérgica.",
-        "en": "I am an enthusiastic and energetic person."
+        "en": "I am an enthusiastic and energetic person.",
+        "pt": "Sou uma pessoa entusiasmada e enérgica.",
+        "fr": "Je suis une personne enthousiaste et énergique."
       }
     },
     {
@@ -582,7 +750,9 @@
       "type": 7,
       "text": {
         "es": "Me gusta tener muchas opciones y posibilidades.",
-        "en": "I like having many options and possibilities."
+        "en": "I like having many options and possibilities.",
+        "pt": "Gosto de ter muitas opções e possibilidades.",
+        "fr": "J’aime avoir de nombreuses options et possibilités."
       }
     },
     {
@@ -590,7 +760,9 @@
       "type": 7,
       "text": {
         "es": "Soy una persona que evita el dolor y las emociones negativas.",
-        "en": "I am a person who avoids pain and negative emotions."
+        "en": "I am a person who avoids pain and negative emotions.",
+        "pt": "Sou uma pessoa que evita a dor e as emoções negativas.",
+        "fr": "Je suis une personne qui évite la douleur et les émotions négatives."
       }
     },
     {
@@ -598,7 +770,9 @@
       "type": 7,
       "text": {
         "es": "Me gusta la spontaneidad y la aventura.",
-        "en": "I enjoy spontaneity and adventure."
+        "en": "I enjoy spontaneity and adventure.",
+        "pt": "Gosto de espontaneidade e aventura.",
+        "fr": "J'aime la spontanéité et l'aventure."
       }
     },
     {
@@ -606,7 +780,9 @@
       "type": 7,
       "text": {
         "es": "Soy una persona optimista y positiva.",
-        "en": "I am an optimistic and positive person."
+        "en": "I am an optimistic and positive person.",
+        "pt": "Sou uma pessoa otimista e positiva.",
+        "fr": "Je suis une personne optimiste et positive."
       }
     },
     {
@@ -614,7 +790,9 @@
       "type": 7,
       "text": {
         "es": "Me aburro fácilmente con la rutina.",
-        "en": "I get bored easily with routine."
+        "en": "I get bored easily with routine.",
+        "pt": "Fico entediado facilmente com a rotina.",
+        "fr": "Je m'ennuie facilement avec la routine."
       }
     },
     {
@@ -622,7 +800,9 @@
       "type": 7,
       "text": {
         "es": "Soy una persona versátil y multifacética.",
-        "en": "I am a versatile and multifaceted person."
+        "en": "I am a versatile and multifaceted person.",
+        "pt": "Sou uma pessoa versátil e multifacetada.",
+        "fr": "Je suis une personne polyvalente et aux multiples facettes."
       }
     },
     {
@@ -630,7 +810,9 @@
       "type": 7,
       "text": {
         "es": "Me gusta planear y anticipar experiencias futuras.",
-        "en": "I like planning and anticipating future experiences."
+        "en": "I like planning and anticipating future experiences.",
+        "pt": "Gosto de planejar e antecipar experiências futuras.",
+        "fr": "J'aime planifier et anticiper les expériences futures."
       }
     },
     {
@@ -638,7 +820,9 @@
       "type": 7,
       "text": {
         "es": "Soy una persona que busca la felicidad y la diversión.",
-        "en": "I am a person who seeks happiness and fun."
+        "en": "I am a person who seeks happiness and fun.",
+        "pt": "Sou uma pessoa que busca felicidade e diversão.",
+        "fr": "Je suis une personne qui recherche le bonheur et le plaisir."
       }
     },
     {
@@ -646,7 +830,9 @@
       "type": 8,
       "text": {
         "es": "Soy una persona fuerte y decidida.",
-        "en": "I am a strong and decisive person."
+        "en": "I am a strong and decisive person.",
+        "pt": "Sou uma pessoa forte e determinada.",
+        "fr": "Je suis une personne forte et déterminée."
       }
     },
     {
@@ -654,7 +840,9 @@
       "type": 8,
       "text": {
         "es": "No me gusta que me digan qué hacer.",
-        "en": "I don't like being told what to do."
+        "en": "I don't like being told what to do.",
+        "pt": "Não gosto que me digam o que fazer.",
+        "fr": "Je n'aime pas qu'on me dise quoi faire."
       }
     },
     {
@@ -662,7 +850,9 @@
       "type": 8,
       "text": {
         "es": "Soy una persona que protege a los débiles.",
-        "en": "I am a person who protects the weak."
+        "en": "I am a person who protects the weak.",
+        "pt": "Eu sou uma pessoa que protege os fracos.",
+        "fr": "Je suis une personne qui protège les faibles."
       }
     },
     {
@@ -670,7 +860,9 @@
       "type": 8,
       "text": {
         "es": "Me gusta estar en control de las situaciones.",
-        "en": "I like being in control of situations."
+        "en": "I like being in control of situations.",
+        "pt": "Gosto de estar no controle das situações.",
+        "fr": "J'aime contrôler les situations."
       }
     },
     {
@@ -678,7 +870,9 @@
       "type": 8,
       "text": {
         "es": "Soy una persona directa y confrontativa.",
-        "en": "I am a direct and confrontational person."
+        "en": "I am a direct and confrontational person.",
+        "pt": "Sou uma pessoa direta e conflituosa.",
+        "fr": "Je suis une personne directe et conflictuelle."
       }
     },
     {
@@ -686,7 +880,9 @@
       "type": 8,
       "text": {
         "es": "Me siento cómodo asumiendo riesgos.",
-        "en": "I feel comfortable taking risks."
+        "en": "I feel comfortable taking risks.",
+        "pt": "Sinto-me confortável em assumir riscos.",
+        "fr": "Je me sens à l’aise de prendre des risques."
       }
     },
     {
@@ -694,7 +890,9 @@
       "type": 8,
       "text": {
         "es": "Soy una persona que defiende sus creencias con pasión.",
-        "en": "I am a person who defends my beliefs passionately."
+        "en": "I am a person who defends my beliefs passionately.",
+        "pt": "Sou uma pessoa que defende suas crenças com paixão.",
+        "fr": "Je suis une personne qui défend ses convictions avec passion."
       }
     },
     {
@@ -702,7 +900,9 @@
       "type": 8,
       "text": {
         "es": "No me gusta la vulnerabilidad ni la debilidad.",
-        "en": "I don't like vulnerability or weakness."
+        "en": "I don't like vulnerability or weakness.",
+        "pt": "Não gosto de vulnerabilidade ou fraqueza.",
+        "fr": "Je n'aime pas la vulnérabilité ou la faiblesse."
       }
     },
     {
@@ -710,7 +910,9 @@
       "type": 8,
       "text": {
         "es": "Soy una persona que toma decisiones rápidamente.",
-        "en": "I am a person who makes decisions quickly."
+        "en": "I am a person who makes decisions quickly.",
+        "pt": "Sou uma pessoa que toma decisões rapidamente.",
+        "fr": "Je suis une personne qui prend des décisions rapidement."
       }
     },
     {
@@ -718,7 +920,9 @@
       "type": 9,
       "text": {
         "es": "Soy una persona tranquila y pacífica.",
-        "en": "I am a calm and peaceful person."
+        "en": "I am a calm and peaceful person.",
+        "pt": "Sou uma pessoa calma e pacífica.",
+        "fr": "Je suis une personne calme et paisible."
       }
     },
     {
@@ -726,7 +930,9 @@
       "type": 9,
       "text": {
         "es": "Evito los conflictos y las discusiones.",
-        "en": "I avoid conflicts and arguments."
+        "en": "I avoid conflicts and arguments.",
+        "pt": "Evito conflitos e discussões.",
+        "fr": "J'évite les conflits et les disputes."
       }
     },
     {
@@ -734,7 +940,9 @@
       "type": 9,
       "text": {
         "es": "Soy una persona que busca la armonía con los demás.",
-        "en": "I am a person who seeks harmony with others."
+        "en": "I am a person who seeks harmony with others.",
+        "pt": "Sou uma pessoa que busca harmonia com os outros.",
+        "fr": "Je suis une personne qui recherche l'harmonie avec les autres."
       }
     },
     {
@@ -742,7 +950,9 @@
       "type": 9,
       "text": {
         "es": "Me cuesta decir no y establecer límites.",
-        "en": "I find it hard to say no and set boundaries."
+        "en": "I find it hard to say no and set boundaries.",
+        "pt": "Tenho dificuldade em dizer não e estabelecer limites.",
+        "fr": "J'ai du mal à dire non et à fixer des limites."
       }
     },
     {
@@ -750,7 +960,9 @@
       "type": 9,
       "text": {
         "es": "Soy una persona complaciente y flexible.",
-        "en": "I am a compliant and flexible person."
+        "en": "I am a compliant and flexible person.",
+        "pt": "Sou uma pessoa complacente e flexível.",
+        "fr": "Je suis une personne accommodante et flexible."
       }
     },
     {
@@ -758,7 +970,9 @@
       "type": 9,
       "text": {
         "es": "Me siento cómodo/a siguiendo el ritmo de otros.",
-        "en": "I feel comfortable following others' pace."
+        "en": "I feel comfortable following others' pace.",
+        "pt": "Sinto-me confortável seguindo o ritmo dos outros.",
+        "fr": "Je me sens à l’aise en suivant le rythme des autres."
       }
     },
     {
@@ -766,7 +980,9 @@
       "type": 9,
       "text": {
         "es": "Soy una persona que escucha y media entre personas.",
-        "en": "I am a person who listens and mediates between people."
+        "en": "I am a person who listens and mediates between people.",
+        "pt": "Sou uma pessoa que ouve e faz a mediação entre as pessoas.",
+        "fr": "Je suis une personne d'écoute et d'intermédiaire entre les gens."
       }
     },
     {
@@ -774,7 +990,9 @@
       "type": 9,
       "text": {
         "es": "Tiendo a posponer decisiones importantes.",
-        "en": "I tend to postpone important decisions."
+        "en": "I tend to postpone important decisions.",
+        "pt": "Tenho tendência a adiar decisões importantes.",
+        "fr": "J'ai tendance à reporter les décisions importantes."
       }
     },
     {
@@ -782,7 +1000,9 @@
       "type": 9,
       "text": {
         "es": "Soy una persona que valora la paz interior por encima de todo.",
-        "en": "I am a person who values inner peace above all."
+        "en": "I am a person who values inner peace above all.",
+        "pt": "Sou uma pessoa que valoriza a paz interior acima de tudo.",
+        "fr": "Je suis une personne qui valorise avant tout la paix intérieure."
       }
     },
     {
@@ -791,7 +1011,9 @@
       "expected_value": 3,
       "text": {
         "es": "Para esta pregunta, selecciona la opción 3 (Algo coincide).",
-        "en": "For this question, select option 3 (Somewhat matches)."
+        "en": "For this question, select option 3 (Somewhat matches).",
+        "pt": "Para esta pergunta, selecione a opção 3 (Algo corresponde).",
+        "fr": "Pour cette question, sélectionnez l'option 3 (Quelque chose correspond)."
       },
       "type": 1
     },
@@ -801,7 +1023,9 @@
       "expected_value": 1,
       "text": {
         "es": "Para esta pregunta, selecciona la opción 1 (No coincide).",
-        "en": "For this question, select option 1 (Does not match)."
+        "en": "For this question, select option 1 (Does not match).",
+        "pt": "Para esta questão, selecione a opção 1 (Não corresponde).",
+        "fr": "Pour cette question, sélectionnez l'option 1 (Ne correspond pas)."
       },
       "type": 1
     },
@@ -811,22 +1035,30 @@
       "expected_value": null,
       "text": {
         "es": "Deja esta pregunta sin responder.",
-        "en": "Leave this question unanswered."
+        "en": "Leave this question unanswered.",
+        "pt": "Deixe esta pergunta sem resposta.",
+        "fr": "Laissez cette question sans réponse."
       },
       "type": 1
     }
   ],
   "instructions": {
     "es": "Indicá en qué medida cada afirmación te describe, siendo 1 = 'No coincide' y 4 = 'Muy coincide'. Son 81 afirmaciones, 9 por cada tipo de enneagrama. Respondé con honestidad. ~20 minutos.",
-    "en": "Indicate how much each statement describes you, where 1 = 'Does not match' and 4 = 'Strongly matches'. 81 statements, 9 per enneagram type. Answer honestly. ~20 minutes."
+    "en": "Indicate how much each statement describes you, where 1 = 'Does not match' and 4 = 'Strongly matches'. 81 statements, 9 per enneagram type. Answer honestly. ~20 minutes.",
+    "pt": "Indique até que ponto cada afirmação descreve você, onde 1 = 'Não corresponde' e 4 = 'Corresponde muito'. São 81 afirmações, 9 para cada tipo de eneagrama. Eu respondi honestamente. ~20 minutos.",
+    "fr": "Indiquez dans quelle mesure chaque énoncé vous décrit, où 1 = « Ne correspond pas » et 4 = « Tout à fait correspondant ». Il y a 81 énoncés, 9 pour chaque type d'ennéagramme. J'ai répondu honnêtement. ~20 minutes."
   },
   "consent": {
     "es": "Al completar este test aceptás que se identificará tu tipo de enneagrama dominante y tu ala. Este test es solo para fines de autoconocimiento.",
-    "en": "By completing this test you agree to receive your dominant enneagram type and wing. This test is for self-awareness purposes only."
+    "en": "By completing this test you agree to receive your dominant enneagram type and wing. This test is for self-awareness purposes only.",
+    "pt": "Ao completar este teste você concorda que seu tipo e asa de eneagrama dominante serão identificados. Este teste é apenas para fins de autoconhecimento.",
+    "fr": "En complétant ce test, vous acceptez que votre type d'ennéagramme et votre aile dominants soient identifiés. Ce test est uniquement destiné à des fins de connaissance de soi."
   },
   "scientific_basis": {
     "es": "El Enneagrama es un sistema de clasificación de la personalidad con raíces en tradiciones espirituales. La versión utilizada se basa en el Riso-Hudson Enneagram Type Indicator (RHETI).",
-    "en": "The Enneagram is a personality classification system with roots in spiritual traditions. This version is based on the Riso-Hudson Enneagram Type Indicator (RHETI)."
+    "en": "The Enneagram is a personality classification system with roots in spiritual traditions. This version is based on the Riso-Hudson Enneagram Type Indicator (RHETI).",
+    "pt": "O Eneagrama é um sistema de classificação de personalidade com raízes nas tradições espirituais. A versão utilizada é baseada no Riso-Hudson Enneagram Type Indicator (RHETI).",
+    "fr": "L'Ennéagramme est un système de classification de la personnalité qui trouve ses racines dans les traditions spirituelles. La version utilisée est basée sur l'indicateur de type d'ennéagramme Riso-Hudson (RHETI)."
   },
   "estimated_minutes": 20,
   "test_mode": "questions"

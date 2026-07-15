@@ -1,0 +1,73 @@
+# Render Blueprint — PsicoMetrics
+# https://render.com/docs/blueprint-spec
+#
+# Deploy: `render blueprint launch` or connect repo via Dashboard.
+
+databases:
+  - name: psicometrics-db
+    region: ohio
+    plan: free
+    databaseName: psicometrics
+    user: psicometrics
+
+services:
+  # ── Backend (Rust) ──────────────────────────────────────────────────────
+  - type: web
+    name: psicometrics-backend
+    runtime: rust
+    region: ohio
+    plan: free
+    branch: main
+    healthCheckPath: /api/v1/health
+    buildCommand: cargo build --release --manifest-path backend/Cargo.toml
+    startCommand: ./backend/target/release/psicometrics-backend
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: psicometrics-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: https://psicometrics-frontend.onrender.com
+      - key: RUST_LOG
+        value: info
+      - key: RUST_BACKTRACE
+        value: "1"
+
+  # ── Frontend (Static Site) ──────────────────────────────────────────────
+  - type: web
+    name: psicometrics-frontend
+    runtime: static
+    region: ohio
+    branch: main
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://psicometrics-backend.onrender.com/api/v1
+      - key: CI
+        value: "true"
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: >-
+          default-src 'self';
+          script-src 'self';
+          style-src 'self' 'unsafe-inline';
+          img-src 'self' data:;
+          font-src 'self';
+          connect-src 'self' https://psicometrics-backend.onrender.com;
+          frame-ancestors 'none';
+          base-uri 'self';
+          form-action 'self'
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains; preload

@@ -2,11 +2,15 @@
   "test_type": "dark_triad",
   "name": {
     "es": "Triada Oscura — SD3",
-    "en": "Dark Triad — SD3"
+    "en": "Dark Triad — SD3",
+    "pt": "Tríade Negra – SD3",
+    "fr": "Triade sombre – SD3"
   },
   "description": {
     "es": "Short Dark Triad (SD3) de Jones & Paulhus (2014). Mide Maquiavelismo, Narcisismo y Psicopatía con 27 ítems, 9 por rasgo.",
-    "en": "Short Dark Triad (SD3) by Jones & Paulhus (2014). Measures Machiavellianism, Narcissism, and Psychopathy with 27 items, 9 per trait."
+    "en": "Short Dark Triad (SD3) by Jones & Paulhus (2014). Measures Machiavellianism, Narcissism, and Psychopathy with 27 items, 9 per trait.",
+    "pt": "Tríade Escura Curta (SD3) de Jones & Paulhus (2014). Mede Maquiavelismo, Narcisismo e Psicopatia com 27 itens, 9 por característica.",
+    "fr": "Courte Triade Sombre (SD3) de Jones & Paulhus (2014). Il mesure le machiavélisme, le narcissisme et la psychopathie avec 27 éléments, 9 par trait."
   },
   "scale": {
     "min": 1,
@@ -34,24 +38,36 @@
       "en": "Machiavellianism",
       "description": {
         "es": "Manipulación estratégica, cinismo moral, visión desconfiada de la naturaleza humana",
-        "en": "Strategic manipulation, moral cynicism, distrustful view of human nature"
-      }
+        "en": "Strategic manipulation, moral cynicism, distrustful view of human nature",
+        "pt": "Manipulação estratégica, cinismo moral, visão desconfiada da natureza humana",
+        "fr": "Manipulation stratégique, cynisme moral, vision méfiante de la nature humaine"
+      },
+      "pt": "Maquiavelismo",
+      "fr": "Machiavélisme"
     },
     "N": {
       "es": "Narcisismo",
       "en": "Narcissism",
       "description": {
         "es": "Grandiosidad, necesidad de admiración, sentimiento de entitledness",
-        "en": "Grandiosity, need for admiration, sense of entitlement"
-      }
+        "en": "Grandiosity, need for admiration, sense of entitlement",
+        "pt": "Grandiosidade, necessidade de admiração, sentimento de direito",
+        "fr": "Grandiose, besoin d'admiration, sentiment de droit"
+      },
+      "pt": "Narcisismo",
+      "fr": "Narcissisme"
     },
     "P": {
       "es": "Psicopatía",
       "en": "Psychopathy",
       "description": {
         "es": "Impulsividad, falta de empatía, desapego social",
-        "en": "Impulsivity, lack of empathy, social detachment"
-      }
+        "en": "Impulsivity, lack of empathy, social detachment",
+        "pt": "Impulsividade, falta de empatia, distanciamento social",
+        "fr": "Impulsivité, manque d'empathie, détachement social"
+      },
+      "pt": "Psicopatia",
+      "fr": "Psychopathie"
     }
   },
   "questions": [
@@ -60,7 +76,9 @@
       "trait": "M",
       "text": {
         "es": "Tiende a manipular a otros para conseguir sus objetivos.",
-        "en": "Tends to manipulate others to get what they want."
+        "en": "Tends to manipulate others to get what they want.",
+        "pt": "Tende a manipular os outros para atingir seus objetivos.",
+        "fr": "A tendance à manipuler les autres pour atteindre ses objectifs."
       }
     },
     {
@@ -68,7 +86,9 @@
       "trait": "M",
       "text": {
         "es": "Se aprovecha de los demás para alcanzar sus metas.",
-        "en": "Takes advantage of others to reach their goals."
+        "en": "Takes advantage of others to reach their goals.",
+        "pt": "Ele se aproveita dos outros para atingir seus objetivos.",
+        "fr": "Il profite des autres pour atteindre ses objectifs."
       }
     },
     {
@@ -76,7 +96,9 @@
       "trait": "M",
       "text": {
         "es": "Se niega a gastar dinero en causas benéficas.",
-        "en": "Refuses to spend money on charitable causes."
+        "en": "Refuses to spend money on charitable causes.",
+        "pt": "Ele se recusa a gastar dinheiro em causas de caridade.",
+        "fr": "Il refuse de dépenser de l'argent pour des causes caritatives."
       }
     },
     {
@@ -84,7 +106,9 @@
       "trait": "M",
       "text": {
         "es": "Tiene poco remordimiento por lastimar a otros.",
-        "en": "Has little remorse for hurting others."
+        "en": "Has little remorse for hurting others.",
+        "pt": "Ele tem pouco remorso por machucar os outros.",
+        "fr": "Il a peu de remords pour avoir blessé les autres."
       }
     },
     {
@@ -92,7 +116,9 @@
       "trait": "M",
       "text": {
         "es": "Ve a los demás como herramientas para usar.",
-        "en": "Sees others as tools to use."
+        "en": "Sees others as tools to use.",
+        "pt": "Veja os outros como ferramentas a serem usadas.",
+        "fr": "Considérez les autres comme des outils à utiliser."
       }
     },
     {
@@ -100,7 +126,9 @@
       "trait": "M",
       "text": {
         "es": "Se resiste a comprometerse en las relaciones.",
-        "en": "Resists committing to relationships."
+        "en": "Resists committing to relationships.",
+        "pt": "Ele resiste a se comprometer com relacionamentos.",
+        "fr": "Il résiste à s'engager dans des relations."
       }
     },
     {
@@ -108,7 +136,9 @@
       "trait": "M",
       "text": {
         "es": "Busca ventajas en situaciones sociales.",
-        "en": "Looks for advantages in social situations."
+        "en": "Looks for advantages in social situations.",
+        "pt": "Procure vantagens em situações sociais.",
+        "fr": "Recherchez les avantages dans les situations sociales."
       }
     },
     {
@@ -116,7 +146,9 @@
       "trait": "M",
       "text": {
         "es": "Siente que merece cosas buenas en la vida.",
-        "en": "Feels entitled to good things in life."
+        "en": "Feels entitled to good things in life.",
+        "pt": "Você sente que merece coisas boas na vida.",
+        "fr": "Vous sentez que vous méritez de bonnes choses dans la vie."
       }
     },
     {
@@ -124,7 +156,9 @@
       "trait": "M",
       "text": {
         "es": "Puede ser persuasivo sin esfuerzo.",
-        "en": "Can be persuasive without effort."
+        "en": "Can be persuasive without effort.",
+        "pt": "Você pode ser persuasivo sem esforço.",
+        "fr": "Vous pouvez être persuasif sans effort."
       }
     },
     {
@@ -132,7 +166,9 @@
       "trait": "N",
       "text": {
         "es": "Se siente especial y único/a.",
-        "en": "Feels special and unique."
+        "en": "Feels special and unique.",
+        "pt": "Você se sente especial e único.",
+        "fr": "Vous vous sentez spécial et unique."
       }
     },
     {
@@ -140,7 +176,9 @@
       "trait": "N",
       "text": {
         "es": "Es especialmente bueno/aManipulando situaciones.",
-        "en": "Is especially good at manipulating situations."
+        "en": "Is especially good at manipulating situations.",
+        "pt": "Ele / ela é especialmente bom em manipular situações.",
+        "fr": "Il/elle est particulièrement doué pour manipuler les situations."
       }
     },
     {
@@ -148,7 +186,9 @@
       "trait": "N",
       "text": {
         "es": "Siente que merece ser el centro de atención.",
-        "en": "Feels entitled to be the center of attention."
+        "en": "Feels entitled to be the center of attention.",
+        "pt": "Ele sente que merece ser o centro das atenções.",
+        "fr": "Il a le sentiment qu’il mérite d’être au centre de l’attention."
       }
     },
     {
@@ -156,7 +196,9 @@
       "trait": "N",
       "text": {
         "es": "Quiere ascender en el mundo más que la mayoría de la gente.",
-        "en": "Wants to rise in the world more than most people."
+        "en": "Wants to rise in the world more than most people.",
+        "pt": "Ele quer subir no mundo mais do que a maioria das pessoas.",
+        "fr": "Il souhaite progresser dans le monde plus que la plupart des gens."
       }
     },
     {
@@ -164,7 +206,9 @@
       "trait": "N",
       "text": {
         "es": "Le gusta ser el/la mejor en todo.",
-        "en": "Likes to be the best at everything."
+        "en": "Likes to be the best at everything.",
+        "pt": "Ele gosta de ser o melhor em tudo.",
+        "fr": "Il aime être le meilleur dans tout."
       }
     },
     {
@@ -172,7 +216,9 @@
       "trait": "N",
       "text": {
         "es": "Se siente orgulloso/a de sí mismo/a.",
-        "en": "Is proud of themselves."
+        "en": "Is proud of themselves.",
+        "pt": "Você se sente orgulhoso de si mesmo.",
+        "fr": "Vous vous sentez fier de vous."
       }
     },
     {
@@ -180,7 +226,9 @@
       "trait": "N",
       "text": {
         "es": "Siente que merece una vida mejor que la mayoría.",
-        "en": "Feels entitled to a better life than most."
+        "en": "Feels entitled to a better life than most.",
+        "pt": "Ele sente que merece uma vida melhor do que a maioria.",
+        "fr": "Il a le sentiment qu’il mérite une vie meilleure que la plupart des autres."
       }
     },
     {
@@ -188,7 +236,9 @@
       "trait": "N",
       "text": {
         "es": "Es demasiado orgulloso/a para pedir ayuda.",
-        "en": "Too proud to ask for help."
+        "en": "Too proud to ask for help.",
+        "pt": "Ele é orgulhoso demais para pedir ajuda.",
+        "fr": "Il est trop fier pour demander de l'aide."
       }
     },
     {
@@ -196,7 +246,9 @@
       "trait": "N",
       "text": {
         "es": "Cree que es mejor que los demás.",
-        "en": "Believes they are better than others."
+        "en": "Believes they are better than others.",
+        "pt": "Ele pensa que é melhor que os outros.",
+        "fr": "Il pense qu'il est meilleur que les autres."
       }
     },
     {
@@ -204,7 +256,9 @@
       "trait": "P",
       "text": {
         "es": "Le resulta fácil Manipular a la gente.",
-        "en": "Finds it easy to manipulate people."
+        "en": "Finds it easy to manipulate people.",
+        "pt": "É fácil para ele manipular as pessoas.",
+        "fr": "Il lui est facile de manipuler les gens."
       }
     },
     {
@@ -212,7 +266,9 @@
       "trait": "P",
       "text": {
         "es": "Le gustaría vivir sin trabajar.",
-        "en": "Would like to live without working."
+        "en": "Would like to live without working.",
+        "pt": "Ele gostaria de viver sem trabalhar.",
+        "fr": "Il aimerait vivre sans travailler."
       }
     },
     {
@@ -220,7 +276,9 @@
       "trait": "P",
       "text": {
         "es": "No se preocupa por las consecuencias de sus acciones.",
-        "en": "Doesn't worry about the consequences of their actions."
+        "en": "Doesn't worry about the consequences of their actions.",
+        "pt": "Ele não se preocupa com as consequências de suas ações.",
+        "fr": "Il ne s'inquiète pas des conséquences de ses actes."
       }
     },
     {
@@ -228,7 +286,9 @@
       "trait": "P",
       "text": {
         "es": "Se siente aburrido/a con facilidad.",
-        "en": "Gets bored easily."
+        "en": "Gets bored easily.",
+        "pt": "Você se sente entediado facilmente.",
+        "fr": "Vous vous ennuyez facilement."
       }
     },
     {
@@ -236,7 +296,9 @@
       "trait": "P",
       "text": {
         "es": "Puede ser cruel cuando quiere.",
-        "en": "Can be cruel when they want to."
+        "en": "Can be cruel when they want to.",
+        "pt": "Ele pode ser cruel quando quer.",
+        "fr": "Il peut être cruel quand il le veut."
       }
     },
     {
@@ -244,7 +306,9 @@
       "trait": "P",
       "text": {
         "es": "Le gusta actuar de forma impulsiva.",
-        "en": "Likes to act impulsively."
+        "en": "Likes to act impulsively.",
+        "pt": "Ele gosta de agir impulsivamente.",
+        "fr": "Il aime agir de manière impulsive."
       }
     },
     {
@@ -252,7 +316,9 @@
       "trait": "P",
       "text": {
         "es": "Le resulta difícil sentir culpa.",
-        "en": "Finds it hard to feel guilty."
+        "en": "Finds it hard to feel guilty.",
+        "pt": "É difícil para você sentir culpa.",
+        "fr": "Il est difficile pour vous de vous sentir coupable."
       }
     },
     {
@@ -260,7 +326,9 @@
       "trait": "P",
       "text": {
         "es": "Ha hecho cosas ilegales.",
-        "en": "Has done illegal things."
+        "en": "Has done illegal things.",
+        "pt": "Ele fez coisas ilegais.",
+        "fr": "Il a fait des choses illégales."
       }
     },
     {
@@ -268,7 +336,9 @@
       "trait": "P",
       "text": {
         "es": "No le importan las reglas.",
-        "en": "Doesn't care about rules."
+        "en": "Doesn't care about rules.",
+        "pt": "Ele não se importa com as regras.",
+        "fr": "Il ne se soucie pas des règles."
       }
     },
     {
@@ -277,7 +347,9 @@
       "expected_value": 3,
       "text": {
         "es": "Para esta pregunta, selecciona la opción 3.",
-        "en": "For this question, select option 3."
+        "en": "For this question, select option 3.",
+        "pt": "Para esta pergunta, selecione a opção 3.",
+        "fr": "Pour cette question, sélectionnez l'option 3."
       },
       "trait": "M"
     },
@@ -287,7 +359,9 @@
       "expected_value": 1,
       "text": {
         "es": "Para esta pregunta, selecciona la opción 1 (Muy en desacuerdo).",
-        "en": "For this question, select option 1 (Strongly disagree)."
+        "en": "For this question, select option 1 (Strongly disagree).",
+        "pt": "Para esta questão, selecione a opção 1 (Discordo totalmente).",
+        "fr": "Pour cette question, sélectionnez l’option 1 (Fortement en désaccord)."
       },
       "trait": "M"
     },
@@ -297,22 +371,30 @@
       "expected_value": null,
       "text": {
         "es": "Deja esta pregunta sin responder.",
-        "en": "Leave this question unanswered."
+        "en": "Leave this question unanswered.",
+        "pt": "Deixe esta pergunta sem resposta.",
+        "fr": "Laissez cette question sans réponse."
       },
       "trait": "M"
     }
   ],
   "instructions": {
     "es": "Indicá tu nivel de acuerdo con cada afirmación, siendo 1 = 'Muy en desacuerdo' y 5 = 'Muy de acuerdo'. Son 27 preguntas. Respondé con total honestidad. ~8 minutos.",
-    "en": "Indicate your level of agreement with each statement, where 1 = 'Strongly disagree' and 5 = 'Strongly agree'. 27 questions. Answer with total honesty. ~8 minutes."
+    "en": "Indicate your level of agreement with each statement, where 1 = 'Strongly disagree' and 5 = 'Strongly agree'. 27 questions. Answer with total honesty. ~8 minutes.",
+    "pt": "Indique o seu nível de concordância com cada afirmação, sendo 1 = ‘Discordo totalmente’ e 5 = ‘Concordo totalmente’. Existem 27 perguntas. Eu respondi com total honestidade. ~8 minutos.",
+    "fr": "Indiquez votre niveau d'accord avec chaque énoncé, avec 1 = « Fortement en désaccord » et 5 = « Tout à fait d'accord ». Il y a 27 questions. J'ai répondu en toute honnêteté. ~8 minutes."
   },
   "consent": {
     "es": "Al completar este test aceptás recibir una evaluación de los rasgos de la Triada Oscura. Este test es solo para fines educativos. Resultados elevados no constituyen un diagnóstico clínico.",
-    "en": "By completing this test you agree to receive an evaluation of Dark Triad traits. This test is for educational purposes only. High scores do not constitute a clinical diagnosis."
+    "en": "By completing this test you agree to receive an evaluation of Dark Triad traits. This test is for educational purposes only. High scores do not constitute a clinical diagnosis.",
+    "pt": "Ao completar este teste você concorda em receber uma avaliação das características da Dark Triad. Este teste é apenas para fins educacionais. Resultados elevados não constituem um diagnóstico clínico.",
+    "fr": "En complétant ce test, vous acceptez de recevoir une évaluation des traits de la Dark Triad. Ce test est uniquement à des fins éducatives. Des résultats élevés ne constituent pas un diagnostic clinique."
   },
   "scientific_basis": {
     "es": "Short Dark Triad (SD3) desarrollado por Jones & Paulhus (2014). Mide 3 rasgos: Maquiavelismo, Narcisismo y Psicopatía subclínica. Confiabilidad alfa = 0.82-0.90.",
-    "en": "Short Dark Triad (SD3) developed by Jones & Paulhus (2014). Measures 3 traits: Machiavellianism, Narcissism, and subclinical Psychopathy. Reliability alpha = 0.82-0.90."
+    "en": "Short Dark Triad (SD3) developed by Jones & Paulhus (2014). Measures 3 traits: Machiavellianism, Narcissism, and subclinical Psychopathy. Reliability alpha = 0.82-0.90.",
+    "pt": "Short Dark Triad (SD3) desenvolvido por Jones & Paulhus (2014). Mede 3 traços: Maquiavelismo, Narcisismo e Psicopatia Subclínica. Confiabilidade alfa = 0,82-0,90.",
+    "fr": "Short Dark Triad (SD3) développé par Jones & Paulhus (2014). Il mesure 3 traits : le machiavélisme, le narcissisme et la psychopathie subclinique. Fiabilité alpha = 0,82-0,90."
   },
   "estimated_minutes": 8,
   "test_mode": "questions"

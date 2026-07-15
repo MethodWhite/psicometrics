@@ -1,6 +1,90 @@
 use crate::interpretation;
 use std::collections::HashMap;
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_human_design_has_required_fields() {
+        let result = calculate("1990-01-01", "12:00", "New York", "en");
+        let obj = result.as_object().unwrap();
+        assert!(obj.contains_key("type"));
+        assert!(obj.contains_key("strategy"));
+        assert!(obj.contains_key("authority"));
+        assert!(obj.contains_key("profile"));
+        assert!(obj.contains_key("centers"));
+        assert!(obj.contains_key("personality_gates"));
+        assert!(obj.contains_key("design_gates"));
+        assert!(obj.contains_key("summary"));
+    }
+
+    #[test]
+    fn test_human_design_type_is_string() {
+        let result = calculate("1990-06-15", "14:30", "London", "en");
+        let hd_type = result["type"].as_str().unwrap();
+        let valid_types = ["Manifestor", "Generator", "Manifesting Generator", "Projector", "Reflector"];
+        assert!(valid_types.contains(&hd_type), "Unknown HD type: {}", hd_type);
+    }
+
+    #[test]
+    fn test_human_design_strategy_not_empty() {
+        let result = calculate("1985-12-25", "08:00", "Tokyo", "en");
+        let strategy = result["strategy"].as_str().unwrap();
+        assert!(!strategy.is_empty(), "strategy should not be empty");
+    }
+
+    #[test]
+    fn test_human_design_authority_emotional() {
+        let result = calculate("2000-03-20", "06:00", "Paris", "en");
+        assert_eq!(result["authority"].as_str().unwrap(), "Emotional");
+    }
+
+    #[test]
+    fn test_human_design_profile_13() {
+        let result = calculate("1995-07-10", "22:00", "Sydney", "en");
+        assert_eq!(result["profile"].as_str().unwrap(), "1/3");
+    }
+
+    #[test]
+    fn test_human_design_centers_object() {
+        let result = calculate("1988-11-05", "18:30", "Berlin", "en");
+        let centers = result["centers"].as_object().unwrap();
+        assert!(centers.contains_key("head"));
+        assert!(centers.contains_key("ajna"));
+        assert!(centers.contains_key("throat"));
+        assert!(centers.contains_key("g"));
+        assert!(centers.contains_key("heart"));
+        assert!(centers.contains_key("sacral"));
+        assert!(centers.contains_key("solar_plexus"));
+        assert!(centers.contains_key("splenic"));
+        assert!(centers.contains_key("root"));
+    }
+
+    #[test]
+    fn test_human_design_gates_are_numbers() {
+        let result = calculate("2005-08-15", "09:45", "Moscow", "en");
+        let gates = result["personality_gates"].as_array().unwrap();
+        assert!(!gates.is_empty(), "personality gates should not be empty");
+        for g in gates {
+            let val = g.as_u64().unwrap();
+            assert!(val >= 1 && val <= 64, "gate {} out of range [1,64]", val);
+        }
+    }
+
+    #[test]
+    fn test_human_design_summary_not_empty() {
+        let result = calculate("1992-04-18", "16:00", "Buenos Aires", "en");
+        assert!(result["summary"].as_str().unwrap_or("").len() > 0);
+    }
+
+    #[test]
+    fn test_human_design_spanish() {
+        let result = calculate("1990-01-01", "12:00", "Madrid", "es");
+        assert!(result["summary"].as_str().unwrap_or("").len() > 0);
+    }
+}
+
 /// Simplified Human Design calculator.
 /// In production, use Swiss Ephemeris for accurate planetary positions.
 fn calculate_planets(day_of_year: u32, hour: f64) -> (HashMap<&'static str, f64>, HashMap<&'static str, f64>) {

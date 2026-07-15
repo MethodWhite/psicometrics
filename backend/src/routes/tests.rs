@@ -1,13 +1,14 @@
 use axum::{
     extract::{Path, Query},
-    http::{header, StatusCode},
+    http::header,
     Json,
 };
 use serde::Serialize;
 use std::collections::HashMap;
 
 use crate::compatibility;
-use crate::data::{load_test_data, get_test_type_list};
+use crate::data::{get_test_type_list, load_test_data, TestDataNotFound};
+use crate::error::{AppError, AppResult};
 use crate::i18n::get_string_field;
 use crate::scoring;
 use crate::validation;
@@ -39,34 +40,62 @@ pub struct TestMetadata {
     pub test_mode: String,
 }
 
-pub async fn list_tests() -> Json<Vec<TestInfoResponse>> {
-    let results: Vec<TestInfoResponse> = get_test_type_list().iter().map(|&tt| {
-        let data = load_test_data(tt).expect("test data");
-        let items = data.get("questions")
-            .and_then(|q| q.as_array())
-            .map(|arr| arr.len())
-            .unwrap_or(0);
-        TestInfoResponse {
-            test_type: tt.to_string(),
-            name: serde_json::json!({"es": data["name"]["es"], "en": data["name"]["en"]}),
-            description: serde_json::json!({"es": data["description"]["es"], "en": data["description"]["en"]}),
-            item_count: items,
-            test_mode: if tt == "human_design" { "birth_data".to_string() } else { "questions".to_string() },
+fn get_data(test_type: &str) -> AppResult<&'static serde_json::Value> {
+    load_test_data(test_type).map_err(|e: TestDataNotFound| {
+        if ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"].contains(&test_type)
+        {
+            AppError::Internal(format!("Test data for '{test_type}' is corrupted: {}", e.0))
+        } else {
+            AppError::NotFound(format!("Test '{test_type}' not found"))
         }
-    }).collect();
+    })
+}
+
+fn valid_tests() -> &'static [&'static str] {
+    &["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"]
+}
+
+// ─── Handlers ────────────────────────────────────────────────────────────────
+
+pub async fn list_tests() -> Json<Vec<TestInfoResponse>> {
+    let results: Vec<TestInfoResponse> = get_test_type_list()
+        .iter()
+        .filter_map(|&tt| {
+            let data = get_data(tt).ok()?;
+            let items = data
+                .get("questions")
+                .and_then(|q| q.as_array())
+                .map(|arr| arr.len())
+                .unwrap_or(0);
+            Some(TestInfoResponse {
+                test_type: tt.to_string(),
+                name: serde_json::json!({"es": data["name"]["es"], "en": data["name"]["en"]}),
+                description: serde_json::json!({
+                    "es": data["description"]["es"],
+                    "en": data["description"]["en"]
+                }),
+                item_count: items,
+                test_mode: if tt == "human_design" {
+                    "birth_data".to_string()
+                } else {
+                    "questions".to_string()
+                },
+            })
+        })
+        .collect();
     Json(results)
 }
 
 pub async fn get_test_metadata(
     Path(test_type): Path<String>,
-) -> Result<Json<TestMetadata>, (StatusCode, Json<serde_json::Value>)> {
-    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
-    if !valid.contains(&test_type.as_str()) {
-        return Err((StatusCode::NOT_FOUND, Json(serde_json::json!({"detail": "Test not found"}))));
+) -> AppResult<Json<TestMetadata>> {
+    if !valid_tests().contains(&test_type.as_str()) {
+        return Err(AppError::NotFound("Test not found".to_string()));
     }
 
-    let data = load_test_data(&test_type).expect("test data");
-    let items = data.get("questions")
+    let data = get_data(&test_type)?;
+    let items = data
+        .get("questions")
         .and_then(|q| q.as_array())
         .map(|arr| arr.len())
         .unwrap_or(0);
@@ -75,49 +104,77 @@ pub async fn get_test_metadata(
         test_type: test_type.clone(),
         name: data["name"].clone(),
         description: data["description"].clone(),
-        instructions: data.get("instructions").cloned()
-            .unwrap_or(serde_json::json!({"es": "Respondé cada pregunta según corresponda. No hay respuestas correctas o incorrectas.", "en": "Answer each question as it applies to you. There are no right or wrong answers."})),
-        consent: data.get("consent").cloned()
-            .unwrap_or(serde_json::json!({"es": "Este test es solo para fines educativos y de autoconocimiento. No reemplaza una evaluación psicológica profesional.", "en": "This test is for educational and self-awareness purposes only. It does not replace professional psychological evaluation."})),
-        scientific_basis: data.get("scientific_basis").cloned()
-            .unwrap_or(serde_json::json!({"es": "","en": ""})),
+        instructions: data
+            .get("instructions")
+            .cloned()
+            .unwrap_or(serde_json::json!({
+                "es": "Respondé cada pregunta según corresponda. No hay respuestas correctas o incorrectas.",
+                "en": "Answer each question as it applies to you. There are no right or wrong answers."
+            })),
+        consent: data.get("consent").cloned().unwrap_or(serde_json::json!({
+            "es": "Este test es solo para fines educativos y de autoconocimiento. No reemplaza una evaluación psicológica profesional.",
+            "en": "This test is for educational and self-awareness purposes only. It does not replace professional psychological evaluation."
+        })),
+        scientific_basis: data
+            .get("scientific_basis")
+            .cloned()
+            .unwrap_or(serde_json::json!({"es": "", "en": ""})),
         item_count: items,
-        estimated_minutes: data.get("estimated_minutes").and_then(|v| v.as_u64()).unwrap_or(15) as u32,
-        test_mode: if test_type == "human_design" { "birth_data".to_string() } else { "questions".to_string() },
+        estimated_minutes: data
+            .get("estimated_minutes")
+            .and_then(|v| v.as_u64())
+            .unwrap_or(15) as u32,
+        test_mode: if test_type == "human_design" {
+            "birth_data".to_string()
+        } else {
+            "questions".to_string()
+        },
     }))
 }
 
 pub async fn get_test_questions(
     Path(test_type): Path<String>,
     Query(q): Query<LangQuery>,
-) -> Result<Json<serde_json::Value>, (StatusCode, Json<serde_json::Value>)> {
+) -> AppResult<Json<serde_json::Value>> {
     let lang = q.lang.as_deref().unwrap_or("es");
-    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
 
-    if !valid.contains(&test_type.as_str()) {
-        return Err((StatusCode::NOT_FOUND, Json(serde_json::json!({"detail": "Test not found"}))));
+    if !valid_tests().contains(&test_type.as_str()) {
+        return Err(AppError::NotFound("Test not found".to_string()));
     }
 
-    let data = load_test_data(&test_type).expect("test data");
+    let data = get_data(&test_type)?;
 
     let questions: Vec<serde_json::Value> = if test_type == "human_design" {
         vec![]
     } else {
-        data["questions"].as_array().map(|arr| {
-            arr.iter().map(|q| {
-                let text = get_string_field(&q["text"], lang, "");
-                let mut localized = serde_json::json!({
-                    "id": q["id"],
-                    "text": text,
-                });
-                for field in &["facet", "reverse", "dichotomy", "pole", "type", "dimension", "trait"] {
-                    if let Some(v) = q.get(*field) {
-                        localized[*field] = v.clone();
-                    }
-                }
-                localized
-            }).collect()
-        }).unwrap_or_default()
+        data["questions"]
+            .as_array()
+            .map(|arr| {
+                arr.iter()
+                    .map(|q| {
+                        let text = get_string_field(&q["text"], lang, "");
+                        let mut localized = serde_json::json!({
+                            "id": q["id"],
+                            "text": text,
+                        });
+                        for field in &[
+                            "facet",
+                            "reverse",
+                            "dichotomy",
+                            "pole",
+                            "type",
+                            "dimension",
+                            "trait",
+                        ] {
+                            if let Some(v) = q.get(*field) {
+                                localized[*field] = v.clone();
+                            }
+                        }
+                        localized
+                    })
+                    .collect()
+            })
+            .unwrap_or_default()
     };
 
     let result = serde_json::json!({
@@ -131,96 +188,74 @@ pub async fn get_test_questions(
     Ok(Json(result))
 }
 
-#[derive(serde::Deserialize)]
-pub struct BigFiveForm {
-    pub answers: Vec<QuestionVal>,
-    pub language: Option<String>,
-}
-
-#[derive(serde::Deserialize)]
-pub struct QuestionVal {
-    pub question_id: u32,
-    pub value: serde_json::Value,
-}
-
 pub async fn submit_test(
     Path(test_type): Path<String>,
     Json(body): Json<serde_json::Value>,
-) -> Result<Json<serde_json::Value>, (StatusCode, Json<serde_json::Value>)> {
-    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
-    if !valid.contains(&test_type.as_str()) {
-        return Err((
-            StatusCode::NOT_FOUND,
-            Json(serde_json::json!({"detail": "Test not found"})),
-        ));
+) -> AppResult<Json<serde_json::Value>> {
+    if !valid_tests().contains(&test_type.as_str()) {
+        return Err(AppError::NotFound("Test not found".to_string()));
     }
 
-    let lang = body.get("language")
+    let lang = body
+        .get("language")
         .and_then(|l| l.as_str())
         .unwrap_or("es");
 
-    // Extract raw answers for validation (supports both numeric and string values)
-    let raw_answers: HashMap<u32, serde_json::Value> = body["answers"].as_array()
+    let raw_answers: HashMap<u32, serde_json::Value> = body["answers"]
+        .as_array()
         .map(|arr| {
-            arr.iter().filter_map(|a| {
-                let qid = a["question_id"].as_u64()? as u32;
-                let val = a["value"].clone();
-                Some((qid, val))
-            }).collect()
+            arr.iter()
+                .filter_map(|a| {
+                    let qid = a["question_id"].as_u64()? as u32;
+                    let val = a["value"].clone();
+                    Some((qid, val))
+                })
+                .collect()
         })
         .unwrap_or_default();
 
-    // Run validation before scoring
-    let completion_time = body.get("completion_time")
+    let completion_time = body
+        .get("completion_time")
         .and_then(|v| v.as_u64())
         .map(|v| v as u32);
-    let validity = validation::validate_responses(
-        &test_type,
-        &raw_answers,
-        completion_time,
-    );
 
-    // Score the test (converts to appropriate answer type per test)
+    let validity = validation::validate_responses(&test_type, &raw_answers, completion_time);
+
     let mut result = match test_type.as_str() {
         "big_five" => {
-            let answers: HashMap<u32, f64> = raw_answers.iter()
-                .filter_map(|(&qid, v)| {
-                    v.as_f64().map(|f| (qid, f))
-                })
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
                 .collect();
-            scoring::big_five::score(&answers, lang)
+            scoring::big_five::score(&answers, lang)?
         }
         "mbti" => {
-            let answers: HashMap<u32, String> = raw_answers.iter()
-                .filter_map(|(&qid, v)| {
-                    v.as_str().map(|s| (qid, s.to_string()))
-                })
+            let answers: HashMap<u32, String> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
                 .collect();
-            scoring::mbti::score(&answers, lang)
+            scoring::mbti::score(&answers, lang)?
         }
         "enneagram" => {
-            let answers: HashMap<u32, f64> = raw_answers.iter()
-                .filter_map(|(&qid, v)| {
-                    v.as_f64().map(|f| (qid, f))
-                })
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
                 .collect();
-            scoring::enneagram::score(&answers, lang)
+            scoring::enneagram::score(&answers, lang)?
         }
         "disc" => {
-            let answers: HashMap<u32, String> = raw_answers.iter()
-                .filter_map(|(&qid, v)| {
-                    v.as_str().map(|s| (qid, s.to_string()))
-                })
+            let answers: HashMap<u32, String> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_str().map(|s| (qid, s.to_string())))
                 .collect();
-            scoring::disc::score(&answers, lang)
+            scoring::disc::score(&answers, lang)?
         }
         "dark_triad" => {
-            let answers: HashMap<u32, f64> = raw_answers.iter()
-                .filter_map(|(&qid, v)| {
-                    v.as_f64().map(|f| (qid, f))
-                })
+            let answers: HashMap<u32, f64> = raw_answers
+                .iter()
+                .filter_map(|(&qid, v)| v.as_f64().map(|f| (qid, f)))
                 .collect();
-            scoring::dark_triad::score(&answers, lang)
+            scoring::dark_triad::score(&answers, lang)?
         }
         "human_design" => {
             let bd = body["birth_date"].as_str().unwrap_or("1990-01-01");
@@ -228,31 +263,25 @@ pub async fn submit_test(
             let bl = body["birth_location"].as_str().unwrap_or("Unknown");
             scoring::human_design::calculate(bd, bt, bl, lang)
         }
-        _ => unreachable!(), // validated above
+        _ => unreachable!(),
     };
 
-    // Attach validity info to the response
     if let Some(obj) = result.as_object_mut() {
-        obj.insert("validity".to_string(), serde_json::to_value(&validity).unwrap_or_default());
+        obj.insert(
+            "validity".to_string(),
+            serde_json::to_value(&validity).unwrap_or_default(),
+        );
     }
 
     Ok(Json(result))
 }
 
-/// POST /api/v1/tests/{test_type}/report
-///
-/// Accepts the same body as `submit_test` + optional `language`.
-/// Returns a PDF report as `application/pdf`.
 pub async fn generate_report(
     Path(test_type): Path<String>,
     Json(body): Json<serde_json::Value>,
-) -> Result<(axum::http::HeaderMap, Vec<u8>), (StatusCode, Json<serde_json::Value>)> {
-    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
-    if !valid.contains(&test_type.as_str()) {
-        return Err((
-            StatusCode::NOT_FOUND,
-            Json(serde_json::json!({"detail": "Test not found"})),
-        ));
+) -> AppResult<(axum::http::HeaderMap, Vec<u8>)> {
+    if !valid_tests().contains(&test_type.as_str()) {
+        return Err(AppError::NotFound("Test not found".to_string()));
     }
 
     let lang = body
@@ -274,7 +303,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::big_five::score(&answers, lang)
+            scoring::big_five::score(&answers, lang)?
         }
         "mbti" => {
             let answers: HashMap<u32, String> = body["answers"]
@@ -289,7 +318,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::mbti::score(&answers, lang)
+            scoring::mbti::score(&answers, lang)?
         }
         "enneagram" => {
             let answers: HashMap<u32, f64> = body["answers"]
@@ -304,7 +333,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::enneagram::score(&answers, lang)
+            scoring::enneagram::score(&answers, lang)?
         }
         "disc" => {
             let answers: HashMap<u32, String> = body["answers"]
@@ -319,7 +348,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::disc::score(&answers, lang)
+            scoring::disc::score(&answers, lang)?
         }
         "dark_triad" => {
             let answers: HashMap<u32, f64> = body["answers"]
@@ -334,7 +363,7 @@ pub async fn generate_report(
                         .collect()
                 })
                 .unwrap_or_default();
-            scoring::dark_triad::score(&answers, lang)
+            scoring::dark_triad::score(&answers, lang)?
         }
         "human_design" => {
             let bd = body["birth_date"].as_str().unwrap_or("1990-01-01");
@@ -348,12 +377,17 @@ pub async fn generate_report(
     let pdf_bytes = crate::report::generate_report(&test_type, &result, lang);
 
     let mut headers = axum::http::HeaderMap::new();
-    headers.insert(header::CONTENT_TYPE, "application/pdf".parse().unwrap());
+    headers.insert(
+        header::CONTENT_TYPE,
+        header::HeaderValue::from_static("application/pdf"),
+    );
     headers.insert(
         header::CONTENT_DISPOSITION,
-        format!("attachment; filename=\"{}-report.pdf\"", test_type)
-            .parse()
-            .unwrap(),
+        header::HeaderValue::from_str(&format!(
+            "attachment; filename=\"{}-report.pdf\"",
+            test_type
+        ))
+        .unwrap_or_else(|_| header::HeaderValue::from_static("attachment")),
     );
 
     Ok((headers, pdf_bytes))
@@ -368,31 +402,23 @@ pub struct CompareRequest {
 pub async fn compare_tests(
     Path(test_type): Path<String>,
     Json(body): Json<CompareRequest>,
-) -> Result<Json<serde_json::Value>, (StatusCode, Json<serde_json::Value>)> {
+) -> AppResult<Json<serde_json::Value>> {
     let lang = body.language.as_deref().unwrap_or("es");
-    let valid = ["big_five", "mbti", "enneagram", "disc", "dark_triad", "human_design"];
 
-    if !valid.contains(&test_type.as_str()) {
-        return Err((
-            StatusCode::NOT_FOUND,
-            Json(serde_json::json!({"detail": "Test not found"})),
-        ));
+    if !valid_tests().contains(&test_type.as_str()) {
+        return Err(AppError::NotFound("Test not found".to_string()));
     }
 
     if body.results.len() != 2 {
-        return Err((
-            StatusCode::BAD_REQUEST,
-            Json(serde_json::json!({"detail": "Exactly 2 results required for comparison"})),
+        return Err(AppError::BadRequest(
+            "Exactly 2 results required for comparison".to_string(),
         ));
     }
 
     let result = compatibility::compare_results(&body.results, &test_type, lang);
 
     if result.get("error").and_then(|e| e.as_bool()).unwrap_or(false) {
-        return Err((
-            StatusCode::BAD_REQUEST,
-            Json(result),
-        ));
+        return Err(AppError::BadRequest(result.to_string()));
     }
 
     Ok(Json(result))

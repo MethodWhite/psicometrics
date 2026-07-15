@@ -197,7 +197,16 @@ class _HdFormScreenState extends State<HdFormScreen> {
 
       if (mounted) {
         Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (_) => ResultsScreen(testType: widget.testType, result: result),
+          builder: (_) => ResultsScreen(
+            testType: widget.testType,
+            result: result,
+            reportData: {
+              'birth_date': dateStr,
+              'birth_time': timeStr,
+              'birth_location': _locationController.text,
+              'language': lang,
+            },
+          ),
         ));
       }
     } catch (e) {

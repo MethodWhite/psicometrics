@@ -1,14 +1,96 @@
-use crate::data::load_test_data;
-use crate::interpretation;
 use std::collections::HashMap;
+
+use crate::data::load_test_data;
+use crate::error::{AppError, AppResult};
+use crate::interpretation;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::data::load_test_data;
+
+    fn make_answers(value: f64) -> HashMap<u32, f64> {
+        let data = load_test_data("dark_triad").unwrap();
+        let questions = data["questions"].as_array().unwrap();
+        let mut answers = HashMap::new();
+        for q in questions {
+            if !q.get("attention_check").and_then(|v| v.as_bool()).unwrap_or(false) {
+                let qid = q["id"].as_u64().unwrap() as u32;
+                answers.insert(qid, value);
+            }
+        }
+        answers
+    }
+
+    #[test]
+    fn test_dark_triad_has_required_fields() {
+        let answers = make_answers(3.0);
+        let result = score(&answers, "en").unwrap();
+        let obj = result.as_object().unwrap();
+        assert!(obj.contains_key("scores"));
+        assert!(obj.contains_key("dark_core"));
+        assert!(obj.contains_key("risk_level"));
+        assert!(obj.contains_key("profile_summary"));
+    }
+
+    #[test]
+    fn test_dark_triad_scores_in_range() {
+        let answers = make_answers(4.0);
+        let result = score(&answers, "en").unwrap();
+        let scores = result["scores"].as_object().unwrap();
+        for (trait_name, val) in scores {
+            let v = val.as_f64().unwrap();
+            assert!(v >= 0.0 && v <= 100.0, "trait {} score {} out of [0,100]", trait_name, v);
+        }
+    }
+
+    #[test]
+    fn test_dark_triad_dark_core_average_of_traits() {
+        let answers = make_answers(5.0);
+        let result = score(&answers, "en").unwrap();
+        let dark_core = result["dark_core"].as_f64().unwrap();
+        assert!(dark_core > 0.0);
+    }
+
+    #[test]
+    fn test_dark_triad_risk_level_string() {
+        let answers = make_answers(1.0);
+        let result = score(&answers, "en").unwrap();
+        let risk = result["risk_level"].as_str().unwrap();
+        assert!(["minimal", "low", "moderate", "high"].contains(&risk),
+                "unknown risk level: {}", risk);
+    }
+
+    #[test]
+    fn test_dark_triad_high_scores_high_risk() {
+        let answers = make_answers(5.0);
+        let result = score(&answers, "en").unwrap();
+        let dark_core = result["dark_core"].as_f64().unwrap();
+        let risk = result["risk_level"].as_str().unwrap();
+        // All 5s should produce high scores
+        assert!(dark_core > 50.0, "dark core {:.1} should be >50 for all-5 answers", dark_core);
+        assert_eq!(risk, "high", "all-5 answers should be 'high' risk, got '{}'", risk);
+    }
+
+    #[test]
+    fn test_dark_triad_spanish() {
+        let answers = make_answers(2.0);
+        let result = score(&answers, "es").unwrap();
+        assert!(result["profile_summary"].as_str().unwrap_or("").len() > 0);
+    }
+}
 
 fn normalize(value: f64, min: f64, max: f64) -> f64 {
     ((value - min) / (max - min)) * 100.0
 }
 
-pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
-    let data = load_test_data("dark_triad").expect("dark_triad data");
-    let questions = data["questions"].as_array().expect("questions array");
+pub fn score(answers: &HashMap<u32, f64>, language: &str) -> AppResult<serde_json::Value> {
+    let data = load_test_data("dark_triad").map_err(|e| {
+        AppError::Internal(format!("Failed to load dark_triad data: {}", e.0))
+    })?;
+    let questions = data["questions"].as_array().ok_or_else(|| {
+        AppError::Internal("dark_triad data missing questions array".to_string())
+    })?;
 
     let mut trait_raw: HashMap<&str, Vec<f64>> = HashMap::new();
     trait_raw.insert("M", Vec::new());
@@ -74,5 +156,5 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
             result.insert(k.clone(), v.clone());
         }
     }
-    serde_json::Value::Object(result)
+    Ok(serde_json::Value::Object(result))
 }

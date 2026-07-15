@@ -11,21 +11,49 @@ pub fn generate_report(test_type: &str, result: &serde_json::Value, language: &s
     let (doc, page_idx, layer_idx) =
         PdfDocument::new(&title, Mm(210.0), Mm(297.0), "report");
 
-    let font = doc.add_builtin_font(BuiltinFont::Helvetica).unwrap();
-    let font_bold = doc.add_builtin_font(BuiltinFont::HelveticaBold).unwrap();
-    let font_italic = doc.add_builtin_font(BuiltinFont::HelveticaOblique).unwrap();
+    let font = match doc.add_builtin_font(BuiltinFont::Helvetica) {
+        Ok(f) => f,
+        Err(e) => {
+            tracing::error!("Failed to load Helvetica font: {e}");
+            return Vec::new();
+        }
+    };
+    let font_bold = match doc.add_builtin_font(BuiltinFont::HelveticaBold) {
+        Ok(f) => f,
+        Err(e) => {
+            tracing::error!("Failed to load HelveticaBold font: {e}");
+            return Vec::new();
+        }
+    };
+    let font_italic = match doc.add_builtin_font(BuiltinFont::HelveticaOblique) {
+        Ok(f) => f,
+        Err(e) => {
+            tracing::error!("Failed to load HelveticaOblique font: {e}");
+            return Vec::new();
+        }
+    };
 
     let layer = doc.get_page(page_idx).get_layer(layer_idx);
     let mut y = Mm(272.0);
 
     // ── Title ──
-    layer.use_text(&title, 20.0, Mm(20.0), y, &font_bold);
+    let _ = layer.use_text(&title, 20.0, Mm(20.0), y, &font_bold);
     y -= Mm(10.0);
 
     // ── Date ──
-    let date_prefix = if language == "en" { "Generated on: " } else { "Generado el: " };
+    let date_prefix = if language == "en" {
+        "Generated on: "
+    } else {
+        "Generado el: "
+    };
     let date_str = Local::now().format("%Y-%m-%d %H:%M").to_string();
-    layer.use_text(&format!("{}{}", date_prefix, date_str), 9.0, Mm(20.0), y, &font);
+    let _ = layer.use_text(
+        &format!("{date_prefix}{date_str}"),
+        9.0,
+        Mm(20.0),
+        y,
+        &font,
+    );
     y -= Mm(14.0);
 
     // ── Horizontal rule ──
@@ -34,8 +62,12 @@ pub fn generate_report(test_type: &str, result: &serde_json::Value, language: &s
     y -= Mm(8.0);
 
     // ── Profile summary ──
-    let summary_label = if language == "en" { "Profile Summary" } else { "Resumen del Perfil" };
-    layer.use_text(summary_label, 14.0, Mm(20.0), y, &font_bold);
+    let summary_label = if language == "en" {
+        "Profile Summary"
+    } else {
+        "Resumen del Perfil"
+    };
+    let _ = layer.use_text(summary_label, 14.0, Mm(20.0), y, &font_bold);
     y -= Mm(8.0);
 
     let summary = result
@@ -55,14 +87,18 @@ pub fn generate_report(test_type: &str, result: &serde_json::Value, language: &s
     // ── Score chart ──
     let scores = extract_scores(test_type, result);
     if !scores.is_empty() {
-        let chart_label = if language == "en" { "Score Breakdown" } else { "Desglose de Puntuaciones" };
-        layer.use_text(chart_label, 14.0, Mm(20.0), y, &font_bold);
+        let chart_label = if language == "en" {
+            "Score Breakdown"
+        } else {
+            "Desglose de Puntuaciones"
+        };
+        let _ = layer.use_text(chart_label, 14.0, Mm(20.0), y, &font_bold);
         y -= Mm(10.0);
 
         draw_bar_chart(&layer, &scores, &mut y, &font, &font_bold);
     }
 
-    // ── Test‑specific info ──
+    // ── Test-specific info ──
     y -= Mm(4.0);
     draw_additional_info(test_type, result, &layer, &mut y, &font, &font_bold, language);
 
@@ -79,12 +115,23 @@ pub fn generate_report(test_type: &str, result: &serde_json::Value, language: &s
     };
     let disc_footer_y = Mm(14.0);
     layer.set_fill_color(Color::Rgb(Rgb::new(0.5, 0.5, 0.5, None)));
-    layer.add_rect(Rect::new(Mm(20.0), disc_footer_y + Mm(8.0), Mm(190.0), disc_footer_y + Mm(8.3)));
+    layer.add_rect(Rect::new(
+        Mm(20.0),
+        disc_footer_y + Mm(8.0),
+        Mm(190.0),
+        disc_footer_y + Mm(8.3),
+    ));
     let _ = layer.use_text(disc1, 7.0, Mm(20.0), disc_footer_y, &font_italic);
     let _ = layer.use_text(disc2, 7.0, Mm(20.0), disc_footer_y - Mm(4.0), &font_italic);
 
     // ── Serialise ──
-    doc.save_to_bytes().unwrap()
+    match doc.save_to_bytes() {
+        Ok(bytes) => bytes,
+        Err(e) => {
+            tracing::error!("Failed to save PDF to bytes: {e}");
+            Vec::new()
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -145,25 +192,28 @@ fn extract_scores(test_type: &str, result: &serde_json::Value) -> Vec<(String, f
                         .and_then(|v| v.as_f64())
                         .map(|pct_a| {
                             let dominant = if pct_a >= 50.0 { *pole_a } else { _pole_b };
-                            let display_pct = if pct_a >= 50.0 { pct_a } else { 100.0 - pct_a };
-                            (format!("{}", dominant), display_pct)
+                            let display_pct =
+                                if pct_a >= 50.0 { pct_a } else { 100.0 - pct_a };
+                            (format!("{dominant}"), display_pct)
                         })
                 })
                 .collect()
         }
-        "enneagram" => {
-            (1..=9)
-                .filter_map(|t| {
-                    result["scores"]
-                        .get(t.to_string())
-                        .and_then(|v| v.as_f64())
-                        .map(|s| (format!("Type {}", t), s))
-                })
-                .collect()
-        }
+        "enneagram" => (1..=9)
+            .filter_map(|t| {
+                result["scores"]
+                    .get(t.to_string())
+                    .and_then(|v| v.as_f64())
+                    .map(|s| (format!("Type {t}"), s))
+            })
+            .collect(),
         "disc" => {
-            let names: &[(&str, &str)] =
-                &[("D", "Dominance"), ("I", "Influence"), ("S", "Steadiness"), ("C", "Compliance")];
+            let names: &[(&str, &str)] = &[
+                ("D", "Dominance"),
+                ("I", "Influence"),
+                ("S", "Steadiness"),
+                ("C", "Compliance"),
+            ];
             names
                 .iter()
                 .filter_map(|(k, label)| {
@@ -199,6 +249,7 @@ fn extract_scores(test_type: &str, result: &serde_json::Value) -> Vec<(String, f
 }
 
 /// Draw horizontal bar chart on the current layer, advancing `y` downward.
+#[allow(clippy::too_many_arguments)]
 fn draw_bar_chart(
     layer: &PdfLayerReference,
     scores: &[(String, f64)],
@@ -218,29 +269,35 @@ fn draw_bar_chart(
             break;
         }
 
-        // Label
         let _ = layer.use_text(name, 8.0, label_x, *y, font);
 
-        // Background bar (full width)
         layer.set_fill_color(Color::Rgb(Rgb::new(0.88, 0.90, 0.94, None)));
-        layer.add_rect(Rect::new(bar_start_x, *y, bar_start_x + Mm(bar_max_w), *y + Mm(bar_h)));
+        layer.add_rect(Rect::new(
+            bar_start_x,
+            *y,
+            bar_start_x + Mm(bar_max_w),
+            *y + Mm(bar_h),
+        ));
 
-        // Filled proportion
         let fill_ratio = ((score / 100.0).clamp(0.0, 1.0)) as f32;
         let fill_w = bar_max_w * fill_ratio;
         if fill_w > 0.5 {
             layer.set_fill_color(Color::Rgb(Rgb::new(0.15, 0.40, 0.72, None)));
-            layer.add_rect(Rect::new(bar_start_x, *y, bar_start_x + Mm(fill_w), *y + Mm(bar_h)));
+            layer.add_rect(Rect::new(
+                bar_start_x,
+                *y,
+                bar_start_x + Mm(fill_w),
+                *y + Mm(bar_h),
+            ));
         }
 
-        // Value text
-        let _ = layer.use_text(&format!("{:.0}%", score), 7.5, val_start_x, *y, font);
-
+        let _ = layer.use_text(&format!("{score:.0}%"), 7.5, val_start_x, *y, font);
         *y -= Mm(bar_h + gap);
     }
 }
 
-/// Draw test‑specific textual info (type code, dominant type, etc.).
+/// Draw test-specific textual info (type code, dominant type, etc.).
+#[allow(clippy::too_many_arguments)]
 fn draw_additional_info(
     test_type: &str,
     result: &serde_json::Value,
@@ -254,7 +311,11 @@ fn draw_additional_info(
         "mbti" => {
             let type_code = result.get("type_code").and_then(|v| v.as_str()).unwrap_or("");
             if !type_code.is_empty() && *y > Mm(40.0) {
-                let label = if language == "en" { "Your MBTI Type:" } else { "Tu Tipo MBTI:" };
+                let label = if language == "en" {
+                    "Your MBTI Type:"
+                } else {
+                    "Tu Tipo MBTI:"
+                };
                 let _ = layer.use_text(label, 12.0, Mm(20.0), *y, font_bold);
                 *y -= Mm(7.0);
                 let _ = layer.use_text(type_code, 16.0, Mm(24.0), *y, font);
@@ -266,10 +327,14 @@ fn draw_additional_info(
                 (result["dominant_type"].as_u64(), result["wing"].as_u64())
             {
                 if *y > Mm(40.0) {
-                    let label = if language == "en" { "Dominant Type:" } else { "Tipo Dominante:" };
+                    let label = if language == "en" {
+                        "Dominant Type:"
+                    } else {
+                        "Tipo Dominante:"
+                    };
                     let _ = layer.use_text(label, 12.0, Mm(20.0), *y, font_bold);
                     *y -= Mm(7.0);
-                    let _ = layer.use_text(&format!("{}w{}", dom, wing), 16.0, Mm(24.0), *y, font);
+                    let _ = layer.use_text(&format!("{dom}w{wing}"), 16.0, Mm(24.0), *y, font);
                     *y -= Mm(10.0);
                 }
             }
@@ -288,7 +353,7 @@ fn draw_additional_info(
                     let _ = layer.use_text(label, 12.0, Mm(20.0), *y, font_bold);
                     *y -= Mm(7.0);
                     let _ = layer.use_text(
-                        &format!("{} / {}", primary, secondary),
+                        &format!("{primary} / {secondary}"),
                         14.0,
                         Mm(24.0),
                         *y,
@@ -301,7 +366,11 @@ fn draw_additional_info(
         "dark_triad" => {
             if let Some(risk) = result["risk_level"].as_str() {
                 if *y > Mm(40.0) {
-                    let label = if language == "en" { "Risk Level:" } else { "Nivel de Riesgo:" };
+                    let label = if language == "en" {
+                        "Risk Level:"
+                    } else {
+                        "Nivel de Riesgo:"
+                    };
                     let _ = layer.use_text(label, 12.0, Mm(20.0), *y, font_bold);
                     *y -= Mm(7.0);
                     let _ = layer.use_text(risk, 14.0, Mm(24.0), *y, font);
@@ -312,24 +381,49 @@ fn draw_additional_info(
         "human_design" => {
             let fields: &[(&str, &str)] = &[
                 ("type", if language == "en" { "Type" } else { "Tipo" }),
-                ("strategy", if language == "en" { "Strategy" } else { "Estrategia" }),
-                ("authority", if language == "en" { "Authority" } else { "Autoridad" }),
-                ("profile", if language == "en" { "Profile" } else { "Perfil" }),
+                (
+                    "strategy",
+                    if language == "en" {
+                        "Strategy"
+                    } else {
+                        "Estrategia"
+                    },
+                ),
+                (
+                    "authority",
+                    if language == "en" {
+                        "Authority"
+                    } else {
+                        "Autoridad"
+                    },
+                ),
+                (
+                    "profile",
+                    if language == "en" {
+                        "Profile"
+                    } else {
+                        "Perfil"
+                    },
+                ),
             ];
-            for (json_key, label) in fields {
+            for &(json_key, label) in fields {
                 if *y < Mm(40.0) {
                     break;
                 }
-                let _ = layer.use_text(*label, 10.0, Mm(20.0), *y, font_bold);
+                let _ = layer.use_text(label.to_string(), 10.0, Mm(20.0), *y, font_bold);
                 *y -= Mm(5.0);
-                let val = result.get(*json_key).and_then(|v| v.as_str()).unwrap_or("");
+                let val = result.get(json_key).and_then(|v| v.as_str()).unwrap_or("");
                 let _ = layer.use_text(val, 10.0, Mm(24.0), *y, font);
                 *y -= Mm(8.0);
             }
 
             if let Some(centers) = result["centers"].as_object() {
                 if *y > Mm(40.0) {
-                    let clabel = if language == "en" { "Defined Centers" } else { "Centros Definidos" };
+                    let clabel = if language == "en" {
+                        "Defined Centers"
+                    } else {
+                        "Centros Definidos"
+                    };
                     let _ = layer.use_text(clabel, 12.0, Mm(20.0), *y, font_bold);
                     *y -= Mm(7.0);
                     let mut defined: Vec<String> = centers

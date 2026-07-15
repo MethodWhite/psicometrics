@@ -196,11 +196,71 @@ class ApiService {
     return response.data as List<dynamic>;
   }
 
+  Future<List<int>> downloadReport(String testType, Map<String, dynamic> data) async {
+    final response = await _dio.post(
+      '/api/v1/tests/$testType/report',
+      data: data,
+      options: Options(responseType: ResponseType.bytes),
+    );
+    return response.data as List<int>;
+  }
+
   Future<ComparisonResult> submitCompare(String testType, Map<String, dynamic> result1, Map<String, dynamic> result2, {String lang = 'es'}) async {
     final response = await _dio.post('/api/v1/tests/$testType/compare', data: {
       'results': [result1, result2],
       'language': lang,
     });
     return ComparisonResult.fromJson(response.data);
+  }
+
+  // ─── Sharing ───────────────────────────────────────────────────────────────
+
+  Future<Map<String, dynamic>> shareResult(String accountId, String resultId) async {
+    final response = await _dio.post('/api/v1/accounts/$accountId/results/$resultId/share');
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> getPublicProfile(String shareCode) async {
+    final response = await _dio.get('/api/v1/public/$shareCode');
+    return response.data as Map<String, dynamic>;
+  }
+
+  // ─── Export ────────────────────────────────────────────────────────────────
+
+  Future<List<int>> exportCSV(String accountId) async {
+    final response = await _dio.get(
+      '/api/v1/accounts/$accountId/export/csv',
+      options: Options(responseType: ResponseType.bytes),
+    );
+    return response.data as List<int>;
+  }
+
+  // ─── Premium ───────────────────────────────────────────────────────────────
+
+  Future<Map<String, dynamic>> createPremiumReport(String testType, Map<String, dynamic> data) async {
+    final response = await _dio.post('/api/v1/tests/$testType/premium-report', data: data);
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> createCheckoutSession() async {
+    final response = await _dio.post('/api/v1/payments/create-checkout-session');
+    return response.data as Map<String, dynamic>;
+  }
+
+  // ─── GDPR ──────────────────────────────────────────────────────────────────
+
+  Future<Map<String, dynamic>> deleteAccount(String email) async {
+    final response = await _dio.delete('/api/v1/accounts/me', queryParameters: {'email': email});
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> exportMyData(String email) async {
+    final response = await _dio.get('/api/v1/accounts/me/export', queryParameters: {'email': email});
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> logConsent(String email) async {
+    final response = await _dio.post('/api/v1/accounts/me/consent', queryParameters: {'email': email});
+    return response.data as Map<String, dynamic>;
   }
 }

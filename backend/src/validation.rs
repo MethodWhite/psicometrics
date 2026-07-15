@@ -11,6 +11,109 @@ pub struct ValidationResult {
     pub completion_time_seconds: Option<u32>,
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_all_same(value: f64, count: u32) -> HashMap<u32, serde_json::Value> {
+        let mut answers = HashMap::new();
+        for i in 1..=count {
+            answers.insert(i, serde_json::Value::Number(serde_json::Number::from_f64(value).unwrap_or(serde_json::Number::from(3))));
+        }
+        answers
+    }
+
+    fn make_values(values: &[f64]) -> HashMap<u32, serde_json::Value> {
+        let mut answers = HashMap::new();
+        for (i, &v) in values.iter().enumerate() {
+            answers.insert((i + 1) as u32, serde_json::Value::Number(serde_json::Number::from_f64(v).unwrap_or(serde_json::Number::from(3))));
+        }
+        answers
+    }
+
+    #[test]
+    fn test_straight_line_detection() {
+        // >80% same value should trigger straight_line warning
+        let answers = make_all_same(3.0, 20);
+        let result = validate_responses("big_five", &answers, Some(300));
+        assert!(result.warnings.iter().any(|w| w.contains("identical")),
+                "expected straight-line warning, got: {:?}", result.warnings);
+        assert_eq!(result.response_pattern, "straight_line");
+    }
+
+    #[test]
+    fn test_attention_check_failure() {
+        // Attention check q991 expects value 3 for big_five — give wrong answer
+        let mut answers = make_all_same(3.0, 100);
+        answers.insert(991, serde_json::Value::Number(serde_json::Number::from(5)));
+        let result = validate_responses("big_five", &answers, Some(300));
+        assert!(result.attention_check_failed, "attention check should fail");
+        assert!(!result.is_valid, "should be invalid when attention check fails");
+    }
+
+    #[test]
+    fn test_normal_responses() {
+        // Varied answers, correct attention checks
+        let mut answers = HashMap::new();
+        for i in 1..=100 {
+            let val = ((i * 7) % 5 + 1) as f64;
+            answers.insert(i, serde_json::Value::Number(serde_json::Number::from_f64(val).unwrap_or(serde_json::Number::from(3))));
+        }
+        // Answer attention checks correctly: q991->3, q992->1, q993=leave blank
+        answers.insert(991, serde_json::Value::Number(serde_json::Number::from(3)));
+        answers.insert(992, serde_json::Value::Number(serde_json::Number::from(1)));
+        // q993 must be left blank (expected_value=null) — do NOT insert it
+
+        let result = validate_responses("big_five", &answers, Some(300));
+        assert!(result.is_valid, "normal responses should be valid, got warnings: {:?}", result.warnings);
+        assert_eq!(result.response_pattern, "normal");
+    }
+
+    #[test]
+    fn test_missing_answers_warning() {
+        let mut answers = HashMap::new();
+        for i in 1..=40 {
+            answers.insert(i, serde_json::Value::Number(serde_json::Number::from(3)));
+        }
+        let result = validate_responses("big_five", &answers, Some(300));
+        // 40/120 answered = 33% — should flag as missing
+        assert!(!result.warnings.is_empty(), "should have warnings for only 40/120 answered");
+    }
+
+    #[test]
+    fn test_human_design_always_valid() {
+        let answers = HashMap::new();
+        let result = validate_responses("human_design", &answers, None);
+        assert!(result.is_valid);
+        assert!(result.warnings.is_empty());
+    }
+
+    #[test]
+    fn test_alternating_pattern_detection() {
+        // A-B-A-B pattern with period 2
+        let mut answers = HashMap::new();
+        for i in 1..=20 {
+            let val = if i % 2 == 0 { 5.0 } else { 1.0 };
+            answers.insert(i, serde_json::Value::Number(serde_json::Number::from_f64(val).unwrap_or(serde_json::Number::from(1))));
+        }
+        let result = validate_responses("big_five", &answers, Some(300));
+        assert!(result.response_pattern == "alternating" || result.response_pattern == "straight_line",
+                "expected alternating pattern, got: {}", result.response_pattern);
+    }
+
+    #[test]
+    fn test_completion_time_warning() {
+        let mut answers = HashMap::new();
+        for i in 1..=100 {
+            answers.insert(i, serde_json::Value::Number(serde_json::Number::from(3)));
+        }
+        // 100 questions in 30 seconds with >50 questions should trigger time warning
+        let result = validate_responses("big_five", &answers, Some(30));
+        let has_time_warning = result.warnings.iter().any(|w| w.contains("unusually fast"));
+        assert!(has_time_warning, "expected time warning, got: {:?}", result.warnings);
+    }
+}
+
 /// Validate test responses for careless/random answering patterns.
 ///
 /// Checks performed:
@@ -92,8 +195,8 @@ pub fn validate_responses(
 /// Returns the count of non-attention-check questions for a test type.
 fn get_real_question_count(test_type: &str) -> usize {
     let data = match load_test_data(test_type) {
-        Some(d) => d,
-        None => return 0,
+        Ok(d) => d,
+        Err(_) => return 0,
     };
     let questions = match data["questions"].as_array() {
         Some(q) => q,
@@ -213,8 +316,8 @@ fn check_attention_checks(
     let mut warnings: Vec<String> = Vec::new();
 
     let data = match load_test_data(test_type) {
-        Some(d) => d,
-        None => return (false, vec![]),
+        Ok(d) => d,
+        Err(_) => return (false, vec![]),
     };
     let questions = match data["questions"].as_array() {
         Some(q) => q,

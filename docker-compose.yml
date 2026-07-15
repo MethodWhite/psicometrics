@@ -3,12 +3,14 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: runtime
     ports:
       - "8000:8000"
     environment:
       - DATABASE_URL=
       - SECRET_KEY=change-me-in-production
       - ALLOWED_ORIGINS=["http://localhost:3000"]
+      - RUST_LOG=info
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -17,16 +19,31 @@ services:
     networks:
       - psicometrics-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   psicometrics-web:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
     depends_on:
-      - psicometrics-api
+      psicometrics-api:
+        condition: service_started
     networks:
       - psicometrics-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
 networks:
   psicometrics-network:

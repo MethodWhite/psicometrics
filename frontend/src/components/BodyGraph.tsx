@@ -21,9 +21,9 @@ export function BodyGraph({ centers }: BodyGraphProps) {
   const lang = i18n.language as 'es' | 'en'
 
   return (
-    <svg viewBox="0 0 300 420" className="w-full max-w-sm mx-auto">
+    <svg viewBox="0 0 300 420" className="w-full max-w-sm mx-auto text-border">
       {/* Channels (simplified connections) */}
-      <g stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none">
+      <g stroke="currentColor" strokeWidth="2" fill="none">
         <line x1="150" y1="50" x2="150" y2="70" /> {/* Head to Ajna */}
         <line x1="150" y1="110" x2="150" y2="130" /> {/* Ajna to Throat */}
         <line x1="150" y1="170" x2="150" y2="200" /> {/* Throat to G */}
@@ -48,7 +48,7 @@ export function BodyGraph({ centers }: BodyGraphProps) {
                   : `${pos.x - 15},${pos.y - 15} ${pos.x + 15},${pos.y - 15} ${pos.x + 15},${pos.y + 15} ${pos.x - 15},${pos.y + 15}`
               }
               fill={defined ? '#6366f1' : 'transparent'}
-              stroke={defined ? '#6366f1' : 'rgba(255,255,255,0.3)'}
+              stroke={defined ? '#6366f1' : 'currentColor'}
               strokeWidth="2"
               className="transition-all duration-500"
             />
@@ -56,7 +56,7 @@ export function BodyGraph({ centers }: BodyGraphProps) {
               x={pos.x}
               y={pos.y + 30}
               textAnchor="middle"
-              className="fill-slate-400 text-[8px]"
+              className="fill-content-muted text-[8px]"
             >
               {pos.label[lang]}
             </text>

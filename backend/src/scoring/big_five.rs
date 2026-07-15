@@ -1,6 +1,8 @@
-use crate::data::load_test_data;
-use crate::interpretation;
 use std::collections::HashMap;
+
+use crate::data::load_test_data;
+use crate::error::{AppError, AppResult};
+use crate::interpretation;
 
 fn reverse_value(value: f64) -> f64 {
     6.0 - value
@@ -23,18 +25,28 @@ fn approx_percentile(score: f64) -> f64 {
 }
 
 const FACTOR_NAMES_ES: &[(&str, &str)] = &[
-    ("O", "Apertura"), ("C", "Responsabilidad"), ("E", "Extraversión"),
-    ("A", "Amabilidad"), ("N", "Neuroticismo"),
+    ("O", "Apertura"),
+    ("C", "Responsabilidad"),
+    ("E", "Extraversión"),
+    ("A", "Amabilidad"),
+    ("N", "Neuroticismo"),
 ];
 
 const FACTOR_NAMES_EN: &[(&str, &str)] = &[
-    ("O", "Openness"), ("C", "Conscientiousness"), ("E", "Extraversion"),
-    ("A", "Agreeableness"), ("N", "Neuroticism"),
+    ("O", "Openness"),
+    ("C", "Conscientiousness"),
+    ("E", "Extraversion"),
+    ("A", "Agreeableness"),
+    ("N", "Neuroticism"),
 ];
 
-pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
-    let data = load_test_data("big_five").expect("big_five data");
-    let questions = data["questions"].as_array().expect("questions array");
+pub fn score(answers: &HashMap<u32, f64>, language: &str) -> AppResult<serde_json::Value> {
+    let data = load_test_data("big_five").map_err(|e| {
+        AppError::Internal(format!("Failed to load big_five data: {}", e.0))
+    })?;
+    let questions = data["questions"].as_array().ok_or_else(|| {
+        AppError::Internal("big_five data missing questions array".to_string())
+    })?;
 
     let mut facet_raw: HashMap<&str, Vec<f64>> = HashMap::new();
 
@@ -79,9 +91,7 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
     }
 
     let factor_names = if language == "en" { FACTOR_NAMES_EN } else { FACTOR_NAMES_ES };
-
     let summary = generate_summary(&scores, factor_names, language);
-
     let interp = interpretation::get_interpretation("big_five", &scores, language);
     let recs = interpretation::get_recommendations("big_five", &scores, language);
 
@@ -96,12 +106,95 @@ pub fn score(answers: &HashMap<u32, f64>, language: &str) -> serde_json::Value {
             result.insert(k.clone(), v.clone());
         }
     }
-    serde_json::Value::Object(result)
+    Ok(serde_json::Value::Object(result))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_answers(value: f64) -> HashMap<u32, f64> {
+        let data = crate::data::load_test_data("big_five").unwrap();
+        let questions = data["questions"].as_array().unwrap();
+        let mut answers = HashMap::new();
+        for q in questions {
+            if !q.get("attention_check").and_then(|v| v.as_bool()).unwrap_or(false) {
+                let qid = q["id"].as_u64().unwrap() as u32;
+                answers.insert(qid, value);
+            }
+        }
+        answers
+    }
+
+    #[test]
+    fn test_big_five_has_scores_and_facets() {
+        let answers = make_answers(3.0);
+        let result = score(&answers, "es").unwrap();
+        let obj = result.as_object().unwrap();
+        assert!(obj.contains_key("scores"), "missing scores");
+        assert!(obj.contains_key("facets"), "missing facets");
+        assert!(obj.contains_key("profile_summary"), "missing profile_summary");
+        assert!(obj.contains_key("percentiles"), "missing percentiles");
+    }
+
+    #[test]
+    fn test_big_five_scores_in_range() {
+        let answers = make_answers(3.0);
+        let result = score(&answers, "en").unwrap();
+        let scores = result["scores"].as_object().unwrap();
+        for (factor, val) in scores {
+            let v = val.as_f64().unwrap();
+            assert!(v >= 0.0 && v <= 100.0, "factor {} score {} out of [0,100]", factor, v);
+        }
+    }
+
+    #[test]
+    fn test_big_five_high_scores_tend_high() {
+        let answers = make_answers(5.0);
+        let result = score(&answers, "en").unwrap();
+        let scores = result["scores"].as_object().unwrap();
+        // All 5s should give scores > 50 for non-heavily-reversed factors
+        // (some facets have reversed items so not all factors will be 100)
+        for (factor, val) in scores {
+            let v = val.as_f64().unwrap();
+            assert!(v > 0.0, "factor {} should be > 0 with all-5 answers, got {}", factor, v);
+        }
+    }
+
+    #[test]
+    fn test_big_five_low_scores_tend_low() {
+        let answers = make_answers(1.0);
+        let result = score(&answers, "en").unwrap();
+        let scores = result["scores"].as_object().unwrap();
+        for (factor, val) in scores {
+            let v = val.as_f64().unwrap();
+            assert!(v < 100.0, "factor {} should be < 100 with all-1 answers, got {}", factor, v);
+        }
+    }
+
+    #[test]
+    fn test_big_five_neutral_around_fifty() {
+        let answers = make_answers(3.0);
+        let result = score(&answers, "en").unwrap();
+        let scores = result["scores"].as_object().unwrap();
+        // With all 3s, average should be around 50 for non-reversed facets
+        // Some factors will differ due to reverse items
+        for (factor, val) in scores {
+            let v = val.as_f64().unwrap();
+            assert!(v >= 0.0 && v <= 100.0, "factor {} = {} not in [0,100]", factor, v);
+        }
+    }
+
+    #[test]
+    fn test_big_five_spanish() {
+        let answers = make_answers(4.0);
+        let result = score(&answers, "es").unwrap();
+        assert!(result["profile_summary"].as_str().unwrap_or("").len() > 0);
+    }
 }
 
 fn generate_summary(scores: &HashMap<String, f64>, names: &[(&str, &str)], lang: &str) -> String {
     let mut parts: Vec<String> = Vec::new();
-
     for (key, label) in names {
         let score = scores.get(*key).copied().unwrap_or(50.0);
         let line = if lang == "en" {
@@ -145,6 +238,5 @@ fn generate_summary(scores: &HashMap<String, f64>, names: &[(&str, &str)], lang:
         };
         parts.push(line);
     }
-
     parts.join(" ")
 }

@@ -23,7 +23,7 @@ export function RadarChart({ data, size = 300 }: RadarChartProps) {
   const gridLevels = [20, 40, 60, 80, 100]
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="text-border">
       {/* Grid circles */}
       {gridLevels.map((level) => (
         <circle
@@ -32,7 +32,7 @@ export function RadarChart({ data, size = 300 }: RadarChartProps) {
           cy={center}
           r={(level / 100) * radius}
           fill="none"
-          stroke="rgba(255,255,255,0.1)"
+          stroke="currentColor"
           strokeWidth="1"
         />
       ))}
@@ -47,7 +47,7 @@ export function RadarChart({ data, size = 300 }: RadarChartProps) {
             y1={center}
             x2={center + radius * Math.cos(angle)}
             y2={center + radius * Math.sin(angle)}
-            stroke="rgba(255,255,255,0.1)"
+            stroke="currentColor"
             strokeWidth="1"
           />
         )
@@ -69,7 +69,7 @@ export function RadarChart({ data, size = 300 }: RadarChartProps) {
           cy={p.y}
           r="5"
           fill="#6366f1"
-          stroke="white"
+          stroke="currentColor"
           strokeWidth="2"
         />
       ))}
@@ -87,7 +87,7 @@ export function RadarChart({ data, size = 300 }: RadarChartProps) {
             y={y}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="fill-slate-400 text-xs font-medium"
+            className="fill-content-muted text-xs font-medium"
           >
             {item.label}
           </text>

@@ -1,0 +1,39 @@
+# fly.toml — PsicoMetrics backend
+# https://fly.io/docs/reference/configuration/
+
+app = "psicometrics-backend"
+primary_region = "iad"
+
+[build]
+  dockerfile = "backend/Dockerfile"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[http_service.checks]]
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "10s"
+  method = "GET"
+  path = "/api/v1/health"
+
+[[http_service.checks.headers]]
+  name = "User-Agent"
+  value = "fly-healthcheck"
+
+[env]
+  RUST_LOG = "info"
+  RUST_BACKTRACE = "1"
+  # Override these with `fly secrets set`:
+  #   fly secrets set DATABASE_URL=postgres://...
+  #   fly secrets set JWT_SECRET=...
+  #   fly secrets set ALLOWED_ORIGINS=https://psicometrics-frontend.fly.dev
+
+[metrics]
+  port = 8000
+  path = "/api/v1/metrics"

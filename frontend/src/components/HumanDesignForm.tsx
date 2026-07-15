@@ -24,7 +24,7 @@ export function HumanDesignForm({ onSubmit, loading }: HumanDesignFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">
+        <label className="block text-sm font-medium text-content-secondary mb-2">
           {t('human_design.birth_date', 'Fecha de nacimiento')}
         </label>
         <input
@@ -32,13 +32,13 @@ export function HumanDesignForm({ onSubmit, loading }: HumanDesignFormProps) {
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white
-                     focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+          className="w-full px-4 py-3 bg-surface-secondary border border-border rounded-xl text-content
+                     focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors [color-scheme:light] dark:[color-scheme:dark]"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">
+        <label className="block text-sm font-medium text-content-secondary mb-2">
           {t('human_design.birth_time', 'Hora de nacimiento')}
         </label>
         <input
@@ -46,16 +46,16 @@ export function HumanDesignForm({ onSubmit, loading }: HumanDesignFormProps) {
           value={birthTime}
           onChange={(e) => setBirthTime(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white
-                     focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+          className="w-full px-4 py-3 bg-surface-secondary border border-border rounded-xl text-content
+                     focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors [color-scheme:light] dark:[color-scheme:dark]"
         />
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-content-muted mt-1">
           {t('human_design.time_note', 'La hora exacta es importante para un cálculo preciso')}
         </p>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">
+        <label className="block text-sm font-medium text-content-secondary mb-2">
           {t('human_design.birth_location', 'Lugar de nacimiento')}
         </label>
         <input
@@ -64,7 +64,7 @@ export function HumanDesignForm({ onSubmit, loading }: HumanDesignFormProps) {
           onChange={(e) => setBirthLocation(e.target.value)}
           placeholder={t('human_design.location_placeholder', 'Ciudad, País')}
           required
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500
+          className="w-full px-4 py-3 bg-surface-secondary border border-border rounded-xl text-content placeholder-content-muted
                      focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
       </div>

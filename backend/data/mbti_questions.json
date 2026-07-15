@@ -2,11 +2,15 @@
   "test_type": "mbti",
   "name": {
     "es": "MBTI — Indicador de Tipo Myers-Briggs",
-    "en": "MBTI — Myers-Briggs Type Indicator"
+    "en": "MBTI — Myers-Briggs Type Indicator",
+    "pt": "MBTI - Indicador de tipo Myers-Briggs",
+    "fr": "MBTI — Indicateur de type Myers-Briggs"
   },
   "description": {
     "es": "Basado en la teoría de tipos de Myers-Briggs. Mide 4 dicotomías: E/I, S/N, T/F, J/P con 72 ítems.",
-    "en": "Based on Myers-Briggs type theory. Measures 4 dichotomies: E/I, S/N, T/F, J/P with 72 items."
+    "en": "Based on Myers-Briggs type theory. Measures 4 dichotomies: E/I, S/N, T/F, J/P with 72 items.",
+    "pt": "Baseado na teoria do tipo Myers-Briggs. Mede 4 dicotomias: E/I, S/N, T/F, J/P com 72 itens.",
+    "fr": "Basé sur la théorie des types Myers-Briggs. Il mesure 4 dichotomies : E/I, S/N, T/F, J/P avec 72 items."
   },
   "dichotomies": {
     "EI": {
@@ -14,48 +18,72 @@
       "en": "Extraversion / Introversion",
       "pole_a": {
         "es": "E",
-        "en": "E"
+        "en": "E",
+        "pt": "E",
+        "fr": "E"
       },
       "pole_b": {
         "es": "I",
-        "en": "I"
-      }
+        "en": "I",
+        "pt": "I",
+        "fr": "I"
+      },
+      "pt": "Extroversão/Introversão",
+      "fr": "Extraversion/Introversion"
     },
     "SN": {
       "es": "Sensación / Intuición",
       "en": "Sensing / Intuition",
       "pole_a": {
         "es": "S",
-        "en": "S"
+        "en": "S",
+        "pt": "S",
+        "fr": "S"
       },
       "pole_b": {
         "es": "N",
-        "en": "N"
-      }
+        "en": "N",
+        "pt": "N",
+        "fr": "N"
+      },
+      "pt": "Sensação / Intuição",
+      "fr": "Sensation / Intuition"
     },
     "TF": {
       "es": "Pensamiento / Sentimiento",
       "en": "Thinking / Feeling",
       "pole_a": {
         "es": "T",
-        "en": "T"
+        "en": "T",
+        "pt": "T",
+        "fr": "T"
       },
       "pole_b": {
         "es": "F",
-        "en": "F"
-      }
+        "en": "F",
+        "pt": "F",
+        "fr": "F"
+      },
+      "pt": "Pensamento/Sentimento",
+      "fr": "Pensée/Sentiment"
     },
     "JP": {
       "es": "Juicio / Percepción",
       "en": "Judging / Perceiving",
       "pole_a": {
         "es": "J",
-        "en": "J"
+        "en": "J",
+        "pt": "J",
+        "fr": "J"
       },
       "pole_b": {
         "es": "P",
-        "en": "P"
-      }
+        "en": "P",
+        "pt": "P",
+        "fr": "P"
+      },
+      "pt": "Julgamento/Percepção",
+      "fr": "Jugement/Perception"
     }
   },
   "questions": [
@@ -65,7 +93,9 @@
       "pole": "E",
       "text": {
         "es": "Prefiero estar rodeado de mucha gente en lugar de estar solo.",
-        "en": "I prefer being around many people rather than being alone."
+        "en": "I prefer being around many people rather than being alone.",
+        "pt": "Prefiro estar rodeado de muitas pessoas em vez de ficar sozinho.",
+        "fr": "Je préfère être entouré de beaucoup de monde plutôt que d'être seul."
       }
     },
     {
@@ -74,7 +104,9 @@
       "pole": "I",
       "text": {
         "es": "Prefiero pasar tiempo a solas para recargar mi energía.",
-        "en": "I prefer spending time alone to recharge my energy."
+        "en": "I prefer spending time alone to recharge my energy.",
+        "pt": "Prefiro ficar sozinho para recarregar minhas energias.",
+        "fr": "Je préfère passer du temps seul pour recharger mon énergie."
       }
     },
     {
@@ -83,7 +115,9 @@
       "pole": "S",
       "text": {
         "es": "Me enfoco en los hechos y detalles concretos.",
-        "en": "I focus on facts and concrete details."
+        "en": "I focus on facts and concrete details.",
+        "pt": "Eu me concentro em fatos e detalhes concretos.",
+        "fr": "Je me concentre sur des faits et des détails concrets."
       }
     },
     {
@@ -92,7 +126,9 @@
       "pole": "N",
       "text": {
         "es": "Me enfoco en las posibilidades y el panorama general.",
-        "en": "I focus on possibilities and the big picture."
+        "en": "I focus on possibilities and the big picture.",
+        "pt": "Eu me concentro nas possibilidades e no panorama geral.",
+        "fr": "Je me concentre sur les possibilités et la situation dans son ensemble."
       }
     },
     {
@@ -101,7 +137,9 @@
       "pole": "T",
       "text": {
         "es": "Tomo decisiones basándome en la lógica y la objetividad.",
-        "en": "I make decisions based on logic and objectivity."
+        "en": "I make decisions based on logic and objectivity.",
+        "pt": "Tomo decisões com base na lógica e na objetividade.",
+        "fr": "Je prends des décisions basées sur la logique et l'objectivité."
       }
     },
     {
@@ -110,7 +148,9 @@
       "pole": "F",
       "text": {
         "es": "Tomo decisiones basándome en mis valores y los sentimientos de otros.",
-        "en": "I make decisions based on my values and others' feelings."
+        "en": "I make decisions based on my values and others' feelings.",
+        "pt": "Tomo decisões com base nos meus valores e nos sentimentos dos outros.",
+        "fr": "Je prends des décisions en fonction de mes valeurs et des sentiments des autres."
       }
     },
     {
@@ -119,7 +159,9 @@
       "pole": "J",
       "text": {
         "es": "Prefiero tener un plan y seguir una rutina estructurada.",
-        "en": "I prefer having a plan and following a structured routine."
+        "en": "I prefer having a plan and following a structured routine.",
+        "pt": "Prefiro ter um plano e seguir uma rotina estruturada.",
+        "fr": "Je préfère avoir un plan et suivre une routine structurée."
       }
     },
     {
@@ -128,7 +170,9 @@
       "pole": "P",
       "text": {
         "es": "Prefiero mantener mis opciones abiertas y ser flexible.",
-        "en": "I prefer keeping my options open and being flexible."
+        "en": "I prefer keeping my options open and being flexible.",
+        "pt": "Prefiro manter minhas opções abertas e ser flexível.",
+        "fr": "Je préfère garder mes options ouvertes et être flexible."
       }
     },
     {
@@ -137,7 +181,9 @@
       "pole": "E",
       "text": {
         "es": "Me gusta conocer gente nueva y hacer nuevos amigos.",
-        "en": "I like meeting new people and making new friends."
+        "en": "I like meeting new people and making new friends.",
+        "pt": "Gosto de conhecer novas pessoas e fazer novos amigos.",
+        "fr": "J'aime rencontrer de nouvelles personnes et me faire de nouveaux amis."
       }
     },
     {
@@ -146,7 +192,9 @@
       "pole": "I",
       "text": {
         "es": "Prefiero tener unos pocos amigos cercanos en lugar de muchos conocidos.",
-        "en": "I prefer having a few close friends rather than many acquaintances."
+        "en": "I prefer having a few close friends rather than many acquaintances.",
+        "pt": "Prefiro ter alguns amigos próximos do que muitos conhecidos.",
+        "fr": "Je préfère avoir quelques amis proches plutôt que de nombreuses connaissances."
       }
     },
     {
@@ -155,7 +203,9 @@
       "pole": "S",
       "text": {
         "es": "Prefiero trabajar con hechos y datos concretos.",
-        "en": "I prefer working with concrete facts and data."
+        "en": "I prefer working with concrete facts and data.",
+        "pt": "Prefiro trabalhar com fatos e dados concretos.",
+        "fr": "Je préfère travailler avec des faits et des données concrets."
       }
     },
     {
@@ -164,7 +214,9 @@
       "pole": "N",
       "text": {
         "es": "Me gusta explorar ideas nuevas y teorías.",
-        "en": "I enjoy exploring new ideas and theories."
+        "en": "I enjoy exploring new ideas and theories.",
+        "pt": "Gosto de explorar novas ideias e teorias.",
+        "fr": "J'aime explorer de nouvelles idées et théories."
       }
     },
     {
@@ -173,7 +225,9 @@
       "pole": "T",
       "text": {
         "es": "Valoro la justicia más que la compasión.",
-        "en": "I value justice more than compassion."
+        "en": "I value justice more than compassion.",
+        "pt": "Eu valorizo ​​​​mais a justiça do que a compaixão.",
+        "fr": "Je valorise la justice plus que la compassion."
       }
     },
     {
@@ -182,7 +236,9 @@
       "pole": "F",
       "text": {
         "es": "Valoro la compasión y la armonía interpersonal.",
-        "en": "I value compassion and interpersonal harmony."
+        "en": "I value compassion and interpersonal harmony.",
+        "pt": "Valorizo ​​​​a compaixão e a harmonia interpessoal.",
+        "fr": "J'apprécie la compassion et l'harmonie interpersonnelle."
       }
     },
     {
@@ -191,7 +247,9 @@
       "pole": "J",
       "text": {
         "es": "Me gusta terminar las cosas antes de empezar algo nuevo.",
-        "en": "I like finishing things before starting something new."
+        "en": "I like finishing things before starting something new.",
+        "pt": "Gosto de terminar as coisas antes de começar algo novo.",
+        "fr": "J'aime finir les choses avant de commencer quelque chose de nouveau."
       }
     },
     {
@@ -200,7 +258,9 @@
       "pole": "P",
       "text": {
         "es": "Me gusta improvisar y adaptarme según avanza la situación.",
-        "en": "I like to improvise and adapt as the situation progresses."
+        "en": "I like to improvise and adapt as the situation progresses.",
+        "pt": "Gosto de improvisar e me adaptar conforme a situação avança.",
+        "fr": "J'aime improviser et m'adapter au fur et à mesure que la situation évolue."
       }
     },
     {
@@ -209,7 +269,9 @@
       "pole": "E",
       "text": {
         "es": "Me siento energizado después de interactuar con muchas personas.",
-        "en": "I feel energized after interacting with many people."
+        "en": "I feel energized after interacting with many people.",
+        "pt": "Sinto-me energizado depois de interagir com muitas pessoas.",
+        "fr": "Je me sens plein d’énergie après avoir interagi avec de nombreuses personnes."
       }
     },
     {
@@ -218,7 +280,9 @@
       "pole": "I",
       "text": {
         "es": "Me siento agotado después de estar mucho tiempo con gente.",
-        "en": "I feel drained after spending a lot of time with people."
+        "en": "I feel drained after spending a lot of time with people.",
+        "pt": "Sinto-me exausto depois de passar muito tempo com as pessoas.",
+        "fr": "Je me sens épuisé après avoir passé beaucoup de temps avec les gens."
       }
     },
     {
@@ -227,7 +291,9 @@
       "pole": "S",
       "text": {
         "es": "Prefiero lo práctico y probado antes que lo teórico.",
-        "en": "I prefer practical and proven approaches over theoretical ones."
+        "en": "I prefer practical and proven approaches over theoretical ones.",
+        "pt": "Prefiro o prático e comprovado ao invés do teórico.",
+        "fr": "Je préfère le pratique et éprouvé plutôt que le théorique."
       }
     },
     {
@@ -236,7 +302,9 @@
       "pole": "N",
       "text": {
         "es": "Me atrae lo abstracto y lo que está por venir.",
-        "en": "I am attracted to abstract concepts and what is to come."
+        "en": "I am attracted to abstract concepts and what is to come.",
+        "pt": "Sinto-me atraído pelo abstrato e pelo que está por vir.",
+        "fr": "Je suis attiré par l'abstrait et ce qui est à venir."
       }
     },
     {
@@ -245,7 +313,9 @@
       "pole": "T",
       "text": {
         "es": "Creo que la honestidad es más importante que los sentimientos de otros.",
-        "en": "I believe honesty is more important than others' feelings."
+        "en": "I believe honesty is more important than others' feelings.",
+        "pt": "Acho que a honestidade é mais importante do que os sentimentos das outras pessoas.",
+        "fr": "Je pense que l'honnêteté est plus importante que les sentiments des autres."
       }
     },
     {
@@ -254,7 +324,9 @@
       "pole": "F",
       "text": {
         "es": "Creo que mantener la armonía es fundamental en las relaciones.",
-        "en": "I believe maintaining harmony is fundamental in relationships."
+        "en": "I believe maintaining harmony is fundamental in relationships.",
+        "pt": "Acredito que manter a harmonia é essencial nos relacionamentos.",
+        "fr": "Je crois que maintenir l'harmonie est essentiel dans les relations."
       }
     },
     {
@@ -263,7 +335,9 @@
       "pole": "J",
       "text": {
         "es": "Organizo mi vida con listas, horarios y planes.",
-        "en": "I organize my life with lists, schedules, and plans."
+        "en": "I organize my life with lists, schedules, and plans.",
+        "pt": "Organizo minha vida com listas, horários e planos.",
+        "fr": "J'organise ma vie avec des listes, des horaires et des plans."
       }
     },
     {
@@ -272,7 +346,9 @@
       "pole": "P",
       "text": {
         "es": "Mi entorno de trabajo es flexible y a veces desordenado.",
-        "en": "My workspace is flexible and sometimes messy."
+        "en": "My workspace is flexible and sometimes messy.",
+        "pt": "Meu ambiente de trabalho é flexível e às vezes confuso.",
+        "fr": "Mon environnement de travail est flexible et parfois désordonné."
       }
     },
     {
@@ -281,7 +357,9 @@
       "pole": "E",
       "text": {
         "es": "Disfruto de las fiestas y eventos sociales.",
-        "en": "I enjoy parties and social events."
+        "en": "I enjoy parties and social events.",
+        "pt": "Gosto de festas e eventos sociais.",
+        "fr": "J'apprécie les fêtes et les événements sociaux."
       }
     },
     {
@@ -290,7 +368,9 @@
       "pole": "I",
       "text": {
         "es": "Prefiero actividades tranquilas como leer o estar en la naturaleza.",
-        "en": "I prefer quiet activities like reading or being in nature."
+        "en": "I prefer quiet activities like reading or being in nature.",
+        "pt": "Prefiro atividades tranquilas como ler ou estar na natureza.",
+        "fr": "Je préfère les activités calmes comme lire ou être dans la nature."
       }
     },
     {
@@ -299,7 +379,9 @@
       "pole": "S",
       "text": {
         "es": "Confío más en mi experiencia personal que en las intuiciones.",
-        "en": "I trust my personal experience more than intuitions."
+        "en": "I trust my personal experience more than intuitions.",
+        "pt": "Confio mais na minha experiência pessoal do que na intuição.",
+        "fr": "Je fais plus confiance à mon expérience personnelle qu'à mon intuition."
       }
     },
     {
@@ -308,7 +390,9 @@
       "pole": "N",
       "text": {
         "es": "Soy bueno/a para ver patrones y conexiones que otros no ven.",
-        "en": "I am good at seeing patterns and connections others don't see."
+        "en": "I am good at seeing patterns and connections others don't see.",
+        "pt": "Sou bom em ver padrões e conexões que outras pessoas não veem.",
+        "fr": "Je suis doué pour voir des schémas et des connexions que les autres ne voient pas."
       }
     },
     {
@@ -317,7 +401,9 @@
       "pole": "T",
       "text": {
         "es": "En un debate, priorizo la verdad sobre las sensibilidades.",
-        "en": "In a debate, I prioritize truth over sensitivities."
+        "en": "In a debate, I prioritize truth over sensitivities.",
+        "pt": "Num debate, priorizo ​​a verdade sobre as sensibilidades.",
+        "fr": "Dans un débat, je donne la priorité à la vérité plutôt qu’aux sensibilités."
       }
     },
     {
@@ -326,7 +412,9 @@
       "pole": "F",
       "text": {
         "es": "En un debate, priorizo las sensibilidades de las personas.",
-        "en": "In a debate, I prioritize people's sensitivities."
+        "en": "In a debate, I prioritize people's sensitivities.",
+        "pt": "Num debate, dou prioridade às sensibilidades das pessoas.",
+        "fr": "Dans un débat, je donne la priorité aux sensibilités des gens."
       }
     },
     {
@@ -335,7 +423,9 @@
       "pole": "J",
       "text": {
         "es": "Me gusta la claridad y la conclusión.",
-        "en": "I like clarity and closure."
+        "en": "I like clarity and closure.",
+        "pt": "Gosto de clareza e conclusão.",
+        "fr": "J'aime la clarté et la conclusion."
       }
     },
     {
@@ -344,7 +434,9 @@
       "pole": "P",
       "text": {
         "es": "Me gusta la spontaneidad y la apertura.",
-        "en": "I enjoy spontaneity and openness."
+        "en": "I enjoy spontaneity and openness.",
+        "pt": "Gosto de espontaneidade e abertura.",
+        "fr": "J'aime la spontanéité et l'ouverture d'esprit."
       }
     },
     {
@@ -353,7 +445,9 @@
       "pole": "E",
       "text": {
         "es": "Pienso en voz alta y disfruto discutir ideas.",
-        "en": "I think out loud and enjoy discussing ideas."
+        "en": "I think out loud and enjoy discussing ideas.",
+        "pt": "Penso em voz alta e gosto de discutir ideias.",
+        "fr": "Je pense à voix haute et j'aime discuter d'idées."
       }
     },
     {
@@ -362,7 +456,9 @@
       "pole": "I",
       "text": {
         "es": "Pienso internamente antes de hablar.",
-        "en": "I think internally before speaking."
+        "en": "I think internally before speaking.",
+        "pt": "Eu penso internamente antes de falar.",
+        "fr": "Je réfléchis intérieurement avant de parler."
       }
     },
     {
@@ -371,7 +467,9 @@
       "pole": "S",
       "text": {
         "es": "Prefiero instrucciones paso a paso detalladas.",
-        "en": "I prefer detailed step-by-step instructions."
+        "en": "I prefer detailed step-by-step instructions.",
+        "pt": "Prefiro instruções detalhadas passo a passo.",
+        "fr": "Je préfère les instructions détaillées étape par étape."
       }
     },
     {
@@ -380,7 +478,9 @@
       "pole": "N",
       "text": {
         "es": "Prefiero entender el concepto general antes de los detalles.",
-        "en": "I prefer understanding the general concept before the details."
+        "en": "I prefer understanding the general concept before the details.",
+        "pt": "Prefiro entender o conceito geral antes dos detalhes.",
+        "fr": "Je préfère comprendre le concept général avant les détails."
       }
     },
     {
@@ -389,7 +489,9 @@
       "pole": "T",
       "text": {
         "es": "Creo que las decisiones deben ser impersonales y justas.",
-        "en": "I believe decisions should be impersonal and fair."
+        "en": "I believe decisions should be impersonal and fair.",
+        "pt": "Acredito que as decisões devem ser impessoais e justas.",
+        "fr": "Je crois que les décisions doivent être impersonnelles et justes."
       }
     },
     {
@@ -398,7 +500,9 @@
       "pole": "F",
       "text": {
         "es": "Creo que las decisiones deben considerar el impacto emocional.",
-        "en": "I believe decisions should consider emotional impact."
+        "en": "I believe decisions should consider emotional impact.",
+        "pt": "Acredito que as decisões devem considerar o impacto emocional.",
+        "fr": "Je crois que les décisions doivent tenir compte de l'impact émotionnel."
       }
     },
     {
@@ -407,7 +511,9 @@
       "pole": "J",
       "text": {
         "es": "Me siento incómodo/a con la incertidumbre y la ambigüedad.",
-        "en": "I feel uncomfortable with uncertainty and ambiguity."
+        "en": "I feel uncomfortable with uncertainty and ambiguity.",
+        "pt": "Sinto-me desconfortável com a incerteza e a ambiguidade.",
+        "fr": "Je me sens mal à l'aise face à l'incertitude et à l'ambiguïté."
       }
     },
     {
@@ -416,7 +522,9 @@
       "pole": "P",
       "text": {
         "es": "Me siento cómodo/a con la incertidumbre y los cambios.",
-        "en": "I feel comfortable with uncertainty and change."
+        "en": "I feel comfortable with uncertainty and change.",
+        "pt": "Sinto-me confortável com a incerteza e a mudança.",
+        "fr": "Je me sens à l'aise avec l'incertitude et le changement."
       }
     },
     {
@@ -425,7 +533,9 @@
       "pole": "E",
       "text": {
         "es": "Soy alguien que se involucra fácilmente en conversaciones.",
-        "en": "I am someone who easily engages in conversations."
+        "en": "I am someone who easily engages in conversations.",
+        "pt": "Sou alguém que se envolve facilmente em conversas.",
+        "fr": "Je suis quelqu'un qui s'engage facilement dans des conversations."
       }
     },
     {
@@ -434,7 +544,9 @@
       "pole": "I",
       "text": {
         "es": "Soy alguien que necesita tiempo a solas para procesar.",
-        "en": "I am someone who needs alone time to process."
+        "en": "I am someone who needs alone time to process.",
+        "pt": "Sou alguém que precisa de um tempo sozinho para processar.",
+        "fr": "Je suis quelqu'un qui a besoin de temps seul pour traiter."
       }
     },
     {
@@ -443,7 +555,9 @@
       "pole": "S",
       "text": {
         "es": "Me gusta lo concreto y lo que puedo ver y tocar.",
-        "en": "I like what is concrete and what I can see and touch."
+        "en": "I like what is concrete and what I can see and touch.",
+        "pt": "Gosto de concreto e do que posso ver e tocar.",
+        "fr": "J'aime le béton et ce que je peux voir et toucher."
       }
     },
     {
@@ -452,7 +566,9 @@
       "pole": "N",
       "text": {
         "es": "Me gusta lo intangible y lo que está más allá de lo inmediato.",
-        "en": "I like the intangible and what is beyond the immediate."
+        "en": "I like the intangible and what is beyond the immediate.",
+        "pt": "Gosto do intangível e do que está além do imediato.",
+        "fr": "J'aime l'intangible et ce qui va au-delà de l'immédiat."
       }
     },
     {
@@ -461,7 +577,9 @@
       "pole": "T",
       "text": {
         "es": "Soy alguien que analiza los problemas de forma lógica.",
-        "en": "I am someone who analyzes problems logically."
+        "en": "I am someone who analyzes problems logically.",
+        "pt": "Sou alguém que analisa problemas de forma lógica.",
+        "fr": "Je suis quelqu'un qui analyse les problèmes de manière logique."
       }
     },
     {
@@ -470,7 +588,9 @@
       "pole": "F",
       "text": {
         "es": "Soy alguien que considera los sentimientos de todos.",
-        "en": "I am someone who considers everyone's feelings."
+        "en": "I am someone who considers everyone's feelings.",
+        "pt": "Sou alguém que considera os sentimentos de todos.",
+        "fr": "Je suis quelqu'un qui prend en compte les sentiments de chacun."
       }
     },
     {
@@ -479,7 +599,9 @@
       "pole": "J",
       "text": {
         "es": "Soy alguien que计划 su tiempo cuidadosamente.",
-        "en": "I am someone who plans their time carefully."
+        "en": "I am someone who plans their time carefully.",
+        "pt": "Sou alguém que gasta seu tempo com cuidado.",
+        "fr": "Je suis quelqu'un qui passe son temps avec soin."
       }
     },
     {
@@ -488,7 +610,9 @@
       "pole": "P",
       "text": {
         "es": "Soy alguien que deja las cosas para último momento.",
-        "en": "I am someone who leaves things to the last moment."
+        "en": "I am someone who leaves things to the last moment.",
+        "pt": "Sou alguém que deixa as coisas para o último minuto.",
+        "fr": "Je suis quelqu'un qui attend les choses jusqu'à la dernière minute."
       }
     },
     {
@@ -497,7 +621,9 @@
       "pole": "E",
       "text": {
         "es": "Me recargo socializando con otros.",
-        "en": "I recharge by socializing with others."
+        "en": "I recharge by socializing with others.",
+        "pt": "Eu recarrego socializando com outras pessoas.",
+        "fr": "Je me ressource en socialisant avec les autres."
       }
     },
     {
@@ -506,7 +632,9 @@
       "pole": "I",
       "text": {
         "es": "Me recargo estando solo/a.",
-        "en": "I recharge by being alone."
+        "en": "I recharge by being alone.",
+        "pt": "Eu recarrego estando sozinho.",
+        "fr": "Je me ressource en étant seul."
       }
     },
     {
@@ -515,7 +643,9 @@
       "pole": "S",
       "text": {
         "es": "Prefiero lo que es real antes que lo que podría ser.",
-        "en": "I prefer what is real over what could be."
+        "en": "I prefer what is real over what could be.",
+        "pt": "Prefiro o que é real ao que poderia ser.",
+        "fr": "Je préfère ce qui est réel plutôt que ce qui pourrait l'être."
       }
     },
     {
@@ -524,7 +654,9 @@
       "pole": "N",
       "text": {
         "es": "Prefiero lo que podría ser antes que lo que es.",
-        "en": "I prefer what could be over what is."
+        "en": "I prefer what could be over what is.",
+        "pt": "Prefiro o que poderia ser do que o que é.",
+        "fr": "Je préfère ce qui pourrait être plutôt que ce qui est."
       }
     },
     {
@@ -533,7 +665,9 @@
       "pole": "T",
       "text": {
         "es": "Me gusta debatir y cuestionar ideas.",
-        "en": "I enjoy debating and questioning ideas."
+        "en": "I enjoy debating and questioning ideas.",
+        "pt": "Gosto de debater e questionar ideias.",
+        "fr": "J'aime débattre et remettre en question les idées."
       }
     },
     {
@@ -542,7 +676,9 @@
       "pole": "F",
       "text": {
         "es": "Me gusta apoyar y animar a los demás.",
-        "en": "I enjoy supporting and encouraging others."
+        "en": "I enjoy supporting and encouraging others.",
+        "pt": "Gosto de apoiar e encorajar os outros.",
+        "fr": "J'aime soutenir et encourager les autres."
       }
     },
     {
@@ -551,7 +687,9 @@
       "pole": "J",
       "text": {
         "es": "Prefiero la estructura y la predictibilidad.",
-        "en": "I prefer structure and predictability."
+        "en": "I prefer structure and predictability.",
+        "pt": "Prefiro estrutura e previsibilidade.",
+        "fr": "Je préfère la structure et la prévisibilité."
       }
     },
     {
@@ -560,7 +698,9 @@
       "pole": "P",
       "text": {
         "es": "Prefiero la variedad y la espontaneidad.",
-        "en": "I prefer variety and spontaneity."
+        "en": "I prefer variety and spontaneity.",
+        "pt": "Prefiro variedade e espontaneidade.",
+        "fr": "Je préfère la variété et la spontanéité."
       }
     },
     {
@@ -569,7 +709,9 @@
       "pole": "E",
       "text": {
         "es": "Disfruto trabajar en equipo.",
-        "en": "I enjoy teamwork."
+        "en": "I enjoy teamwork.",
+        "pt": "Gosto de trabalhar em equipe.",
+        "fr": "J'aime travailler en équipe."
       }
     },
     {
@@ -578,7 +720,9 @@
       "pole": "I",
       "text": {
         "es": "Disfruto trabajar de forma independiente.",
-        "en": "I enjoy working independently."
+        "en": "I enjoy working independently.",
+        "pt": "Gosto de trabalhar de forma independente.",
+        "fr": "J'aime travailler de manière indépendante."
       }
     },
     {
@@ -587,7 +731,9 @@
       "pole": "S",
       "text": {
         "es": "Confío en lo que he experimentado directamente.",
-        "en": "I trust what I have directly experienced."
+        "en": "I trust what I have directly experienced.",
+        "pt": "Confio diretamente no que experimentei.",
+        "fr": "Je fais confiance à ce que j'ai vécu directement."
       }
     },
     {
@@ -596,7 +742,9 @@
       "pole": "N",
       "text": {
         "es": "Confío en mis corazonadas y presentimientos.",
-        "en": "I trust my hunches and gut feelings."
+        "en": "I trust my hunches and gut feelings.",
+        "pt": "Confio em meus palpites e palpites.",
+        "fr": "Je fais confiance à mes intuitions et à mes intuitions."
       }
     },
     {
@@ -605,7 +753,9 @@
       "pole": "T",
       "text": {
         "es": "Pienso que la justicia es más importante que la misericordia.",
-        "en": "I think justice is more important than mercy."
+        "en": "I think justice is more important than mercy.",
+        "pt": "Acho que a justiça é mais importante que a misericórdia.",
+        "fr": "Je pense que la justice est plus importante que la miséricorde."
       }
     },
     {
@@ -614,7 +764,9 @@
       "pole": "F",
       "text": {
         "es": "Pienso que la misericordia es más importante que la justicia.",
-        "en": "I think mercy is more important than justice."
+        "en": "I think mercy is more important than justice.",
+        "pt": "Acho que a misericórdia é mais importante que a justiça.",
+        "fr": "Je pense que la miséricorde est plus importante que la justice."
       }
     },
     {
@@ -623,7 +775,9 @@
       "pole": "J",
       "text": {
         "es": "Me gusta tener todo resuelto y terminado.",
-        "en": "I like having everything resolved and finished."
+        "en": "I like having everything resolved and finished.",
+        "pt": "Gosto de ter tudo planejado e finalizado.",
+        "fr": "J’aime que tout soit compris et terminé."
       }
     },
     {
@@ -632,7 +786,9 @@
       "pole": "P",
       "text": {
         "es": "Me gusta mantener mis opciones abiertas.",
-        "en": "I like keeping my options open."
+        "en": "I like keeping my options open.",
+        "pt": "Gosto de manter minhas opções abertas.",
+        "fr": "J’aime garder mes options ouvertes."
       }
     },
     {
@@ -641,7 +797,9 @@
       "pole": "E",
       "text": {
         "es": "Soy alguien que genera energía al interactuar.",
-        "en": "I am someone who generates energy through interaction."
+        "en": "I am someone who generates energy through interaction.",
+        "pt": "Sou alguém que gera energia interagindo.",
+        "fr": "Je suis quelqu'un qui génère de l'énergie en interagissant."
       }
     },
     {
@@ -650,7 +808,9 @@
       "pole": "I",
       "text": {
         "es": "Soy alguien que conserva energía evitando el ruido.",
-        "en": "I am someone who conserves energy by avoiding noise."
+        "en": "I am someone who conserves energy by avoiding noise.",
+        "pt": "Sou alguém que conserva energia evitando ruídos.",
+        "fr": "Je suis quelqu'un qui économise l'énergie en évitant le bruit."
       }
     },
     {
@@ -659,7 +819,9 @@
       "pole": "S",
       "text": {
         "es": "Me enfoco en lo que funciona ahora.",
-        "en": "I focus on what works now."
+        "en": "I focus on what works now.",
+        "pt": "Eu me concentro no que funciona agora.",
+        "fr": "Je me concentre sur ce qui fonctionne maintenant."
       }
     },
     {
@@ -668,7 +830,9 @@
       "pole": "N",
       "text": {
         "es": "Me enfoco en lo que podría mejorar.",
-        "en": "I focus on what could improve."
+        "en": "I focus on what could improve.",
+        "pt": "Eu me concentro no que posso melhorar.",
+        "fr": "Je me concentre sur ce que je pourrais améliorer."
       }
     },
     {
@@ -677,7 +841,9 @@
       "pole": "T",
       "text": {
         "es": "Creo que los hechos no se afectan por los sentimientos.",
-        "en": "I believe facts are not affected by feelings."
+        "en": "I believe facts are not affected by feelings.",
+        "pt": "Acredito que os fatos não são afetados pelos sentimentos.",
+        "fr": "Je crois que les faits ne sont pas affectés par les sentiments."
       }
     },
     {
@@ -686,7 +852,9 @@
       "pole": "F",
       "text": {
         "es": "Creo que los sentimientos son tan importantes como los hechos.",
-        "en": "I believe feelings are as important as facts."
+        "en": "I believe feelings are as important as facts.",
+        "pt": "Acredito que os sentimentos são tão importantes quanto os fatos.",
+        "fr": "Je crois que les sentiments sont aussi importants que les faits."
       }
     },
     {
@@ -695,7 +863,9 @@
       "pole": "J",
       "text": {
         "es": "Soy alguien que cumple plazos estrictamente.",
-        "en": "I am someone who strictly meets deadlines."
+        "en": "I am someone who strictly meets deadlines.",
+        "pt": "Sou uma pessoa que cumpre rigorosamente os prazos.",
+        "fr": "Je suis quelqu'un qui respecte strictement les délais."
       }
     },
     {
@@ -704,7 +874,9 @@
       "pole": "P",
       "text": {
         "es": "Soy alguien que trabaja mejor bajo presión de tiempo.",
-        "en": "I am someone who works best under time pressure."
+        "en": "I am someone who works best under time pressure.",
+        "pt": "Sou alguém que trabalha melhor sob pressão de tempo.",
+        "fr": "Je suis quelqu'un qui travaille mieux sous la pression du temps."
       }
     },
     {
@@ -713,7 +885,9 @@
       "expected_value": "a",
       "text": {
         "es": "Para esta pregunta, selecciona la opción A.",
-        "en": "For this question, select option A."
+        "en": "For this question, select option A.",
+        "pt": "Para esta questão, selecione a opção A.",
+        "fr": "Pour cette question, sélectionnez l'option A."
       }
     },
     {
@@ -722,7 +896,9 @@
       "expected_value": "b",
       "text": {
         "es": "Para esta pregunta, selecciona la opción B.",
-        "en": "For this question, select option B."
+        "en": "For this question, select option B.",
+        "pt": "Para esta pergunta, selecione a opção B.",
+        "fr": "Pour cette question, sélectionnez l'option B."
       }
     },
     {
@@ -731,21 +907,29 @@
       "expected_value": null,
       "text": {
         "es": "Deja esta pregunta sin responder.",
-        "en": "Leave this question unanswered."
+        "en": "Leave this question unanswered.",
+        "pt": "Deixe esta pergunta sem resposta.",
+        "fr": "Laissez cette question sans réponse."
       }
     }
   ],
   "instructions": {
     "es": "Elegí entre las dos opciones cuál te describe MEJOR, aunque ninguna sea perfecta. Son 72 pares de afirmaciones, 18 por cada dicotomía (E/I, S/N, T/F, J/P). Respondé intuitivamente, sin pensar demasiado. ~15 minutos.",
-    "en": "Choose which of the two options describes you BEST, even if neither is perfect. 72 pairs of statements, 18 per dichotomy (E/I, S/N, T/F, J/P). Answer intuitively, without overthinking. ~15 minutes."
+    "en": "Choose which of the two options describes you BEST, even if neither is perfect. 72 pairs of statements, 18 per dichotomy (E/I, S/N, T/F, J/P). Answer intuitively, without overthinking. ~15 minutes.",
+    "pt": "Escolha entre as duas opções qual delas MELHOR descreve você, embora nenhuma delas seja perfeita. São 72 pares de afirmações, 18 para cada dicotomia (E/I, S/N, T/F, J/P). Respondi intuitivamente, sem pensar muito. ~15 minutos.",
+    "fr": "Choisissez entre les deux options celle qui vous décrit le MIEUX, même si aucune n’est parfaite. Il existe 72 paires d'énoncés, 18 pour chaque dichotomie (E/I, S/N, T/F, J/P). J'ai répondu intuitivement, sans trop réfléchir. ~15 minutes."
   },
   "consent": {
     "es": "Al completar este test aceptás que se generará un tipo de personalidad de 4 letras basado en el modelo Myers-Briggs. Este test es educativo y no reemplaza una evaluación profesional.",
-    "en": "By completing this test you agree to receive a 4-letter personality type based on the Myers-Briggs model. This test is educational and does not replace professional evaluation."
+    "en": "By completing this test you agree to receive a 4-letter personality type based on the Myers-Briggs model. This test is educational and does not replace professional evaluation.",
+    "pt": "Ao completar este teste você concorda que um tipo de personalidade de 4 letras será gerado com base no modelo Myers-Briggs. Este teste é educativo e não substitui uma avaliação profissional.",
+    "fr": "En complétant ce test, vous acceptez qu'un type de personnalité à 4 lettres soit généré sur la base du modèle Myers-Briggs. Ce test est pédagogique et ne remplace pas une évaluation professionnelle."
   },
   "scientific_basis": {
     "es": "Basado en la teoría de tipos psicológicos de Carl Jung y desarrollado por Isabel Briggs Myers y Katharine Cook Briggs (1962). Identifica 16 tipos de personalidad basados en 4 dicotomías.",
-    "en": "Based on Carl Jung's psychological type theory, developed by Isabel Briggs Myers and Katharine Cook Briggs (1962). Identifies 16 personality types based on 4 dichotomies."
+    "en": "Based on Carl Jung's psychological type theory, developed by Isabel Briggs Myers and Katharine Cook Briggs (1962). Identifies 16 personality types based on 4 dichotomies.",
+    "pt": "Baseado na teoria dos tipos psicológicos de Carl Jung e desenvolvida por Isabel Briggs Myers e Katharine Cook Briggs (1962). Identifica 16 tipos de personalidade com base em 4 dicotomias.",
+    "fr": "Basé sur la théorie des types psychologiques de Carl Jung et développé par Isabel Briggs Myers et Katharine Cook Briggs (1962). Il identifie 16 types de personnalité basés sur 4 dichotomies."
   },
   "estimated_minutes": 15,
   "test_mode": "questions"

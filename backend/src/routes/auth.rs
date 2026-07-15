@@ -2,25 +2,28 @@ use axum::{extract::Query, Extension, Json};
 use std::sync::Arc;
 use ztf::challenge::{ChallengeResponse, HmacVerifier};
 
+use crate::error::AppResult;
 use crate::models::{ChallengeResponse as Resp, DeviceRegisterRequest, DeviceRegisterResult, VerifyRequest, VerifyResult};
 
 pub async fn get_challenge(
     Extension(zt_provider): Extension<Arc<ChallengeResponse>>,
-    Extension(secret_key): Extension<Vec<u8>>,
+    Extension(_secret_key): Extension<Vec<u8>>,
     Query(params): Query<ChallengeQuery>,
-) -> Json<Resp> {
+) -> AppResult<Json<Resp>> {
     let agent_type = params.agent_type.as_deref().unwrap_or("unknown");
     let session_id = params.session_id.as_deref().unwrap_or("anon");
 
     let challenge = zt_provider
         .generate_challenge(session_id, agent_type)
-        .unwrap_or_else(|_| panic!("Failed to generate challenge"));
+        .map_err(|e| {
+            crate::error::AppError::Internal(format!("Failed to generate challenge: {e}"))
+        })?;
 
-    Json(Resp {
+    Ok(Json(Resp {
         challenge_id: challenge.id,
         nonce: challenge.nonce,
         expires_at: challenge.expires_at as f64,
-    })
+    }))
 }
 
 pub async fn verify_challenge(
