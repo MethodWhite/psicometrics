@@ -1,29 +1,82 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { blogArticles, BLOG_CATEGORIES, getFeaturedArticles, getPaginatedArticles } from '../data/blog-articles'
+import { blogArticles, BLOG_CATEGORIES, getFeaturedArticles } from '../data/blog-articles'
+import { getTagBySlug } from '../data/taxonomy'
 
 const PER_PAGE = 9
+const POPULAR_TAGS = ['openness', 'conscientiousness', 'extraversion', 'intj', 'infp', 'type-4', 'enneagram', 'relationships', 'career', 'mindfulness', 'leadership', 'productivity']
 
 export default function BlogPage() {
   const { t } = useTranslation()
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [page, setPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const featured = getFeaturedArticles()
+  const activeCategory = searchParams.get('category') || null
+  const activeTags = searchParams.getAll('tag')
+  const page = parseInt(searchParams.get('page') || '1', 10)
+  const showTagFilter = searchParams.get('tags') === '1'
 
-  const filtered = activeCategory
-    ? blogArticles.filter(a => a.category === activeCategory)
-    : blogArticles
+  const setParam = (key: string, value: string | null) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      if (value) next.set(key, value); else next.delete(key)
+      next.set('page', '1')
+      return next
+    })
+  }
 
-  const { articles, totalPages } = activeCategory
-    ? { articles: filtered, totalPages: Math.ceil(filtered.length / PER_PAGE) }
-    : getPaginatedArticles(page, PER_PAGE)
+  const toggleTag = (slug: string) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      const tags = next.getAll('tag')
+      if (tags.includes(slug)) {
+        next.delete('tag')
+        tags.filter(t => t !== slug).forEach(t => next.append('tag', t))
+      } else {
+        next.append('tag', slug)
+      }
+      next.set('page', '1')
+      return next
+    })
+  }
 
-  const displayArticles = activeCategory
-    ? filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
-    : articles
+  const clearTag = (slug: string) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      next.delete('tag')
+      const remaining = activeTags.filter(t => t !== slug)
+      remaining.forEach(t => next.append('tag', t))
+      next.set('page', '1')
+      return next
+    })
+  }
+
+  const filtered = useMemo(() => {
+    let result = activeCategory
+      ? blogArticles.filter(a => a.category === activeCategory)
+      : [...blogArticles]
+
+    if (activeTags.length > 0) {
+      result = result.filter(a =>
+        activeTags.some(tagSlug => {
+          const tag = getTagBySlug(tagSlug)
+          return tag && a.tags.some(t => t.toLowerCase() === tag.name.toLowerCase())
+        })
+      )
+    }
+
+    return result
+  }, [activeCategory, activeTags])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE))
+  const clampedPage = Math.min(page, totalPages)
+  const displayArticles = filtered.slice((clampedPage - 1) * PER_PAGE, clampedPage * PER_PAGE)
+
+  const featured = useMemo(() => {
+    if (activeCategory || activeTags.length > 0) return []
+    return getFeaturedArticles()
+  }, [activeCategory, activeTags])
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -31,7 +84,11 @@ export default function BlogPage() {
   }
 
   const goToPage = (p: number) => {
-    setPage(p)
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      next.set('page', String(p))
+      return next
+    })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -42,10 +99,10 @@ export default function BlogPage() {
       for (let i = 1; i <= totalPages; i++) pages.push(i)
     } else {
       pages.push(1)
-      let start = Math.max(2, page - 1)
-      let end = Math.min(totalPages - 1, page + 1)
-      if (page <= 3) { start = 2; end = Math.min(totalPages - 1, maxVisible) }
-      if (page >= totalPages - 2) { start = Math.max(2, totalPages - maxVisible + 1); end = totalPages - 1 }
+      let start = Math.max(2, clampedPage - 1)
+      let end = Math.min(totalPages - 1, clampedPage + 1)
+      if (clampedPage <= 3) { start = 2; end = Math.min(totalPages - 1, maxVisible) }
+      if (clampedPage >= totalPages - 2) { start = Math.max(2, totalPages - maxVisible + 1); end = totalPages - 1 }
       if (start > 2) pages.push('...')
       for (let i = start; i <= end; i++) pages.push(i)
       if (end < totalPages - 1) pages.push('...')
@@ -72,13 +129,34 @@ export default function BlogPage() {
             </Link>
             <h1 className="text-3xl font-bold text-content mb-3">Blog de Personalidad</h1>
             <p className="text-content-secondary text-lg leading-relaxed">
-              {totalPages} páginas · {blogArticles.length} artículos basados en evidencia científica sobre
+              {blogArticles.length} artículos basados en evidencia científica sobre
               Big Five, MBTI, Eneagrama y más. Aprende cómo funciona tu personalidad.
             </p>
           </div>
 
-          {/* Featured — only on page 1, all categories */}
-          {!activeCategory && page === 1 && featured.length > 0 && (
+          {/* Active filters bar */}
+          {activeTags.length > 0 && (
+            <div className="mb-6 flex flex-wrap items-center gap-2 p-3 bg-indigo-500/5 rounded-xl border border-indigo-500/10">
+              <span className="text-xs font-medium text-content-muted mr-1">Filtrado por:</span>
+              {activeTags.map(slug => {
+                const tag = getTagBySlug(slug)
+                return (
+                  <span key={slug} className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-500/15 text-indigo-400 rounded-full text-xs font-medium">
+                    {tag?.name || slug}
+                    <button onClick={() => clearTag(slug)} className="hover:text-white transition-colors ml-0.5" aria-label={`Quitar filtro ${tag?.name || slug}`}>
+                      ✕
+                    </button>
+                  </span>
+                )
+              })}
+              <button onClick={() => setSearchParams(prev => { prev.delete('tag'); prev.set('page', '1'); return prev })} className="text-xs text-content-muted hover:text-content ml-2 underline">
+                Limpiar
+              </button>
+            </div>
+          )}
+
+          {/* Featured */}
+          {featured.length > 0 && (
             <section className="mb-12">
               <h2 className="text-xl font-bold text-content mb-6 flex items-center gap-2">
                 <span className="text-yellow-400">★</span> Artículos Destacados
@@ -105,14 +183,14 @@ export default function BlogPage() {
             </section>
           )}
 
-          {/* Results info bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            {/* Categories */}
+          {/* Filters bar */}
+          <div className="space-y-4 mb-8">
+            {/* Category pills */}
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => { setActiveCategory(null); goToPage(1) }}
+                onClick={() => { setParam('category', null) }}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  !activeCategory
+                  !activeCategory && activeTags.length === 0
                     ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
                     : 'bg-surface-secondary text-content-muted border border-border hover:border-border-hover'
                 }`}
@@ -122,7 +200,7 @@ export default function BlogPage() {
               {BLOG_CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
-                  onClick={() => { setActiveCategory(cat.id); goToPage(1) }}
+                  onClick={() => setParam('category', cat.id)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
                     activeCategory === cat.id
                       ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
@@ -133,12 +211,53 @@ export default function BlogPage() {
                   {cat.name}
                 </button>
               ))}
+
+              {/* Tag filter toggle */}
+              <button
+                onClick={() => setSearchParams(prev => { prev.set('tags', showTagFilter ? '0' : '1'); return prev })}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                  showTagFilter
+                    ? 'bg-purple-500/20 text-purple-400 border-purple-500/30'
+                    : 'bg-surface-secondary text-content-muted border-border hover:border-border-hover'
+                }`}
+              >
+                🏷️ Tags
+              </button>
             </div>
 
-            {/* Count */}
-            <span className="text-xs text-content-muted whitespace-nowrap">
+            {/* Tag chips (collapsible) */}
+            {showTagFilter && (
+              <div className="p-4 bg-surface-secondary rounded-xl border border-border">
+                <div className="flex flex-wrap gap-1.5">
+                  {POPULAR_TAGS.map(slug => {
+                    const tag = getTagBySlug(slug)
+                    if (!tag) return null
+                    const isActive = activeTags.includes(slug)
+                    return (
+                      <button
+                        key={slug}
+                        onClick={() => toggleTag(slug)}
+                        className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+                          isActive
+                            ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                            : 'bg-surface text-content-muted border border-border hover:border-border-hover hover:text-content'
+                        }`}
+                      >
+                        {tag.name}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Results info */}
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs text-content-muted">
               {filtered.length} artículo{filtered.length !== 1 && 's'}
               {activeCategory && ` en ${getCategoryName(activeCategory)}`}
+              {activeTags.length > 0 && ` (filtrado por ${activeTags.length} tag${activeTags.length !== 1 ? 's' : ''})`}
             </span>
           </div>
 
@@ -164,17 +283,15 @@ export default function BlogPage() {
                         <span>·</span>
                         <span>{article.tags.length} tags</span>
                       </div>
-                      {article.tags && article.tags.length > 0 && (
-                        <div className="mt-3 flex flex-wrap gap-1.5">
+                      {article.tags.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
                           {article.tags.slice(0, 3).map(tag => (
-                            <span key={tag} className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded text-[10px] font-medium">
+                            <span key={tag} className="px-1.5 py-0.5 bg-indigo-500/8 text-indigo-400/80 rounded text-[9px] font-medium">
                               {tag}
                             </span>
                           ))}
                           {article.tags.length > 3 && (
-                            <span className="px-2 py-0.5 text-content-muted rounded text-[10px]">
-                              +{article.tags.length - 3}
-                            </span>
+                            <span className="text-[9px] text-content-muted">+{article.tags.length - 3}</span>
                           )}
                         </div>
                       )}
@@ -183,14 +300,15 @@ export default function BlogPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <span className="text-4xl mb-4 block">📚</span>
-                <p className="text-content-muted">No hay artículos en esta categoría todavía.</p>
-                {activeCategory && (
-                  <button onClick={() => setActiveCategory(null)} className="btn-primary mt-4 inline-block">
-                    Ver todos los artículos
-                  </button>
-                )}
+              <div className="text-center py-16">
+                <span className="text-5xl mb-4 block">🔍</span>
+                <h3 className="text-xl font-bold text-content mb-2">Sin resultados</h3>
+                <p className="text-content-muted mb-6">
+                  No hay artículos que coincidan con {activeCategory && `la categoría y `}los tags seleccionados.
+                </p>
+                <button onClick={() => setSearchParams(new URLSearchParams())} className="btn-primary inline-block">
+                  Limpiar filtros
+                </button>
               </div>
             )}
           </section>
@@ -198,52 +316,40 @@ export default function BlogPage() {
           {/* Pagination */}
           {totalPages > 1 && (
             <nav className="mt-10 flex flex-wrap items-center justify-center gap-1.5" aria-label="Paginación">
-              {/* Previous */}
               <button
-                onClick={() => goToPage(page - 1)}
-                disabled={page === 1}
+                onClick={() => goToPage(clampedPage - 1)}
+                disabled={clampedPage === 1}
                 className="px-3 py-2 rounded-lg text-sm font-medium bg-surface-secondary text-content-muted disabled:opacity-30 disabled:cursor-not-allowed hover:text-content transition-colors"
                 aria-label="Página anterior"
-              >
-                ←
-              </button>
-
-              {/* Page numbers */}
+              >←</button>
               {getPageNumbers().map((p, i) =>
                 p === '...' ? (
-                  <span key={`ellipsis-${i}`} className="px-2 py-2 text-content-muted text-sm">...</span>
+                  <span key={`e${i}`} className="px-2 py-2 text-content-muted text-sm">...</span>
                 ) : (
                   <button
                     key={p}
                     onClick={() => goToPage(p)}
                     className={`min-w-[40px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                      page === p
+                      clampedPage === p
                         ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
                         : 'bg-surface-secondary text-content-muted hover:text-content border border-transparent'
                     }`}
-                    aria-current={page === p ? 'page' : undefined}
-                  >
-                    {p}
-                  </button>
+                    aria-current={clampedPage === p ? 'page' : undefined}
+                  >{p}</button>
                 )
               )}
-
-              {/* Next */}
               <button
-                onClick={() => goToPage(page + 1)}
-                disabled={page === totalPages}
+                onClick={() => goToPage(clampedPage + 1)}
+                disabled={clampedPage === totalPages}
                 className="px-3 py-2 rounded-lg text-sm font-medium bg-surface-secondary text-content-muted disabled:opacity-30 disabled:cursor-not-allowed hover:text-content transition-colors"
                 aria-label="Página siguiente"
-              >
-                →
-              </button>
+              >→</button>
             </nav>
           )}
 
-          {/* Page indicator */}
           {totalPages > 1 && (
             <p className="text-center text-xs text-content-muted mt-4">
-              Página {page} de {totalPages} · {filtered.length} artículos
+              Página {clampedPage} de {totalPages} · {filtered.length} artículo{filtered.length !== 1 && 's'}
             </p>
           )}
         </div>
