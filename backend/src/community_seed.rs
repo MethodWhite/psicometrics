@@ -1,4 +1,4 @@
-use crate::community::{Comment, ForumPost, Testimonial, UserStory};
+use crate::community::types::{Comment, ForumPost, Testimonial, UserStory};
 use crate::community::CommunityStore;
 
 pub fn seed_community(store: &CommunityStore) {
