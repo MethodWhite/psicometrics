@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { blogArticles, BLOG_CATEGORIES, getFeaturedArticles, getPaginatedArticles } from '../data/blog-articles'
 
+const PER_PAGE = 9
+
 export default function BlogPage() {
   const { t } = useTranslation()
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
@@ -16,14 +18,40 @@ export default function BlogPage() {
     : blogArticles
 
   const { articles, totalPages } = activeCategory
-    ? { articles: filtered, totalPages: Math.ceil(filtered.length / 9) }
-    : getPaginatedArticles(page)
+    ? { articles: filtered, totalPages: Math.ceil(filtered.length / PER_PAGE) }
+    : getPaginatedArticles(page, PER_PAGE)
 
-  const displayArticles = activeCategory ? filtered.slice(0, 9) : articles
+  const displayArticles = activeCategory
+    ? filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+    : articles
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+  }
+
+  const goToPage = (p: number) => {
+    setPage(p)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const getPageNumbers = (): (number | '...')[] => {
+    const pages: (number | '...')[] = []
+    const maxVisible = 5
+    if (totalPages <= maxVisible + 2) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i)
+    } else {
+      pages.push(1)
+      let start = Math.max(2, page - 1)
+      let end = Math.min(totalPages - 1, page + 1)
+      if (page <= 3) { start = 2; end = Math.min(totalPages - 1, maxVisible) }
+      if (page >= totalPages - 2) { start = Math.max(2, totalPages - maxVisible + 1); end = totalPages - 1 }
+      if (start > 2) pages.push('...')
+      for (let i = start; i <= end; i++) pages.push(i)
+      if (end < totalPages - 1) pages.push('...')
+      pages.push(totalPages)
+    }
+    return pages
   }
 
   return (
@@ -44,13 +72,13 @@ export default function BlogPage() {
             </Link>
             <h1 className="text-3xl font-bold text-content mb-3">Blog de Personalidad</h1>
             <p className="text-content-secondary text-lg leading-relaxed">
-              Artículos basados en evidencia científica sobre Big Five, MBTI, Eneagrama y más.
-              Aprende cómo funciona tu personalidad y cómo aplicarla en tu vida.
+              {totalPages} páginas · {blogArticles.length} artículos basados en evidencia científica sobre
+              Big Five, MBTI, Eneagrama y más. Aprende cómo funciona tu personalidad.
             </p>
           </div>
 
-          {/* Featured */}
-          {!activeCategory && (
+          {/* Featured — only on page 1, all categories */}
+          {!activeCategory && page === 1 && featured.length > 0 && (
             <section className="mb-12">
               <h2 className="text-xl font-bold text-content mb-6 flex items-center gap-2">
                 <span className="text-yellow-400">★</span> Artículos Destacados
@@ -77,13 +105,13 @@ export default function BlogPage() {
             </section>
           )}
 
-          {/* Categories */}
-          <section className="mb-8">
-            <h2 className="text-xl font-bold text-content mb-4">Categorías</h2>
-            <div className="flex flex-wrap gap-3">
+          {/* Results info bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => { setActiveCategory(null); setPage(1) }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                onClick={() => { setActiveCategory(null); goToPage(1) }}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                   !activeCategory
                     ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
                     : 'bg-surface-secondary text-content-muted border border-border hover:border-border-hover'
@@ -94,8 +122,8 @@ export default function BlogPage() {
               {BLOG_CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
-                  onClick={() => { setActiveCategory(cat.id); setPage(1) }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                  onClick={() => { setActiveCategory(cat.id); goToPage(1) }}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
                     activeCategory === cat.id
                       ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
                       : 'bg-surface-secondary text-content-muted border border-border hover:border-border-hover'
@@ -106,7 +134,13 @@ export default function BlogPage() {
                 </button>
               ))}
             </div>
-          </section>
+
+            {/* Count */}
+            <span className="text-xs text-content-muted whitespace-nowrap">
+              {filtered.length} artículo{filtered.length !== 1 && 's'}
+              {activeCategory && ` en ${getCategoryName(activeCategory)}`}
+            </span>
+          </div>
 
           {/* Articles Grid */}
           <section>
@@ -152,31 +186,65 @@ export default function BlogPage() {
               <div className="text-center py-12">
                 <span className="text-4xl mb-4 block">📚</span>
                 <p className="text-content-muted">No hay artículos en esta categoría todavía.</p>
+                {activeCategory && (
+                  <button onClick={() => setActiveCategory(null)} className="btn-primary mt-4 inline-block">
+                    Ver todos los artículos
+                  </button>
+                )}
               </div>
             )}
           </section>
 
           {/* Pagination */}
-          {!activeCategory && totalPages > 1 && (
-            <div className="mt-8 flex justify-center gap-3">
+          {totalPages > 1 && (
+            <nav className="mt-10 flex flex-wrap items-center justify-center gap-1.5" aria-label="Paginación">
+              {/* Previous */}
               <button
-                onClick={() => setPage(p => Math.max(1, p - 1))}
+                onClick={() => goToPage(page - 1)}
                 disabled={page === 1}
-                className="px-4 py-2 rounded-lg bg-surface-secondary text-content-muted disabled:opacity-40 disabled:cursor-not-allowed hover:text-content transition-colors"
+                className="px-3 py-2 rounded-lg text-sm font-medium bg-surface-secondary text-content-muted disabled:opacity-30 disabled:cursor-not-allowed hover:text-content transition-colors"
+                aria-label="Página anterior"
               >
-                ← Anterior
+                ←
               </button>
-              <span className="px-4 py-2 text-content-muted">
-                Página {page} de {totalPages}
-              </span>
+
+              {/* Page numbers */}
+              {getPageNumbers().map((p, i) =>
+                p === '...' ? (
+                  <span key={`ellipsis-${i}`} className="px-2 py-2 text-content-muted text-sm">...</span>
+                ) : (
+                  <button
+                    key={p}
+                    onClick={() => goToPage(p)}
+                    className={`min-w-[40px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                      page === p
+                        ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
+                        : 'bg-surface-secondary text-content-muted hover:text-content border border-transparent'
+                    }`}
+                    aria-current={page === p ? 'page' : undefined}
+                  >
+                    {p}
+                  </button>
+                )
+              )}
+
+              {/* Next */}
               <button
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                onClick={() => goToPage(page + 1)}
                 disabled={page === totalPages}
-                className="px-4 py-2 rounded-lg bg-surface-secondary text-content-muted disabled:opacity-40 disabled:cursor-not-allowed hover:text-content transition-colors"
+                className="px-3 py-2 rounded-lg text-sm font-medium bg-surface-secondary text-content-muted disabled:opacity-30 disabled:cursor-not-allowed hover:text-content transition-colors"
+                aria-label="Página siguiente"
               >
-                Siguiente →
+                →
               </button>
-            </div>
+            </nav>
+          )}
+
+          {/* Page indicator */}
+          {totalPages > 1 && (
+            <p className="text-center text-xs text-content-muted mt-4">
+              Página {page} de {totalPages} · {filtered.length} artículos
+            </p>
           )}
         </div>
       </div>
