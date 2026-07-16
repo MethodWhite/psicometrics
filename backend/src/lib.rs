@@ -1,9 +1,7 @@
+#![allow(dead_code)]
+
 /// PsicoMetrics Rust Backend
 /// Tier S++ SecDevOps - Zero Trust, TPM, Defense in Depth
-
-// Many API response types are constructed via serde_json::json!() rather than
-// their struct constructors — !dead_code is expected.
-#![allow(dead_code)]
 
 use std::sync::Arc;
 

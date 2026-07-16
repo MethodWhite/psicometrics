@@ -53,11 +53,22 @@ pub struct Comment {
 
 // ─── Store ────────────────────────────────────────────────────────────────────
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ArticleComment {
+    pub id: String,
+    pub article_slug: String,
+    pub author_name: String,
+    pub content: String,
+    pub created_at: i64,
+    pub likes: u32,
+}
+
 pub struct CommunityStore {
     forum_posts: Mutex<HashMap<String, ForumPost>>,
     testimonials: Mutex<Vec<Testimonial>>,
     stories: Mutex<Vec<UserStory>>,
     comments: Mutex<Vec<Comment>>,
+    article_comments: Mutex<Vec<ArticleComment>>,
 }
 
 impl CommunityStore {
@@ -67,6 +78,7 @@ impl CommunityStore {
             testimonials: Mutex::new(Vec::new()),
             stories: Mutex::new(Vec::new()),
             comments: Mutex::new(Vec::new()),
+            article_comments: Mutex::new(Vec::new()),
         }
     }
 
@@ -247,5 +259,45 @@ impl CommunityStore {
             "avg_score": (avg_score * 100.0).round() / 100.0,
             "top_roles": role_counts,
         }))
+    }
+
+    // ── Article Comments ──────────────────────────────────────────────────
+
+    pub fn add_article_comment(&self, slug: &str, author_name: &str, content: &str) -> ArticleComment {
+        let mut comments = self.article_comments.lock().expect("article_comments lock poisoned");
+        let comment = ArticleComment {
+            id: uuid::Uuid::new_v4().to_string(),
+            article_slug: slug.to_string(),
+            author_name: author_name.to_string(),
+            content: content.to_string(),
+            created_at: std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.as_secs() as i64)
+                .unwrap_or(0),
+            likes: 0,
+        };
+        comments.push(comment.clone());
+        comment
+    }
+
+    pub fn get_article_comments(&self, slug: &str) -> Vec<ArticleComment> {
+        let comments = self.article_comments.lock().expect("article_comments lock poisoned");
+        let mut result: Vec<ArticleComment> = comments
+            .iter()
+            .filter(|c| c.article_slug == slug)
+            .cloned()
+            .collect();
+        result.sort_by(|a, b| b.created_at.cmp(&a.created_at));
+        result
+    }
+
+    pub fn like_article_comment(&self, comment_id: &str) -> bool {
+        let mut comments = self.article_comments.lock().expect("article_comments lock poisoned");
+        if let Some(comment) = comments.iter_mut().find(|c| c.id == comment_id) {
+            comment.likes += 1;
+            true
+        } else {
+            false
+        }
     }
 }

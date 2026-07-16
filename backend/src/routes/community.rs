@@ -298,3 +298,74 @@ pub async fn get_type_stats(
         })
         .ok_or_else(|| AppError::NotFound(format!("No data for type '{}'", mbti_type)))
 }
+
+// ─── Article Comments ───────────────────────────────────────────────────────────
+
+#[derive(Deserialize)]
+pub struct CreateArticleCommentRequest {
+    pub author_name: String,
+    pub content: String,
+}
+
+#[derive(Serialize)]
+pub struct ArticleCommentResponse {
+    pub id: String,
+    pub article_slug: String,
+    pub author_name: String,
+    pub content: String,
+    pub created_at: i64,
+    pub likes: u32,
+}
+
+pub async fn get_article_comments(
+    Extension(store): Extension<Arc<CommunityStore>>,
+    Path(slug): Path<String>,
+) -> AppResult<Json<Vec<ArticleCommentResponse>>> {
+    let comments = store.get_article_comments(&slug);
+    Ok(Json(comments.into_iter().map(|c| ArticleCommentResponse {
+        id: c.id,
+        article_slug: c.article_slug,
+        author_name: c.author_name,
+        content: c.content,
+        created_at: c.created_at,
+        likes: c.likes,
+    }).collect()))
+}
+
+pub async fn create_article_comment(
+    Extension(store): Extension<Arc<CommunityStore>>,
+    Path(slug): Path<String>,
+    Json(body): Json<CreateArticleCommentRequest>,
+) -> AppResult<Json<ArticleCommentResponse>> {
+    if body.author_name.trim().is_empty() {
+        return Err(AppError::BadRequest("El nombre es requerido".to_string()));
+    }
+    if body.content.trim().is_empty() {
+        return Err(AppError::BadRequest("El comentario no puede estar vacío".to_string()));
+    }
+    if body.content.len() > 2000 {
+        return Err(AppError::BadRequest("El comentario no puede exceder 2000 caracteres".to_string()));
+    }
+
+    let comment = store.add_article_comment(&slug, &body.author_name, &body.content);
+    Ok(Json(ArticleCommentResponse {
+        id: comment.id,
+        article_slug: comment.article_slug,
+        author_name: comment.author_name,
+        content: comment.content,
+        created_at: comment.created_at,
+        likes: comment.likes,
+    }))
+}
+
+pub async fn like_article_comment(
+    Extension(store): Extension<Arc<CommunityStore>>,
+    Path((_slug, comment_id)): Path<(String, String)>,
+) -> AppResult<Json<LikeResponse>> {
+    let liked = store.like_article_comment(&comment_id);
+    if liked {
+        Ok(Json(LikeResponse { liked: true }))
+    } else {
+        Err(AppError::NotFound("Comment not found".to_string()))
+    }
+}

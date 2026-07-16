@@ -183,6 +183,9 @@ async fn main() {
         .route("/api/v1/community/stories", get(routes::community::get_stories).post(routes::community::create_story))
         .route("/api/v1/community/stories/{id}/like", post(routes::community::like_story))
         .route("/api/v1/community/types/{mbti_type}/stats", get(routes::community::get_type_stats))
+        // Article Comments
+        .route("/api/v1/blog/{slug}/comments", get(routes::community::get_article_comments).post(routes::community::create_article_comment))
+        .route("/api/v1/blog/{slug}/comments/{comment_id}/like", post(routes::community::like_article_comment))
         // Payments
         .route("/api/v1/payments/create-checkout", post(routes::payments::create_checkout))
         .route("/api/v1/payments/webhook", post(routes::payments::webhook_handler))

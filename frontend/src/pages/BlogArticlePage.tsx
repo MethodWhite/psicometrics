@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { blogArticles, getRelatedArticles } from '../data/blog-articles'
 import { getCategoryName } from './BlogPage'
+import CommentSection from '../components/CommentSection'
 
 export default function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>()
@@ -325,6 +326,9 @@ export default function BlogArticlePage() {
               </div>
             </section>
           )}
+
+          {/* Comments */}
+          <CommentSection slug={article.slug} />
 
           {/* CTA final */}
           <div className="mt-12 p-8 card text-center bg-gradient-to-br from-indigo-500/10 to-purple-600/10 border-indigo-500/20">
