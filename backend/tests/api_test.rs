@@ -100,7 +100,7 @@ async fn test_list_tests() {
         .send().await.unwrap();
     assert_eq!(resp.status(), 200);
     let tests: Vec<serde_json::Value> = resp.json().await.unwrap();
-    assert_eq!(tests.len(), 6);
+    assert_eq!(tests.len(), 11);
     let types: Vec<&str> = tests.iter().filter_map(|t| t["test_type"].as_str()).collect();
     assert!(types.contains(&"big_five"));
     assert!(types.contains(&"mbti"));
